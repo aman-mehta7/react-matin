@@ -95,7 +95,7 @@ const Hero = () => {
 
         <p
           ref={paragraphRef}
-          className="paint-paragraph text-lg leading-8 text-gray-700"
+          className="paint-paragraph text-lg leading-8 text-black"
         >
           lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum,
           dolor sit amet consectetur adipisicing elit. Pariatur delectus ea fuga
