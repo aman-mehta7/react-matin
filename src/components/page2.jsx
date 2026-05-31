@@ -93,7 +93,7 @@ const Page2 = () => {
       tl.to(titleLines, {
         yPercent: 0,
         opacity: 1,
-        duration: 0.8,
+        duration: 0.1,
         stagger: 0.12,
         ease: "power4.out",
       })
@@ -102,7 +102,7 @@ const Page2 = () => {
           {
             scaleX: 1,
             duration: 0.55,
-            stagger: 0.16,
+            stagger: 0.1,
             ease: "power3.out",
           },
           "-=0.2"
@@ -113,8 +113,8 @@ const Page2 = () => {
             opacity: 1,
             y: 0,
             filter: "blur(0px)",
-            duration: 0.4,
-            stagger: 0.16,
+            duration: 0.2,
+            stagger: 0.1,
             ease: "power2.out",
           },
           "<0.08"

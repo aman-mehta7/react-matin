@@ -4,8 +4,8 @@
   --background: #ffffff;
   /* --foreground: #171717; */
   --foreground: #3d657e;
-    --brandark: #61a4df97;
-    --brand: #3d657e;
+    --brandark: #8AC4E7;
+    --brand: #75bde9ad;
     /* --brand: #171717;; */
     --brandyellow: #FFC803;
 }
@@ -66,7 +66,7 @@ body {
 
 
 .paint-paragraph {
-  --anime-highlight: #61a4df97;
+  --anime-highlight: #8AC4E7;
 }
 
 .paint-paragraph .anime-line {
