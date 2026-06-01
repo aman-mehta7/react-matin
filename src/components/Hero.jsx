@@ -111,7 +111,7 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="model  absolute  right-0 top-0 h-[170vh] w-full bg-transparent  ">
+      <div className="model  absolute  right-0 top-0 h-[210vh] w-full bg-transparent  ">
         <div className="w-full h-screen sticky top-0 ">
         <Scene />  
         </div>

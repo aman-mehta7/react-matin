@@ -4,10 +4,10 @@ import { useEffect, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, Center, PerspectiveCamera,Float } from "@react-three/drei";
 import { Model } from "../model/mode"; // Your Astronaut
-import Bulb from "../model/Bulb";     // Your Bulb
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Trophy, ClipboardList, Zap } from "lucide-react"; // Icons
+import Particles from "./Particle";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -31,6 +31,7 @@ useFrame(() => {
 
   return (
     <group ref={scrollGroup}>
+      <Particles count={100} />
        <group ref={rotationGroup} scale={1.1}>
           <Float
             floatIntensity={1}

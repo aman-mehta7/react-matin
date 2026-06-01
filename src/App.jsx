@@ -20,6 +20,8 @@ useEffect(() => {
   }
   requestAnimationFrame(raf)
 }, [])
+
+
   return (
     <main>
       <Navbar />

@@ -53,7 +53,7 @@ export default function HowWeWork() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#f4f6f8] py-28 px-6 md:px-20 overflow-hidden"
+      className="relative bg-brand py-28 px-6 md:px-20 overflow-hidden"
     >
       {/* Title */}
       <div className="text-center max-w-3xl mx-auto mb-20">

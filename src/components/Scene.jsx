@@ -12,6 +12,8 @@ import { Model } from "../model/mode";
 import Bulb from "../model/Bulb";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Cup from "../model/cup";
+import Donut from "../model/donut";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -28,29 +30,95 @@ function SceneContent() {
         scrollTrigger: {
           trigger: document.body,
           start: "top 0%",
-          end: "top -100%",
+          end: "top -180%",
           scrub: 1,
         },
       })
-        .to(positionGroup.current.position, {
-          x: 0,
-          y: -0.5,
-          ease: "power2.inOut",
-        })
-        .to(
-          positionGroup.current.scale,
-          { x: 1.2, y: 1.2, z: 1.2, ease: "power2.inOut" },
-          0
-        )
+      .to(positionGroup.current.position, {
+        x: -4,
+        y: -.3,
+        duration: .3,
+        ease: "power2.inOut",
+      })
+      // .to(
+      //     positionGroup.current.scale,
+      //     { x: 1.2, y: 1.2, z: 1.2, ease: "easeInOut" },
+      //     0
+      //   )
         .to(
           positionGroup.current.rotation,
-          { x: 0, y: -1.2, ease: "power2.inOut" },
+          { x: .5, y: 2, z: 0, ease: "easeInOut" },
           0
         );
     });
 
+    
+    
+    // gsap.to(rotationGroup.current.position, {
+    //   z: -5,
+    //   scrollTrigger: {
+    //     trigger: document.body,
+    //     start: "top -150%",
+    //     end: "top -250%",
+    //     scrub: 1,
+    //   },
+    // });
+    
+    
     return () => ctx.revert();
+
+
   }, []);
+
+
+  // ✅ Scroll animation
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: document.body,
+          start: "top 0%",
+          end: "top -140%",
+          scrub: 1,
+        },
+      })
+      .to(bulbGroup.current.position, {
+        x: -6.2,
+        y: 2.5,
+        duration: .3,
+        ease: "power2.inOut",
+      })
+      // .to(
+      //     positionGroup.current.scale,
+      //     { x: 1.2, y: 1.2, z: 1.2, ease: "easeInOut" },
+      //     0
+      //   )
+      //   .to(
+      //     bulbGroup.current.rotation,
+      //     { x: .5, y: 2, z: 0, ease: "easeInOut" },
+      //     0
+      //   );
+    });
+
+    
+    
+    // gsap.to(rotationGroup.current.position, {
+    //   z: -5,
+    //   scrollTrigger: {
+    //     trigger: document.body,
+    //     start: "top -150%",
+    //     end: "top -250%",
+    //     scrub: 1,
+    //   },
+    // });
+    
+    
+    return () => ctx.revert();
+
+
+  }, []);
+
+
 
   // ✅ Mouse + Light animation
   useFrame((state) => {
@@ -80,8 +148,8 @@ function SceneContent() {
 
   return (
     <>
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[5, 10, 5]} intensity={1} />
+      {/* <ambientLight intensity={0.5} />
+      <directionalLight position={[5, 10, 5]} intensity={1} /> */}
       <Environment preset="sunset" />
 
       {/* MODEL */}
@@ -98,6 +166,7 @@ function SceneContent() {
       {/* BULB */}
       <group ref={bulbGroup} position={[-1, 3.5, -2]} scale={1.2}>
         <group position={[0, -3.5, 0]}>
+          <Float floatIntensity={1.2} rotationIntensity={1} floatingRange={[0, 0.2]}>
           
           <pointLight
             ref={lightRef}
@@ -108,6 +177,9 @@ function SceneContent() {
           />
 
           <Bulb />
+          <Cup />
+          <Donut />
+          </Float>
         </group>
       </group>
     </>
