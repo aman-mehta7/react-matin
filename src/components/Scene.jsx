@@ -8,9 +8,9 @@ import {
   PerspectiveCamera,
 } from "@react-three/drei";
 import { Model } from "../model/mode";
-// import { Bulb } from "../model/bulb";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Bulb from "../model/bulb";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -96,12 +96,11 @@ function FollowCursorModel({ mouse }) {
         <Model />
       </group>
 
-      {/* Uncomment if you want the bulb back */}
-      {/* 
+      
       <group ref={bulb} position={[3, 2, -2]} scale={4}>
         <Bulb />
       </group>
-      */}
+     
     </>
   );
 }

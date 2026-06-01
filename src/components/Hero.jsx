@@ -87,7 +87,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="flex items-center justify-between h-full text-white bg-brand px-20">
+    <section className="flex items-center justify-between h-full text-white bg-transparent px-20">
       <div className="h-screen w-1/2 flex flex-col pt-70 pl-40">
         <h1 className="text-6xl font-bold mb-4">
           Welcome to Matin development company

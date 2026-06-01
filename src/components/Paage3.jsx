@@ -54,7 +54,7 @@ const services = [
 ];
 
 const SmallCard = ({ service }) => (
-  <div className="service-card relative flex flex-col bg-[#e8f0fa] rounded-2xl p-6 overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand/30">
+  <div className="service-card relative flex flex-col bg-brand  rounded-2xl p-6 overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand/30">
     {/* Liquid sweep overlay */}
     <span className="card-sweep" />
 
@@ -81,7 +81,7 @@ const SmallCard = ({ service }) => (
 );
 
 const LargeCard = ({ service }) => (
-  <div className="service-card relative flex flex-col md:flex-row items-center gap-6 bg-[#e8f0fa] rounded-2xl p-8 overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand/30">
+  <div className="service-card relative flex flex-col md:flex-row items-center gap-6 bg-brandarc border border-brand rounded-2xl p-8 overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand/30">
     <span className="card-sweep" />
 
     <div className="relative z-10 flex-shrink-0 w-full md:w-1/3 flex items-center justify-center overflow-hidden">
@@ -140,7 +140,7 @@ const Page3 = () => {
   const largeCards = services.filter((s) => s.size === "large");
 
   return (
-    <section className="w-full bg-brand px-6 md:px-16 xl:px-24 py-20">
+    <section className="w-full bg-brandarc px-6 md:px-16 xl:px-24 py-20">
       {/* Heading */}
       <div className="max-w-3xl mb-14">
         <p className="text-brand-yellow font-medium mb-3 uppercase tracking-wider text-sm">

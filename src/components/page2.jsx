@@ -145,7 +145,7 @@ const Page2 = () => {
   return (
     <section
       ref={sectionRef}
-      className="flex w-full flex-col items-center justify-center bg-brand border-t-2 border-white/10 px-6 md:px-16 xl:px-[100px] py-20  "
+      className="flex w-full flex-col items-center justify-center bg-brandarc bo px-6 md:px-16 xl:px-[100px] py-20  "
     >
       <div className="max-w-5xl overflow-hidden text-center">
         <h1
