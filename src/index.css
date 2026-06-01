@@ -19,7 +19,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #171717;
+    --background: #E9F1F7;
     --foreground: #ededed;
   }
 }
@@ -35,6 +35,10 @@ body {
   --color-brand: var(--brand);
   --color-brandark: var(--brandark);
   --color-brand-yellow: var(--brandyellow);
+}
+
+*{
+  color: black;
 }
 
 /* 

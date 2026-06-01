@@ -1,5 +1,5 @@
 
-import { useRef } from 'react'
+// import { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export default function Bulb(props) {

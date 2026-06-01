@@ -2,7 +2,7 @@
 
 const Navbar = () => {
   return (
-    <nav className='absolute z-20 w-full h-24 bg-brandarc text-white  flex items-center justify-between px-40 '>
+    <nav className='absolute z-20 w-full h-24 bg-brandark  flex items-center justify-between px-40 '>
       <div className='text-lg font-bold'>Matin3d</div>
       <div className='space-x-4'>
         <a href="#" className='hover:text-gray-400'>Home</a>

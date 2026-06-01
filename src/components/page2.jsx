@@ -86,14 +86,14 @@ const Page2 = () => {
           start: "top 70%",
           // end: "top 50%",
           once: true,
-          // markers: true,
+          markers: false,
         },
       });
 
       tl.to(titleLines, {
         yPercent: 0,
         opacity: 1,
-        duration: 0.1,
+        duration: 0.6,
         stagger: 0.12,
         ease: "power4.out",
       })
@@ -145,7 +145,7 @@ const Page2 = () => {
   return (
     <section
       ref={sectionRef}
-      className="flex w-full flex-col items-center justify-center bg-brandarc bo px-6 md:px-16 xl:px-[100px] py-20  "
+      className="flex w-full flex-col items-start justify-center bg-brandarc  px-6 md:px-16 xl:px-[100px] py-20  "
     >
       <div className="max-w-5xl overflow-hidden text-center">
         <h1

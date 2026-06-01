@@ -87,8 +87,8 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="flex items-center justify-between h-full text-white bg-transparent px-20">
-      <div className="h-screen w-1/2 flex flex-col pt-70 pl-40">
+    <section className="flex relative items-center justify-between h-full text-white bg-brand px-20">
+      <div className="h-screen w-1/2 flex flex-col pt-70 pl-40 relative ">
         <h1 className="text-6xl font-bold mb-4">
           Welcome to Matin development company
         </h1>
@@ -105,14 +105,16 @@ const Hero = () => {
           adipisci excepturi eum ullam eligendi magnam distinctio beatae..
         </p>
 
-        <div className="flex mt-8 space-x-4">
+        <div className="flex space-x-4 absolute z-10 bottom-60">
           <Button>Explore</Button>
           <Button onClick={() => console.log("clicked")}>Get Started</Button>
         </div>
       </div>
 
-      <div className="model h-screen w-1/2 overflow-hidden">
-        <Scene />
+      <div className="model  absolute  right-0 top-0 h-[170vh] w-full bg-transparent  ">
+        <div className="w-full h-screen sticky top-0 ">
+        <Scene />  
+        </div>
       </div>
     </section>
   );

@@ -4,141 +4,125 @@ import { useEffect, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
   Environment,
-  OrbitControls,
   PerspectiveCamera,
+  Center,
+  Float,
 } from "@react-three/drei";
 import { Model } from "../model/mode";
+import Bulb from "../model/Bulb";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Bulb from "../model/bulb";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function FollowCursorModel({ mouse }) {
-  const group = useRef(null);
-  const bulb = useRef(null);
-  const targetRotation = useRef({ x: 0, y: 0 });
+function SceneContent() {
+  const positionGroup = useRef();
+  const rotationGroup = useRef();
+  const bulbGroup = useRef();
+  const lightRef = useRef();
 
+  // ✅ Scroll animation
   useEffect(() => {
-    if (!bulb.current) return;
-
     const ctx = gsap.context(() => {
-      gsap.to(bulb.current.position, {
-        y: -5,
-        z: 5,
-        x: 0,
+      gsap.timeline({
         scrollTrigger: {
           trigger: document.body,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 1,
-          markers: false,
-        },
-      });
-
-      gsap.to(bulb.current.scale, {
-        x: 8,
-        y: 8,
-        z: 8,
-        scrollTrigger: {
-          trigger: document.body,
-          start: "top top",
-          end: "bottom bottom",
+          start: "top 0%",
+          end: "top -100%",
           scrub: 1,
         },
-      });
-
-      gsap.to(bulb.current.rotation, {
-        z: Math.PI * 2,
-        scrollTrigger: {
-          trigger: document.body,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 1,
-        },
-      });
+      })
+        .to(positionGroup.current.position, {
+          x: 0,
+          y: -0.5,
+          ease: "power2.inOut",
+        })
+        .to(
+          positionGroup.current.scale,
+          { x: 1.2, y: 1.2, z: 1.2, ease: "power2.inOut" },
+          0
+        )
+        .to(
+          positionGroup.current.rotation,
+          { x: 0, y: -1.2, ease: "power2.inOut" },
+          0
+        );
     });
 
-    return () => {
-      ctx.revert();
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+    return () => ctx.revert();
   }, []);
 
-  useFrame(() => {
-    if (!group.current) return;
+  // ✅ Mouse + Light animation
+  useFrame((state) => {
+    const { mouse, clock } = state;
 
-    targetRotation.current.y = mouse.current.x * 0.7;
-    targetRotation.current.x = mouse.current.y * -0.2;
+    if (rotationGroup.current) {
+      const targetY = mouse.x * 0.7;
+      const targetX = mouse.y * -0.2;
 
-    gsap.to(group.current.rotation, {
-      y: targetRotation.current.y,
-      x: targetRotation.current.x,
-      duration: 4,
-      ease: "power2.out",
-      overwrite: "auto",
-    });
+      rotationGroup.current.rotation.y +=
+        (targetY - rotationGroup.current.rotation.y) * 0.08;
 
-    if (bulb.current) {
-      gsap.to(bulb.current.rotation, {
-        y: targetRotation.current.y,
-        x: targetRotation.current.x,
-        duration: 0.7,
-        ease: "elastic.out(1, 0.5)",
-        overwrite: "auto",
-      });
+      rotationGroup.current.rotation.x +=
+        (targetX - rotationGroup.current.rotation.x) * 0.08;
+    }
+
+    if (bulbGroup.current) {
+      bulbGroup.current.rotation.y +=
+        (mouse.x * 0.5 - bulbGroup.current.rotation.y) * 0.05;
+    }
+
+    if (lightRef.current) {
+      lightRef.current.intensity =
+        6 + Math.sin(clock.elapsedTime * 2) * 1.5;
     }
   });
 
   return (
     <>
-      <group ref={group} position={[0, 0, 0]} scale={1.05}>
-        <Model />
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[5, 10, 5]} intensity={1} />
+      <Environment preset="sunset" />
+
+      {/* MODEL */}
+      <group ref={positionGroup}>
+        <group ref={rotationGroup} scale={1.2}>
+          <Float floatIntensity={1} rotationIntensity={1} floatingRange={[0, 0.3]}>
+            <Center>
+              <Model />
+            </Center>
+          </Float>
+        </group>
       </group>
 
-      
-      <group ref={bulb} position={[3, 2, -2]} scale={4}>
-        <Bulb />
+      {/* BULB */}
+      <group ref={bulbGroup} position={[-1, 3.5, -2]} scale={1.2}>
+        <group position={[0, -3.5, 0]}>
+          
+          <pointLight
+            ref={lightRef}
+            intensity={10}
+            distance={10}
+            color="#ffd966"
+            decay={2}
+          />
+
+          <Bulb />
+        </group>
       </group>
-     
     </>
   );
 }
 
 export default function Scene() {
-  const mouse = useRef({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (event) => {
-      mouse.current.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
-
   return (
-    <Canvas className="w-full h-screen">
-      <ambientLight intensity={1.1} />  
-      <directionalLight position={[5, 10, 5]} intensity={1} />
-      <Environment preset="sunset" />
-
-      <FollowCursorModel mouse={mouse} />
-
-      <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={50} />
-
-      <OrbitControls
-        enableDamping
-        dampingFactor={0.08}
-        enableZoom={false}
-        enablePan={false}
-        minPolarAngle={Math.PI / 3}
-        maxPolarAngle={Math.PI / 2}
-      />
+    <Canvas
+      className="w-full h-screen"
+      camera={{ position: [0, 0, 5], fov: 50 }}
+      dpr={[1, 2]}
+    >
+      <PerspectiveCamera makeDefault position={[-2, 0, 5]} fov={50} />
+      <SceneContent />
     </Canvas>
   );
 }

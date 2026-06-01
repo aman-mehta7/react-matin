@@ -9,7 +9,7 @@ import { useGLTF } from '@react-three/drei'
 export function Model(props) {
   const { nodes, materials } = useGLTF('model/SPACEmodel.glb')
   return (
-    <group {...props} dispose={null} rotation={[0,Math.PI/0.72,0]} position={[ 0, -.75, 0]}>
+    <group {...props} dispose={null} rotation={[0,Math.PI/0.72,0]} position={[ 2, -.75, 0]}>
       <mesh
         castShadow
         receiveShadow
