@@ -2,48 +2,75 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CheckCircle, TrendingUp, Settings, ClipboardList } from "lucide-react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function HowWeWork() {
   const sectionRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Title animation
+      // ===== TEXT ANIMATIONS =====
       gsap.from(".how-title", {
         y: 40,
         opacity: 0,
         duration: 1,
         ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          once: true,
+        },
       });
 
-      // Subtitle animation
       gsap.from(".how-subtitle", {
         y: 20,
         opacity: 0,
         duration: 1,
         delay: 0.2,
         ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          once: true,
+        },
       });
 
-      // Cards stagger animation
       gsap.from(".step-card", {
         y: 80,
         opacity: 0,
         scale: 0.9,
         duration: 1,
         stagger: 0.2,
-        delay: 0.4,
-        ease: "back.out(1.7)",
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 50%",
+          once: true,
+          // markers: true,
+        },
       });
 
-      // Line animation
-      gsap.from(".connector-line", {
-        scaleX: 0,
-        transformOrigin: "left center",
-        duration: 1.5,
-        delay: 0.6,
-        ease: "power2.out",
+      // ===== CURVED LINE DRAW ANIMATION =====
+      const path = document.querySelector(".connector-path");
+      const length = path.getTotalLength();
+
+      gsap.set(path, {
+        strokeDasharray: length,
+        strokeDashoffset: length,
+      });
+
+      gsap.to(path, {
+        strokeDashoffset: 0,
+        duration: 2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 50%",
+          once: true,
+        },
       });
     }, sectionRef);
 
@@ -67,11 +94,24 @@ export default function HowWeWork() {
         </p>
       </div>
 
-      {/* Steps */}
+      {/* Steps Container */}
       <div className="relative flex flex-col md:flex-row justify-between items-center gap-16 md:gap-8 max-w-7xl mx-auto">
 
-        {/* Connector Line */}
-        <div className="connector-line hidden md:block absolute top-16 left-0 w-full h-[2px] border-dashed border-t-2 border-gray-300"></div>
+        {/* ✅ Curved SVG Connector Line */}
+        <svg
+          className="hidden md:block absolute top-0 left-0 w-full h-32 pointer-events-none"
+          viewBox="0 0 1200 200"
+          preserveAspectRatio="none"
+        >
+          <path
+            className="connector-path"
+            d="M50 100 C300 20, 900 180, 1150 100"
+            stroke="#d1d5db"
+            strokeWidth="3"
+            fill="transparent"
+            strokeLinecap="round"
+          />
+        </svg>
 
         <Step
           Icon={ClipboardList}
@@ -103,19 +143,15 @@ export default function HowWeWork() {
 
 function Step({ Icon, title, desc }) {
   return (
-    <div className="step-card relative flex flex-col items-center text-center max-w-xs group">
-
-      {/* Circle */}
+    <div data-cursor="view" className="step-card relative flex flex-col items-center text-center max-w-xs group">
       <div className="w-28 h-28 bg-blue-600 rounded-full flex items-center justify-center border-4 border-orange-400 shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl">
         <Icon className="w-10 h-10 text-white transition-transform duration-300 group-hover:rotate-6" />
       </div>
 
-      {/* Title */}
       <h3 className="mt-6 text-xl font-semibold text-gray-900">
         {title}
       </h3>
 
-      {/* Description */}
       <p className="mt-4 text-gray-600 text-sm leading-relaxed">
         {desc}
       </p>

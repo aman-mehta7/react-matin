@@ -65,7 +65,8 @@ const Particles = ({ count = 200 }) => {
       </bufferGeometry>
 
       <pointsMaterial
-        color="#000000"
+        // color="#000000"
+        color="#ffffff"
         size={0.06}
         transparent
         opacity={1}

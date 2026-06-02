@@ -3,6 +3,7 @@
 const Button = ({ children, onClick }) => {
   return (
     <button
+      data-cursor="link"
       onClick={onClick}
       className="
         group relative overflow-hidden

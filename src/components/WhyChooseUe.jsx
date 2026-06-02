@@ -30,8 +30,9 @@ useFrame(() => {
 });
 
   return (
+    <>
+      <Particles count={200} />
     <group ref={scrollGroup}>
-      <Particles count={100} />
        <group ref={rotationGroup} scale={1.1}>
           <Float
             floatIntensity={1}
@@ -45,6 +46,7 @@ useFrame(() => {
           </Float>
         </group>
     </group>
+    </>
   );
 }
 
@@ -62,7 +64,8 @@ export default function WhyChooseUs() {
 
   return (
     // <main className="relative min-h-screen bg-[#E9F1F7] overflow-hidden flex items-center">
-    <main className="relative min-h-screen bg-brand overflow-hidden flex items-center">
+    <main className="relative min-h-screen  bg-brand overflow-hidden flex items-center">
+        <div className="absolute z-20 -top-1 left-0 w-full h-20 pointer-events-none cloud" />
       {/* 3D CANVAS LAYER (Background/Right) */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Canvas shadow={false}>

@@ -14,7 +14,6 @@ const Hero = () => {
     const originalHTML = el.innerHTML;
     let split;
     let tl;
-    let resizeTimer;
 
     const buildAnimation = () => {
       tl?.kill();
@@ -48,7 +47,7 @@ const Hero = () => {
       });
 
       tl = gsap.timeline({
-        delay: 0.2,
+        delay: 2,
         defaults: { ease: "power3.out" },
       });
 
@@ -70,18 +69,7 @@ const Hero = () => {
 
     buildAnimation();
 
-    const handleResize = () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(buildAnimation, 250);
-    };
-
-    window.addEventListener("resize", handleResize);
-
     return () => {
-      clearTimeout(resizeTimer);
-      window.removeEventListener("resize", handleResize);
-      tl?.kill();
-      split?.revert();
       el.innerHTML = originalHTML;
     };
   }, []);
@@ -89,7 +77,7 @@ const Hero = () => {
   return (
     <section className="flex relative items-center justify-between h-full text-white bg-brand px-20">
       <div className="h-screen w-1/2 flex flex-col pt-70 pl-40 relative ">
-        <h1 className="text-6xl font-bold mb-4">
+        <h1 className="text-6xl font-bold mb-4 ">
           Welcome to Matin development company
         </h1>
 
