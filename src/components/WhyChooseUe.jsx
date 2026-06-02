@@ -33,11 +33,11 @@ useFrame(() => {
     <>
       <Particles count={200} />
     <group ref={scrollGroup}>
-       <group ref={rotationGroup} scale={1.1}>
+       <group ref={rotationGroup} scale={1.05}>
           <Float
-            floatIntensity={1}
-            rotationIntensity={1}
-            floatingRange={[0, 0.3]}
+            floatIntensity={2}
+            rotationIntensity={2}
+            floatingRange={[0, 0.2]}
           >
           {/* CENTER: Fixes the weird pivot point */}
           <Center>
@@ -72,7 +72,7 @@ export default function WhyChooseUs() {
           <ambientLight intensity={1.5} />
           <Environment preset="city" />
           <Scene mouse={mouse} />
-          <PerspectiveCamera makeDefault position={[-1.2, 0, 5]} fov={40} />
+          <PerspectiveCamera makeDefault position={[-1.2, .2, 5]} fov={40} />
         </Canvas>
       </div>
 

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import gsap from "gsap";
-import logo from "../../public/images/matin-logo.png";
+import logo from "../../public/logo/matin-logo.png";
 
 const STATUS_MESSAGES = [
   "INITIALIZING NEURAL LINK...",

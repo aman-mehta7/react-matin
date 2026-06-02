@@ -10,7 +10,8 @@ import WhyChooseUs from './components/WhyChooseUe';
 import HowWeWork from './components/HowWeWork';
 import PortfolioShowcase from './components/PortfolioShowcase';
 import StyledScrollbar from './components/ScrollBar';
-import CustomCursor from './components/CustomCursor'; // Import here
+import CustomCursor from './components/CustomCursor';
+import Services from './components/services';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -39,14 +40,15 @@ const App = () => {
       
       <main className="relative">
         <Navbar />
-        {/* <Hero />
+        <Hero />
         <Page2 />
         <section className="w-full bg-brandarc px-6 md:px-16 xl:px-24 py-20">
           <Paage3 />
         </section>
         <WhyChooseUs />
-        <HowWeWork /> */}
+        <HowWeWork />
         <PortfolioShowcase />
+        <Services />
       </main>
     </>
   );
