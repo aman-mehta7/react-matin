@@ -75,8 +75,9 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="flex relative items-center justify-between h-full text-white bg-brand px-20">
-      <div className="h-screen w-1/2 flex flex-col pt-70 pl-40 relative ">
+    <section className="relative w-full h-screen bg-brand ">
+    <div className="flex  items-center justify-between h-full text-white  container mx-auto">
+      <div className="h-screen w-1/2 flex flex-col pt-70  relative ">
         <h1 className="text-6xl font-bold mb-4 ">
           Welcome to Matin development company
         </h1>
@@ -104,6 +105,7 @@ const Hero = () => {
         <Scene />  
         </div>
       </div>
+    </div>
     </section>
   );
 };

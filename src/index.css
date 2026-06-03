@@ -7,9 +7,10 @@
     --brandark: #8AC4E7;
     --brand: #75bde9ad;
     /* --brand: #171717;; */
-    --brandyellow: #ffffff;
+    --brandyellow: #E9F1F7;
     --yellow: #ffc803;
 }
+
 
 @theme inline {
   --color-background: var(--background);
@@ -34,26 +35,18 @@
   100% { transform: translateY(-30px); }
 }
 
-.container {
+.wave-bg {
   width: 100%;
-  background: var(--brandarc); /* replace with your color */
-  padding-inline:  1.5rem; /* py-20 px-6 */
+  height: 100%;
+  background-image: radial-gradient(circle, #000000 1px, transparent 1px);
+  background-size: 25px 25px;
+  animation: waveMove 20s linear infinite;
 }
 
-@media (min-width: 768px) {
-  .container {
-    padding-inline: 4rem; /* md:px-16 */
-  }
+@keyframes waveMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 400px 200px; }
 }
-
-@media (min-width: 1280px) {
-  .container {
-    padding-inline: .2rem; /* xl:px-24 */
-    margin: 0 auto; /* center the container */
-  }
-}
-
-
 
 body {
   background: var(--background);
@@ -317,11 +310,11 @@ body, a, button, [role="button"] {
 }
 
 .service-card:hover .card-title {
-  color: var( #000000ad);
+  color: #000000ad;
 }
 
 .service-card:hover .card-desc {
-  color: var(#0000008a);
+  color: #0000008a;
 }
 
 /* image effect on hover */

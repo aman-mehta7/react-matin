@@ -226,7 +226,8 @@ const Page3 = () => {
 
   return (
     // <section className="w-full bg-brandarc px-6 md:px-16 xl:px-24 py-20">
-    <section ref={sectionRef} className=" relative w-full bg-brandarc container py-20">
+    <section ref={sectionRef} className=" relative w-full bg-brandarc  py-20">
+      <div className="container mx-auto">
 
       {/* Heading */}
       <div ref={headingRef} className="max-w-3xl mb-14">
@@ -264,6 +265,7 @@ const Page3 = () => {
             <LargeCard service={s} />
           </div>
         ))}
+      </div>
       </div>
     </section>
   );

@@ -45,9 +45,10 @@ export default function PortfolioShowcase() {
   }, []);
 
   return (
-    <section
+    <section>
+    <div
       ref={containerRef}
-      className="relative bg-[#f4f6f8] flex flex-col lg:flex-row container "
+      className="relative flex flex-col lg:flex-row container mx-auto"
     >
       {/* LEFT SIDE - Pinned Content */}
       <div className="w-full lg:w-1/2 lg:h-screen flex items-center  z-10">
@@ -88,6 +89,7 @@ export default function PortfolioShowcase() {
           />
         ))}
       </div>
+    </div>
     </section>
   );
 }
