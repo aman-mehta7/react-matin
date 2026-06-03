@@ -25,6 +25,15 @@
   }
 }
 
+@theme {
+  --animate-yo-yo: yo-yo 1s ease-in-out infinite alternate;
+}
+
+@keyframes yo-yo {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-30px); }
+}
+
 .container {
   width: 100%;
   background: var(--brandarc); /* replace with your color */

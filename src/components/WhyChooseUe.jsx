@@ -11,9 +11,33 @@ import Particles from "./Particle";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function Scene({ mouse }) {
+function Scene({ mouse, triggerRef }) {
   const scrollGroup = useRef();
   const rotationGroup = useRef();
+
+  // --- ANIMATION ON SCROLL ---
+  useEffect(() => {
+    if (!rotationGroup.current) return;
+
+    // Set initial state
+    rotationGroup.current.scale.set(0.5, 0.5, 0.5);
+
+    gsap.to(
+      rotationGroup.current.scale,
+      {
+        x: 1.05,
+        y: 1.05,
+        z: 1.05,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: triggerRef?.current,
+          start: "top 70%",
+          toggleActions: "play none none none",
+        },
+      }
+    );
+  }, [triggerRef]);
 
   // --- MOUSE LOGIC (Targets the ROTATION group) ---
 useFrame(() => {
@@ -52,6 +76,9 @@ useFrame(() => {
 
 export default function WhyChooseUs() {
   const mouse = useRef({ x: 0, y: 0 });
+  const mainRef = useRef(null);
+  const headerRef = useRef(null);
+  const featureItemsRef = useRef([]);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -62,16 +89,66 @@ export default function WhyChooseUs() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+  useEffect(() => {
+    const context = gsap.context(() => {
+      // Animate header section
+      gsap.fromTo(
+        headerRef.current?.querySelectorAll("h4, h1, p"),
+        {
+          opacity: 0,
+          y: 30,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: mainRef.current,
+            start: "top 70%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+
+      // Animate feature items
+      gsap.fromTo(
+        featureItemsRef.current,
+        {
+          opacity: 0,
+          x: -40,
+          scale: 0.95,
+        },
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: 0.6,
+          stagger: 0.15,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: mainRef.current,
+            start: "top 60%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }, mainRef);
+
+    return () => context.revert();
+  }, []);
+
   return (
     // <main className="relative min-h-screen bg-[#E9F1F7] overflow-hidden flex items-center">
-    <main className="relative min-h-screen  bg-brand overflow-hidden flex items-center">
+    <main ref={mainRef} className="relative min-h-screen  bg-brand overflow-hidden flex items-center">
         <div className="absolute z-20 -top-1 left-0 w-full h-20 pointer-events-none cloud" />
       {/* 3D CANVAS LAYER (Background/Right) */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Canvas shadow={false}>
           <ambientLight intensity={1.5} />
           <Environment preset="city" />
-          <Scene mouse={mouse} />
+          <Scene mouse={mouse} triggerRef={mainRef} />
           <PerspectiveCamera makeDefault position={[-1.2, .2, 5]} fov={40} />
         </Canvas>
       </div>
@@ -80,7 +157,7 @@ export default function WhyChooseUs() {
       <div className="container mx-auto px-8 md:px-24 z-10 grid grid-cols-1 lg:grid-cols-2 gap-12">
         <div className="max-w-xl">
           {/* Header Section */}
-          <header className="mb-12">
+          <header ref={headerRef} className="mb-12">
             <h4 className="text-[#3B82F6] font-semibold tracking-wide mb-2">
               Why Choose Us
             </h4>
@@ -96,21 +173,27 @@ export default function WhyChooseUs() {
 
           {/* Features Section */}
           <div className="space-y-8">
-            <FeatureItem 
-              Icon={Trophy}
-              title="Our Mission"
-              desc="To Have better educated and informed society about product, services and their social and legal right."
-            />
-            <FeatureItem 
-              Icon={ClipboardList}
-              title="Our Vision"
-              desc="Our clients value us for our deep industry expertise, experience and robust research capabilities."
-            />
-            <FeatureItem 
-              Icon={Zap}
-              title="Strength"
-              desc="Our strength is our talented team of expertise. Thanks to every staff who gave his best to excellence."
-            />
+            <div ref={(el) => (featureItemsRef.current[0] = el)}>
+              <FeatureItem 
+                Icon={Trophy}
+                title="Our Mission"
+                desc="To Have better educated and informed society about product, services and their social and legal right."
+              />
+            </div>
+            <div ref={(el) => (featureItemsRef.current[1] = el)}>
+              <FeatureItem 
+                Icon={ClipboardList}
+                title="Our Vision"
+                desc="Our clients value us for our deep industry expertise, experience and robust research capabilities."
+              />
+            </div>
+            <div ref={(el) => (featureItemsRef.current[2] = el)}>
+              <FeatureItem 
+                Icon={Zap}
+                title="Strength"
+                desc="Our strength is our talented team of expertise. Thanks to every staff who gave his best to excellence."
+              />
+            </div>
           </div>
         </div>
 

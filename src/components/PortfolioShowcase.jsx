@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -59,34 +58,34 @@ export default function PortfolioShowcase() {
           </h2>
           <p className="text-gray-600 text-lg leading-relaxed mb-10">
             Our clients value us for our deep industry expertise, experience and
-            robust research capabilities, and for aggressively driving innovation
-            with thought leadership and implementation to enable them to become
-            high-performance organizations.
+            robust research capabilities, and for aggressively driving
+            innovation with thought leadership and implementation to enable them
+            to become high-performance organizations.
           </p>
 
           {/* 3D Model Placeholder */}
-          <div className="relative w-full h-64 bg-white/50 rounded-2xl border border-dashed border-gray-300 flex items-center justify-center overflow-hidden">
-            <div className="absolute w-32 h-32 bg-blue-400/20 blur-3xl animate-pulse" />
-            <span className="text-xs font-mono uppercase tracking-widest text-gray-400">
-              3D Interaction Area
-            </span>
+          <div className="relative w-full flex items-center justify-center pointer-events-none select-none mt-20">
+            <img
+              src="./logo/rocketPoint.png"
+              alt="3D Model"
+              className="h-64 object-cover animate-yo-yo pointer-events-none select-none"
+              draggable="false"
+            />
           </div>
-
-          <button data-cursor="link" className="mt-12 flex items-center gap-4 group">
-            <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white transition-transform group-hover:scale-110">
-              <ArrowRight size={20} />
-            </div>
-            <span className="font-bold uppercase tracking-widest text-sm">
-              View All Projects
-            </span>
-          </button>
         </div>
       </div>
 
       {/* RIGHT SIDE - Scrollable Cards */}
       <div className="mt-50 ml-40 w-full lg:w-1/2 p-8 md:p-10 space-y-20 lg:space-y-[20vh] pb-[20vh] ">
         {ALL_IMAGES.map((src, idx) => (
-          <ProjectCard key={idx} image={src} title={src.split("/").pop().replace(/\.[^.]+$/, "")} />
+          <ProjectCard
+            key={idx}
+            image={src}
+            title={src
+              .split("/")
+              .pop()
+              .replace(/\.[^.]+$/, "")}
+          />
         ))}
       </div>
     </section>
@@ -95,7 +94,10 @@ export default function PortfolioShowcase() {
 
 function ProjectCard({ title, image }) {
   return (
-    <div data-cursor="view"  className="group w-[20vw] h-[50vh] object-ontain overflow-hidden shadow-2xl transition-transform duration-500">
+    <div
+      data-cursor="view"
+      className="group w-[20vw] h-[50vh] object-ontain overflow-hidden shadow-2xl transition-transform duration-500"
+    >
       <img
         src={image}
         alt={title}

@@ -1,64 +1,49 @@
-import { ArrowUpRight } from "lucide-react";
+
 
 const services = [
   {
-    title: "Web Development",
     description:
-      "We build many types of applications and provides many services like Android App, IOS App, App Templates, Web view App, Web to App",
-    image: "https://cdn-icons-png.flaticon.com/512/2920/2920277.png",
+      "School Silo – Multi-School Management System",
+    image: "./images/tts.jpeg",
     size: "small",
   },
   {
-    title: "App Development",
     description:
-      "We build many types of applications and provides many services like Android App, IOS App, App Templates, Web view App, Web to App",
-    image: "https://cdn-icons-png.flaticon.com/512/2920/2920349.png",
+      "CourseWays – Udemy Clone – Online Courses and Learning Management System",
+    image: "./images/banner.jpg",
     size: "small",
   },
   {
-    title: "E-commerce Development",
     description:
-      "Design and develop a creative website with our microscopic detailing and scrupulous strategies.",
-    image: "https://cdn-icons-png.flaticon.com/512/3081/3081559.png",
+      "Indie News – Newspaper, Blog Multilingual News Portal (with AI Writer, Content Generator)",
+    image: "./images/news.jpg",
     size: "small",
   },
   {
     title: "Digital Marketing",
     description:
-      "We do campaigns for corporate clients through social media, pay-per-click advertising, videos, and websites.",
-    image: "https://cdn-icons-png.flaticon.com/512/2920/2920323.png",
+      "SonicVox – Text to Speech as SaaS (Machine learning, Deep learning)",
+    image: "./images/Home.jpg",
     size: "small",
   },
   {
-    title: "Graphics Design",
     description:
-      "Branding, Website & Logo Design , Exhibition & Environment Design , Report Design , Brochure Design etc",
-    image: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
+      "portfolio websitec",
+    image: "./images/portfolio website.jpg",
     bullets: [
       "Creates unique visual identity for brand distinction.",
       "Ensures consistent application across platforms.",
     ],
-    size: "large",
-  },
-  {
-    title: "Integrated Services",
-    description:
-      "We specialize in web and mobile design, e-commerce, and intranets using the latest tech.",
-    image: "https://cdn-icons-png.flaticon.com/512/2920/2920257.png",
-    bullets: [
-      "Implements tech for intuitive UX across devices, platforms.",
-      "Tailors e-commerce, intranets for seamless transactions",
-    ],
-    size: "large",
+    size: "small",
   },
 ];
 
 const SmallCard = ({ service }) => (
-  <div data-cursor="view" className="service-card relative flex flex-col bg-brand  rounded-2xl p-6 overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand/30">
+  <div data-cursor="view" className=" service-card relative flex flex-col bg-brand  rounded-2xl p-6 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand/30">
     {/* Liquid sweep overlay */}
     <span className="card-sweep" />
 
-    <div className="relative z-10 flex items-center justify-center h-44 mb-4 overflow-hidden">
+    <div className="relative z-10 flex items-center justify-center h-55 mb-4 overflow-hidden">
       <img
         src={service.image}
         alt={service.title}
@@ -66,17 +51,11 @@ const SmallCard = ({ service }) => (
       />
     </div>
 
-    <h3 className="relative z-10 text-xl font-semibold text-gray-700 mb-3 card-title">
-      {service.title}
-    </h3>
 
-    <p className="relative z-10 text-gray-600 text-sm leading-6 pr-12 card-desc">
+    <p className="relative z-10 text-gray-600 text-sm leading-6 pr-20 card-desc">
       {service.description}
     </p>
 
-    <button data-cursor="link" className="card-arrow  absolute bottom-6 right-6 w-10 h-10 bg-brand-yellow rounded-full flex items-center justify-center text-white transition-all duration-500 z-10">
-      <ArrowUpRight size={18} />
-    </button>
   </div>
 );
 
@@ -143,7 +122,7 @@ const Services = () => {
 
   return (
     // <section className="w-full bg-brandarc px-6 md:px-16 xl:px-24 py-20">
-    <section className=" relative w-full bg-brandarc container py-20">
+    <section className=" relative w-full bg-brandarc container py-20 ">
 
       {/* Heading */}
       <div className="max-w-3xl mb-14">
@@ -160,18 +139,11 @@ const Services = () => {
       </div>
 
       {/* Small cards grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4   gap-6 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3   gap-6 mb-6">
         {smallCards.map((s, i) => (
           <SmallCard key={i} service={s} />
         ))}
       </div>
-
-      {/* Large cards grid */}
-      {/* <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2  gap-6">
-        {largeCards.map((s, i) => (
-          <LargeCard key={i} service={s} />
-        ))}
-      </div> */}
     </section>
   );
 };

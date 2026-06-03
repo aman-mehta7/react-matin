@@ -54,7 +54,7 @@ function SceneContent() {
           ease: "easeInOut",
         }, 0)
         .to(positionGroup.current.rotation, {
-          x: 0.5, y: 2, z: 0, ease: "easeInOut", duration: 1
+          x: -0.2, y: 2, z: 0, ease: "easeInOut", duration: 1
         }, 0);
     });
     return () => ctx.revert();
