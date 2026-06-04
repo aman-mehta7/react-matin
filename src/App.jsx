@@ -14,6 +14,7 @@ import CustomCursor from './components/CustomCursor';
 import Services from './components/Services';
 import LatestBlog from './components/LatestBlog';
 import Footer from './components/Footer';
+import Testimonials from './components/Testimonials';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -51,6 +52,7 @@ const App = () => {
         <HowWeWork />
         <PortfolioShowcase />
         <Services />
+        <Testimonials />
         <LatestBlog />
         <Footer />
       </main>

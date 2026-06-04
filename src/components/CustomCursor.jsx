@@ -80,7 +80,7 @@ export default function CustomCursor() {
         {/* The "VIEW" or "Explore" Text */}
         <span 
           ref={textRef}
-          className="text-[10px] font-bold text-yellow-400 tracking-tighter"
+          className="text-[10px] font-bold text-black tracking-tighter"
         >
           {cursorText}
         </span>
