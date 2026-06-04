@@ -1,7 +1,8 @@
-"use client";
+
 
 import { useEffect, useRef, useState } from "react";
 import { User, Bookmark } from "lucide-react";
+import gsap from "gsap";
 
 export default function LatestBlog() {
   const sliderRef = useRef(null);
@@ -54,16 +55,48 @@ export default function LatestBlog() {
     };
   }, []);
 
+    useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".blog-card",
+            {
+          opacity: 0,
+          x: -40,
+          scale: 0.9,
+        },
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: 0.2,
+          stagger: 0.08,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: sliderRef.current,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        }
+      );  
+
+    }, sliderRef);
+
+    return () => ctx.revert();
+  }, []);
+
+
+  
+
   return (
-    <section className=" container bg-brand py-24 select-none h-screen  ">
+    <section className="bg-brand py-24 select-none overflow-visible">
+      <div className=" container mx-auto">
       <h2 className="text-4xl font-bold text-gray-900 mb-16">
         Latest Blog
       </h2>
 
       <div
         ref={sliderRef}
-        className="flex gap-6 overflow-x-auto  scroll-smooth snap-x snap-mandatory scrollbar-hide cursor-grab overflow-y-visible"
-        style={{ overflowY: "visible" }}
+        className="flex gap-6  overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide cursor-grab overflow-y-visible"
       >
         {Array.from({ length: 7 }).map((_, i) => (
           <BlogCard key={i} index={i} />
@@ -83,6 +116,7 @@ export default function LatestBlog() {
           ></span>
         ))}
       </div>
+      </div>
     </section>
   );
 }
@@ -99,13 +133,14 @@ function BlogCard({ index }) {
   ];
 
   return (
-    <div data-cursor="view" className="group bg-white snap-start shrink-0 w-[calc(33.333%-1rem)] bg-brandarc  rounded-xl shadow-lg transition-all duration-500  hover:shadow-2xl relative z-0 hover:z-10">
+    <div data-cursor="view" className="blog-card group snap-start bg-brand-yellow shrink-0 w-[calc(33.333%-1rem)] rounded-xl ">
 
-      <div className="overflow-hidden rounded-t-xl select-none">
+      {/* ✅ Image wrapper keeps overflow-hidden ONLY here */}
+      <div className="overflow-hidden rounded-t-xl">
         <img
           src={`${images[index]}?auto=format&fit=crop&w=800&q=80`}
           alt="Blog"
-          className="w-full pointer-events-none h-56 object-cover transition-transform duration-700 ease-out group-hover:scale-110 select-none"
+          className="w-full h-56 object-cover transition-transform duration-700 ease-out group-hover:scale-110 select-none pointer-events-none"
         />
       </div>
 
@@ -130,7 +165,7 @@ function BlogCard({ index }) {
           Short description preview of blog content.
         </p>
 
-        <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-5 py-2 rounded-full transition-all duration-300">
+        <button className="bg-yellow hover:bg-brandyellow text-black font-semibold px-5 py-2 rounded-full transition-all duration-300">
           Read More
         </button>
       </div>

@@ -86,17 +86,14 @@ const Hero = () => {
           ref={paragraphRef}
           className="paint-paragraph text-lg leading-8 text-black"
         >
-          lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum,
-          dolor sit amet consectetur adipisicing elit. Pariatur delectus ea fuga
-          tempora iure dolorem illo quia, molestiae magni consequatur ab sit
-          nesciunt dignissimos. Lorem ipsum dolor sit, amet consectetur
-          adipisicing elit. Aut a, in molestias voluptate nulla, quaerat eius
-          adipisci excepturi eum ullam eligendi magnam distinctio beatae..
+        The #1 IT Company that provide various services like app development , website development , custom software development at a very affordable price.
         </p>
 
-        <div className="flex space-x-4 absolute z-10 bottom-60">
-          <Button>Explore</Button>
-          <Button onClick={() => console.log("clicked")}>Get Started</Button>
+        <div className="flex space-x-4 absolute z-10 bottom-50">
+          <Button className="p-5 px-8">Explore</Button>
+          <Button className="p-5 px-8" onClick={() => console.log("clicked")}>
+            Get Started
+          </Button>
         </div>
       </div>
 

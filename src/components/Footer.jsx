@@ -1,11 +1,11 @@
-"use client";
+
 
 import Footer3D from "./Footer3D";
 import { Globe, Mail, MessageCircle, Play } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="relative bg-brand overflow-hidden">
+    <footer className="relative bg-transparent overflow-hidden text-white">
 
       {/* ✅ Animated Dot Background */}
       <div className="absolute inset-0 opacity-20 pointer-events-none">
@@ -76,12 +76,12 @@ export default function Footer() {
         </div>
 
         {/* 3D Section */}
-        <div className="mt-16">
+        <div className="w-full h-full absolute top-0 left-0 -z-10">
           <Footer3D />
         </div>
 
         {/* Bottom */}
-        <div className="mt-16 text-center text-gray-500 text-sm">
+        <div className=" text-center text-gray-500 text-sm mt-50">
           ©2026 Matinsoftech. All rights reserved.
         </div>
       </div>
@@ -99,7 +99,7 @@ function FooterLink({ children }) {
 
 function IconWrap({ children }) {
   return (
-    <div className="w-9 h-9 bg-gray-800 hover:bg-yellow-400 hover:text-black flex items-center justify-center rounded-full transition cursor-pointer">
+    <div className="w-9 h-9 bg-white hover:bg-yellow-400 text-black flex items-center justify-center rounded-full transition cursor-pointer">
       {children}
     </div>
   );

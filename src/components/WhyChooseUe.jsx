@@ -96,17 +96,17 @@ export default function WhyChooseUs() {
         headerRef.current?.querySelectorAll("h4, h1, p"),
         {
           opacity: 0,
-          y: 30,
+          x: -40,
         },
         {
           opacity: 1,
-          y: 0,
+          x: 0,
           duration: 0.8,
-          stagger: 0.2,
+          stagger: 0.08,
           ease: "power2.out",
           scrollTrigger: {
             trigger: mainRef.current,
-            start: "top 70%",
+            start: "top 75%",
             toggleActions: "play none none none",
           },
         }
@@ -124,8 +124,8 @@ export default function WhyChooseUs() {
           opacity: 1,
           x: 0,
           scale: 1,
-          duration: 0.6,
-          stagger: 0.15,
+          duration: 0.8,
+          stagger: 0.08,
           ease: "power2.out",
           scrollTrigger: {
             trigger: mainRef.current,
@@ -145,7 +145,7 @@ export default function WhyChooseUs() {
         <div className="absolute z-20 -top-1 left-0 w-full h-20 pointer-events-none cloud" />
       {/* 3D CANVAS LAYER (Background/Right) */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <Canvas shadow={false}>
+        <Canvas shadows={false}>
           <ambientLight intensity={1.5} />
           <Environment preset="city" />
           <Scene mouse={mouse} triggerRef={mainRef} />

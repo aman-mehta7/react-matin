@@ -1,94 +1,163 @@
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+gsap.registerPlugin(ScrollTrigger);
 
 const services = [
   {
-    description:
-      "School Silo – Multi-School Management System",
+    title: "School Silo",
+    description: "Multi-School Management System",
     image: "./images/tts.jpeg",
     size: "small",
   },
   {
+    title: "CourseWays",
     description:
-      "CourseWays – Udemy Clone – Online Courses and Learning Management System",
+      "Udemy Clone – Online Courses and Learning Management System",
     image: "./images/banner.jpg",
     size: "small",
   },
   {
+    title: "Indie News",
     description:
-      "Indie News – Newspaper, Blog Multilingual News Portal (with AI Writer, Content Generator)",
+      "Newspaper, Blog Multilingual News Portal with AI Writer & Content Generator",
     image: "./images/news.jpg",
     size: "small",
   },
   {
-    title: "Digital Marketing",
+    title: "SonicVox",
     description:
-      "SonicVox – Text to Speech as SaaS (Machine learning, Deep learning)",
+      "Text to Speech SaaS powered by Machine Learning & Deep Learning",
     image: "./images/Home.jpg",
     size: "small",
   },
   {
+    title: "Portfolio Website",
     description:
-      "portfolio websitec",
+      "Modern interactive portfolio website with animations and responsive design",
     image: "./images/portfolio website.jpg",
-    bullets: [
-      "Creates unique visual identity for brand distinction.",
-      "Ensures consistent application across platforms.",
-    ],
     size: "small",
   },
 ];
 
-const SmallCard = ({ service }) => (
-  <div data-cursor="view" className=" service-card relative flex flex-col border border-brand  rounded-2xl p-6 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand/30">
-    {/* Liquid sweep overlay */}
-    <span className="card-sweep" />
+const SmallCard = ({ service }) => {
+  return (
+    <div
+      data-cursor="view"
+      className="group service-card relative overflow-hidden rounded-3xl border border-white/10 bg-brand backdrop-blur-sm transition-all duration-500 hover:-translate-y-3 hover:border-brand hover:shadow-2xl hover:shadow-brand/20"
+    >
+      {/* Image */}
+      <div className="h-64 overflow-hidden">
+        <img
+          src={service.image}
+          alt={service.title}
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+        />
+      </div>
 
-    <div className="relative z-10 flex items-center justify-center h-55 mb-4 overflow-hidden">
-      <img
-        src={service.image}
-        alt={service.title}
-        className="h-full object-contain transition-transform duration-700 group-hover:scale-110 card-img"
-      />
+      {/* Content */}
+      <div className="p-6">
+        <h3 className="mb-3 text-xl font-semibold text-white">
+          {service.title}
+        </h3>
+
+        <p className="text-sm leading-7 text-white/70">
+          {service.description}
+        </p>
+      </div>
+
+      {/* Gradient Hover Glow */}
+      <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+        <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-brand/20 blur-3xl" />
+      </div>
     </div>
-
-
-    <p className="relative z-10 text-gray-600 text-sm leading-6 pr-20 card-desc">
-      {service.description}
-    </p>
-
-  </div>
-);
+  );
+};
 
 const Services = () => {
-  const smallCards = services.filter((s) => s.size === "small");
-//   const largeCards = services.filter((s) => s.size === "large");
+  const sectionRef = useRef(null);
+  const headingRef = useRef(null);
+
+  const smallCards = services.filter(
+    (service) => service.size === "small"
+  );
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".service-card",
+            {
+          opacity: 0,
+          x: -40,
+          scale: 0.9,
+        },
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: 0.2,
+          stagger: 0.08,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+      gsap.fromTo(
+        headingRef.current.children,
+        {
+          opacity: 0,
+          x: -40,
+        },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.8,
+          stagger: 0.08,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 75%",
+            once: true,
+          },
+        }
+      );
+
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section className="">
-    <div className=" relative w-full container mx-auto py-20 ">
-    
+    <section ref={sectionRef} className="relative w-full py-24 ">
+      <div className="container mx-auto px-6 md:px-10">
+        {/* Heading */}
+        <div ref={headingRef} className="mb-16 max-w-3xl">
+          <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-brand-yellow">
+            Our Projects
+          </p>
 
-      {/* Heading */}
-      <div className="max-w-3xl mb-14">
-        <p className="text-brand-yellow font-medium mb-3 uppercase tracking-wider text-sm">
-          Our Services
-        </p>
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-          Why provide best services
-        </h2>
-        <p className="text-white/80 text-base max-w-xl data-cursor-text">
-          We think big and have hands in all leading technology platforms to
-          provide you wide array of services.
-        </p>
-      </div>
+          <h2 className="mb-5 text-4xl font-bold text-black md:text-5xl">
+            Things We've Built
+          </h2>
 
-      {/* Small cards grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3   gap-6 mb-6">
-        {smallCards.map((s, i) => (
-          <SmallCard key={i} service={s} />
-        ))}
+          <p className="text-base leading-8 text-black">
+            We create scalable web applications, SaaS products,
+            educational platforms, AI-powered tools, and modern
+            digital experiences for businesses worldwide.
+          </p>
+        </div>
+
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+          {smallCards.map((service, index) => (
+            <SmallCard key={index} service={service} />
+          ))}
+        </div>
       </div>
-    </div>
     </section>
   );
 };

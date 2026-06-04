@@ -1,29 +1,41 @@
-"use client";
-
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Environment, Float, Center } from "@react-three/drei";
-import { useRef } from "react";
-import { Model } from "../model/mode"; // your astronaut model
+import { Canvas } from "@react-three/fiber";
+import { Environment, Center, Float } from "@react-three/drei";
+import { useRef, useEffect } from "react";
+import { Model } from "../model/mode";
+import gsap from "gsap";
 
 function Scene() {
   const ref = useRef();
 
-  useFrame((state) => {
+
+
+  // ✅ Smooth left-right animation
+  useEffect(() => {
     if (!ref.current) return;
-    ref.current.rotation.y += 0.003;
-  });
+
+    gsap.fromTo(ref.current.position, {
+      x: -8,
+    }, {
+      x: 4,
+      duration: 4,
+      ease: "sine.inOut",
+      yoyo: true,
+      repeat: -1,
+    });
+  }, []);
 
   return (
     <>
-      <ambientLight intensity={0.5} />
+      <ambientLight intensity={0.6} />
       <Environment preset="city" />
 
-      <Float floatIntensity={1} speed={2}>
-        <Center>
-          <group ref={ref} scale={0.8}>
-            <Model />
-          </group>
-        </Center>
+      <Float speed={1} rotationIntensity={4} floatIntensity={4}>
+
+      <Center>
+        <group ref={ref} scale={1.2} >
+          {/* <Model /> */}
+        </group>
+      </Center>
       </Float>
     </>
   );
@@ -31,8 +43,8 @@ function Scene() {
 
 export default function Footer3D() {
   return (
-    <div className="h-64 w-full">
-      <Canvas camera={{ position: [0, 0, 5] }}>
+    <div className="h-full w-full bg-brand">
+      <Canvas camera={{ position: [0, 0, 6], fov: 50 }}>
         <Scene />
       </Canvas>
     </div>

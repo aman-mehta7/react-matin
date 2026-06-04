@@ -14,9 +14,9 @@ export default function HowWeWork() {
     const ctx = gsap.context(() => {
       // ===== TEXT ANIMATIONS =====
       gsap.from(".how-title", {
-        y: 40,
+        x: -40,
         opacity: 0,
-        duration: 1,
+        duration: 0.8,
         ease: "power3.out",
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -26,9 +26,9 @@ export default function HowWeWork() {
       });
 
       gsap.from(".how-subtitle", {
-        y: 20,
+        x: -40,
         opacity: 0,
-        duration: 1,
+        duration: 0.8,
         delay: 0.2,
         ease: "power3.out",
         scrollTrigger: {
@@ -39,11 +39,11 @@ export default function HowWeWork() {
       });
 
       gsap.from(".step-card", {
-        y: 80,
+        x: -80,
         opacity: 0,
         scale: 0.9,
-        duration: 1,
-        stagger: 0.2,
+        duration: 0.8,
+        stagger: 0.08,
         ease: "power3.out",
         scrollTrigger: {
           trigger: sectionRef.current,

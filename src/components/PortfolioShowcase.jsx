@@ -39,6 +39,31 @@ export default function PortfolioShowcase() {
         pin: leftContentRef.current,
         pinSpacing: false,
       });
+
+      gsap.from(leftContentRef.current, {
+        opacity: 0,
+        x: -40,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 70%",
+          once: true,
+        },
+      });
+
+      gsap.from(containerRef.current?.querySelectorAll(".project-card"), {
+        opacity: 0,
+        x: -40,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.12,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 70%",
+          once: true,
+        },
+      });
     }, containerRef);
 
     return () => ctx.revert();
@@ -98,7 +123,7 @@ function ProjectCard({ title, image }) {
   return (
     <div
       data-cursor="view"
-      className="group w-[20vw] h-[50vh] object-ontain overflow-hidden shadow-2xl transition-transform duration-500"
+      className="project-card group w-[20vw] h-[50vh] object-ontain overflow-hidden shadow-2xl transition-transform duration-500"
     >
       <img
         src={image}

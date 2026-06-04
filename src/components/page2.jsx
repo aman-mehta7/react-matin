@@ -64,7 +64,7 @@ const Page2 = () => {
       const texts = paragraph.querySelectorAll(".anime-text");
 
       gsap.set(titleLines, {
-        yPercent: 120,
+        xPercent: 120,
         opacity: 0,
       });
 
@@ -75,7 +75,7 @@ const Page2 = () => {
 
       gsap.set(texts, {
         opacity: 0,
-        y: 12,
+        x: 12,
         filter: "blur(4px)",
       });
 
@@ -83,15 +83,17 @@ const Page2 = () => {
         defaults: { ease: "power3.out" },
         scrollTrigger: {
           trigger: section,
-          start: "top 70%",
-          // end: "top 50%",
+          start: "top 85%",
+          // end: "top 50%"
+          duration: 0.2,
+          stagger: 0.1,
           once: true,
           markers: false,
         },
       });
 
       tl.to(titleLines, {
-        yPercent: 0,
+        xPercent: 0,
         opacity: 1,
         duration: 0.6,
         stagger: 0.12,
@@ -111,7 +113,7 @@ const Page2 = () => {
           texts,
           {
             opacity: 1,
-            y: 0,
+            x: 0,
             filter: "blur(0px)",
             duration: 0.2,
             stagger: 0.1,

@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowUpRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -79,9 +78,6 @@ const SmallCard = ({ service }) => (
       {service.description}
     </p>
 
-    <button data-cursor="link" className="card-arrow relative mt-3 w-10 h-10 bg-brand-yellow rounded-full flex items-center justify-center text-white transition-all duration-500 z-10 self-end">
-      <ArrowUpRight size={18} />
-    </button>
   </div>
 );
 
@@ -132,12 +128,6 @@ const LargeCard = ({ service }) => (
           </li>
         ))}
       </ul>
-
-        <div className="flex justify-end">
-      <button data-cursor="link" className="card-arrow mt-5  w-10 h-10 bg-brand-yellow rounded-full flex items-center justify-center transition-all duration-500">
-        <ArrowUpRight size={18} />
-      </button>
-      </div>
     </div>
   </div>
 );
@@ -158,13 +148,13 @@ const Page3 = () => {
         headingRef.current?.querySelectorAll("p, h2"),
         {
           opacity: 0,
-          y: 30,
+          x: -30,
         },
         {
           opacity: 1,
-          y: 0,
+          x: 0,
           duration: 0.8,
-          stagger: 0.2,
+          stagger: 0.08,
           ease: "power2.out",
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -179,12 +169,12 @@ const Page3 = () => {
         smallCardsRef.current,
         {
           opacity: 0,
-          y: 40,
+          x: -40,
           scale: 0.9,
         },
         {
           opacity: 1,
-          y: 0,
+          x: 0,
           scale: 1,
           duration: 0.6,
           stagger: 0.1,
@@ -202,12 +192,12 @@ const Page3 = () => {
         largeCardsRef.current,
         {
           opacity: 0,
-          y: 50,
+          x: -40,
           scale: 0.95,
         },
         {
           opacity: 1,
-          y: 0,
+          x: 0,
           scale: 1,
           duration: 0.7,
           stagger: 0.15,
@@ -226,7 +216,7 @@ const Page3 = () => {
 
   return (
     // <section className="w-full bg-brandarc px-6 md:px-16 xl:px-24 py-20">
-    <section ref={sectionRef} className=" relative w-full bg-brandarc  py-20">
+    <section ref={sectionRef} className=" relative w-full bg-brandarc  py-20 text-black">
       <div className="container mx-auto">
 
       {/* Heading */}
@@ -234,10 +224,10 @@ const Page3 = () => {
         <p className="text-brand-yellow font-medium mb-3 uppercase tracking-wider text-sm">
           Our Services
         </p>
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+        <h2 className="text-4xl md:text-5xl font-bold mb-4">
           Why provide best services
         </h2>
-        <p className="text-white/80 text-base max-w-xl data-cursor-text">
+        <p className=" text-base max-w-xl data-cursor-text">
           We think big and have hands in all leading technology platforms to
           provide you wide array of services.
         </p>

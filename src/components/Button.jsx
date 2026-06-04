@@ -1,136 +1,215 @@
-"use client";
-
-import { useRef, useState } from "react";
+import { useRef, useEffect } from "react";
 import gsap from "gsap";
 
-const Button = ({ children, onClick }) => {
+const Button = ({ children, onClick, className = "" }) => {
   const buttonRef = useRef(null);
   const fillRef = useRef(null);
-  const [isHovered, setIsHovered] = useState(false);
 
-  // Magnetic effect
-  const handleMouseMove = (e) => {
+  /* ================================
+     3D TILT EFFECT
+  =================================== */
+  useEffect(() => {
     const btn = buttonRef.current;
     if (!btn) return;
 
-    const rect = btn.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-
-    gsap.to(btn, {
-      x: x * 0.25,
-      y: y * 0.25,
+    const xTo = gsap.quickTo(btn, "x", {
       duration: 0.4,
-      ease: "power2.out",
+      ease: "power3.out",
     });
-  };
 
-  const handleMouseEnter = (e) => {
-    setIsHovered(true);
+    const yTo = gsap.quickTo(btn, "y", {
+      duration: 0.4,
+      ease: "power3.out",
+    });
+
+    const rotateXTo = gsap.quickTo(btn, "rotationX", {
+      duration: 0.6,
+      ease: "power3.out",
+    });
+
+    const rotateYTo = gsap.quickTo(btn, "rotationY", {
+      duration: 0.6,
+      ease: "power3.out",
+    });
+
+    const handleMove = (e) => {
+      const rect = btn.getBoundingClientRect();
+
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const moveX = (x - centerX) * 0.12;
+      const moveY = (y - centerY) * 0.12;
+
+      xTo(moveX);
+      yTo(moveY);
+
+      rotateYTo((x - centerX) * 0.03);
+      rotateXTo(-(y - centerY) * 0.03);
+
+      btn.style.setProperty("--x", `${x}px`);
+      btn.style.setProperty("--y", `${y}px`);
+    };
+
+    const reset = () => {
+      gsap.to(btn, {
+        x: 0,
+        y: 0,
+        rotationX: 0,
+        rotationY: 0,
+        duration: 0.8,
+        ease: "power3.out",
+      });
+    };
+
+    btn.addEventListener("mousemove", handleMove);
+    btn.addEventListener("mouseleave", reset);
+
+    return () => {
+      btn.removeEventListener("mousemove", handleMove);
+      btn.removeEventListener("mouseleave", reset);
+    };
+  }, []);
+
+  /* ================================
+     LIQUID FILL EFFECT (FIXED)
+  =================================== */
+  const enter = (e) => {
     const btn = buttonRef.current;
     const fill = fillRef.current;
     if (!btn || !fill) return;
 
     const rect = btn.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
 
-    // Liquid fill from cursor position
-    gsap.set(fill, { x, y, scale: 0, opacity: 1 });
-    gsap.to(fill, {
-      scale: 6,
+    // Kill any running animation
+    gsap.killTweensOf(fill);
+
+    // Always reset properly
+    gsap.set(fill, {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+      scale: 0,
       opacity: 1,
-      duration: 0.6,
+      transformOrigin: "center center",
+    });
+
+    gsap.to(fill, {
+      scale: 8,
+      duration: 0.8,
       ease: "power3.out",
     });
   };
 
-  const handleMouseLeave = (e) => {
-    setIsHovered(false);
-    const btn = buttonRef.current;
+  const leave = () => {
     const fill = fillRef.current;
-    if (!btn || !fill) return;
+    if (!fill) return;
 
-    // Snap back to natural position
-    gsap.to(btn, {
-      x: 0,
-      y: 0,
-      duration: 0.6,
-      ease: "elastic.out(1, 0.5)",
-    });
+    gsap.killTweensOf(fill);
 
-    // Liquid drain
     gsap.to(fill, {
       scale: 0,
       opacity: 0,
-      duration: 0.5,
-      ease: "power3.in",
+      duration: 0.6,
+      ease: "power2.out",
     });
   };
 
   return (
     <button
       ref={buttonRef}
+      data-cursor="link"
       onClick={onClick}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      className="group relative overflow-hidden rounded-full px-10 py-4 cursor-pointer"
-      style={{ willChange: "transform" }}
+      onMouseEnter={enter}
+      onMouseLeave={leave}
+      style={{
+        transformStyle: "preserve-3d",
+        perspective: "1000px",
+      }}
+      className={`
+        group
+        relative
+        overflow-hidden
+        rounded-full
+        font-semibold
+        cursor-pointer
+        transition-colors
+        duration-300
+        text-black
+        bg-white/50
+        ${className}
+      `}
     >
-      {/* Static border ring */}
-      <span className="absolute inset-0 rounded-full border border-white/20 transition-colors duration-500 group-hover:border-white/50" />
-
-      {/* Outer Glow Ring */}
+      {/* Liquid Fill */}
       <span
-        className={`absolute inset-[-2px] rounded-full transition-opacity duration-500 ${
-          isHovered ? "opacity-100" : "opacity-0"
-        }`}
+        ref={fillRef}
+        className="
+          absolute
+          w-24
+          h-24
+          rounded-full
+          pointer-events-none
+          -translate-x-1/2
+          -translate-y-1/2
+        "
         style={{
+          opacity: 0,
           background:
-            "radial-gradient(circle at 50% 50%, rgba(99,179,237,0.3), transparent 70%)",
-          filter: "blur(4px)",
+            "radial-gradient(circle,#FFE27A 0%,#FFB100 100%)",
         }}
       />
 
-      {/* Liquid Fill Blob (follows cursor) */}
+      {/* Shine */}
       <span
-        ref={fillRef}
-        className="absolute w-16 h-16 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white pointer-events-none"
-        style={{ opacity: 0, scale: 0 }}
+        className="
+          absolute
+          inset-0
+          opacity-0
+          group-hover:opacity-100
+          transition-opacity
+          duration-500
+        "
+        style={{
+          background:
+            "radial-gradient(circle at var(--x) var(--y), rgba(255,255,255,.15), transparent 40%)",
+        }}
       />
 
-      {/* Label */}
-      <span className="relative z-10 flex items-center gap-3 font-semibold text-sm tracking-widest uppercase">
-        {/* Text swaps color on hover */}
-        <span
-          className={`transition-colors duration-300 ${
-            isHovered ? "text-black" : "text-white"
-          }`}
-        >
-          {children}
-        </span>
+      {/* Border */}
+      <span
+        className="
+          absolute
+          inset-0
+          rounded-full
+          border
+          border-white/20
+        "
+      />
 
-        {/* Arrow indicator */}
+      {/* Content */}
+      <span
+        className="
+          relative
+          z-10
+          flex
+          items-center
+          gap-2
+          tracking-wide
+        "
+      >
+        <span>{children}</span>
+
         <span
-          className={`flex items-center overflow-hidden transition-all duration-300 ${
-            isHovered ? "w-5 text-black" : "w-0 text-white"
-          }`}
+          className="
+            transition-all
+            duration-300
+            translate-x-0
+            group-hover:translate-x-1
+          "
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-            className="w-4 h-4"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M17 8l4 4m0 0l-4 4m4-4H3"
-            />
-          </svg>
+          →
         </span>
       </span>
     </button>

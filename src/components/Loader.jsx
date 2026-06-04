@@ -183,7 +183,7 @@ export default function SoftechLoader({ progress = 0, active = true }) {
         ))}
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes scan-line {
           0% { top: -10%; }
           100% { top: 110%; }

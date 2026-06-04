@@ -12,7 +12,7 @@ import PortfolioShowcase from './components/PortfolioShowcase';
 import StyledScrollbar from './components/ScrollBar';
 import CustomCursor from './components/CustomCursor';
 import Services from './components/Services';
-import LatestBlog from './components/ LatestBlog';
+import LatestBlog from './components/LatestBlog';
 import Footer from './components/Footer';
 
 gsap.registerPlugin(ScrollTrigger);
