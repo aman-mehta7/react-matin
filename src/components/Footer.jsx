@@ -2,17 +2,19 @@
 
 import Footer3D from "./Footer3D";
 import { Globe, Mail, MessageCircle, Play } from "lucide-react";
+import Button from "./Button";
 
 export default function Footer() {
   return (
-    <footer className="relative bg-transparent overflow-hidden text-white">
+    <footer className="relative bg-brand border-t border-black overflow-hidden text-white py-5">
+      <div className="">
 
       {/* ✅ Animated Dot Background */}
       <div className="absolute inset-0 opacity-20 pointer-events-none">
         <div className="wave-bg"></div>
       </div>
 
-      <div className=" border-t border-black relative z-10 px-6 md:px-20 py-20">
+      <div className=" relative container mx-auto">
         <div className=" pt-10 grid md:grid-cols-4 gap-12">
 
           {/* Column 1 */}
@@ -68,9 +70,9 @@ export default function Footer() {
             <div className="bg-white text-white rounded-lg p-4 shadow-lg">
               <h4 className="font-semibold">MATIN SOFTECH</h4>
               <p className="text-sm text-gray-600">1,813 followers</p>
-              <button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md text-sm">
+              <Button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md text-sm">
                 Follow Page
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -84,6 +86,7 @@ export default function Footer() {
         <div className=" text-center text-gray-500 text-sm mt-50">
           ©2026 Matinsoftech. All rights reserved.
         </div>
+      </div>
       </div>
     </footer>
   );

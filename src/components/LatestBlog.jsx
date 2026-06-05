@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+
+
+import { useEffect, useState, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { User, Bookmark } from "lucide-react";
@@ -41,151 +43,132 @@ const blogCards = [
 
 export default function LatestBlog() {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [scrollSnaps, setScrollSnaps] = useState([]);
+
+  const autoplay = Autoplay({
+    delay: 3500,
+    stopOnInteraction: true,
+    stopOnMouseEnter: true,
+  });
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       loop: true,
-      align: "start",
+      align: "center",
+      dragFree: false,
       skipSnaps: false,
+      containScroll: false,
     },
-    [
-      Autoplay({
-        delay: 3500,
-        stopOnInteraction: true,
-        stopOnMouseEnter: true,
-      }),
-    ]
+    [autoplay]
   );
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
 
   useEffect(() => {
     if (!emblaApi) return;
 
-    const updateIndex = () => {
-      setSelectedIndex(emblaApi.selectedScrollSnap());
-    };
+    setScrollSnaps(emblaApi.scrollSnapList());
+    emblaApi.on("select", onSelect);
+    onSelect();
 
-    emblaApi.on("select", updateIndex);
-
-    return () => {
-      emblaApi.off("select", updateIndex);
-    };
-  }, [emblaApi]);
-
-  const scrollTo = (index) => {
-    emblaApi?.scrollTo(index);
-  };
+    return () => emblaApi.off("select", onSelect);
+  }, [emblaApi, onSelect]);
 
   return (
-    <section className="bg-brand py-24">
-      <div className="container mx-auto px-4">
+    <section className="bg-brand py-28 overflow-visible">
+      <div className="container mx-auto px-6">
         <div className="mb-14">
           <h2 className="text-4xl font-bold text-gray-900">
             Latest Blog
           </h2>
         </div>
 
-        <div
-          className="overflow-hidden"
-          ref={emblaRef}
-        >
-          <div className="flex gap-6">
-            {blogCards.map((card, index) => (
-              <BlogCard
-                key={index}
-                card={card}
-              />
-            ))}
+        {/* Carousel */}
+        <div ref={emblaRef} className="overflow-x-hidden overflow-y-visible py-10">
+          <div className="flex">
+            {blogCards.map((card, index) => {
+              const isActive = selectedIndex === index;
+
+              return (
+                <div
+                  key={index}
+                  className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] px-4"
+                >
+                  <article
+                    className={`
+                      h-[420px]
+                      rounded-3xl
+                      bg-brand-yellow
+                      shadow-lg
+                      transition-all duration-500 ease-out
+                      ${
+                        isActive
+                          ? "scale-105 opacity-100 shadow-2xl"
+                          : "scale-90 opacity-50"
+                      }
+                    `}
+                  >
+                    {/* Image */}
+                    <div className="overflow-hidden rounded-t-3xl">
+                      <img
+                        src={card.image}
+                        alt={card.title}
+                        className="w-full h-56 object-cover transition-transform duration-700 hover:scale-110"
+                      />
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-6 flex flex-col justify-between h-[calc(100%-224px)]">
+                      <div>
+                        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
+                          <span className="flex items-center gap-1">
+                            <User size={15} />
+                            {card.author}
+                          </span>
+
+                          <span className="flex items-center gap-1">
+                            <Bookmark size={15} />
+                            {card.category}
+                          </span>
+                        </div>
+
+                        <h3 className="text-lg font-semibold text-gray-900 mb-3 line-clamp-2">
+                          {card.title}
+                        </h3>
+
+                        <p className="text-gray-600 line-clamp-2">
+                          {card.description}
+                        </p>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        <div className="flex justify-center gap-3 mt-12">
-          {blogCards.map((_, index) => (
+        {/* Dots */}
+        <div className="flex justify-center gap-3 mt-10">
+          {scrollSnaps.map((_, index) => (
             <button
               key={index}
-              onClick={() => scrollTo(index)}
-              className={`h-3 rounded-full transition-all duration-300 ${
-                selectedIndex === index
-                  ? "w-8 bg-black"
-                  : "w-3 bg-gray-400"
-              }`}
+              onClick={() => emblaApi?.scrollTo(index)}
+              className={`
+                h-3 rounded-full transition-all duration-300
+                ${
+                  selectedIndex === index
+                    ? "bg-black w-10"
+                    : "bg-gray-400 w-3 hover:bg-gray-500"
+                }
+              `}
             />
           ))}
         </div>
       </div>
     </section>
-  );
-}
-
-function BlogCard({ card }) {
-  return (
-    <article
-      className="
-        shrink-0
-        basis-[85%]
-        sm:basis-[48%]
-        lg:basis-[32%]
-        bg-brand-yellow
-        rounded-2xl
-        overflow-hidden
-        shadow-sm
-        hover:shadow-xl
-        transition-all
-        duration-300
-        group
-      "
-    >
-      <div className="overflow-hidden">
-        <img
-          src={card.image}
-          alt={card.title}
-          loading="lazy"
-          className="
-            w-full
-            h-60
-            object-cover
-            transition-transform
-            duration-700
-            group-hover:scale-110
-          "
-        />
-      </div>
-
-      <div className="p-6">
-        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
-          <span className="flex items-center gap-1">
-            <User size={15} />
-            {card.author}
-          </span>
-
-          <span className="flex items-center gap-1">
-            <Bookmark size={15} />
-            {card.category}
-          </span>
-        </div>
-
-        <h3 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
-          {card.title}
-        </h3>
-
-        <p className="text-gray-600 mb-6 line-clamp-2">
-          {card.description}
-        </p>
-
-        <button
-          className="
-            px-5
-            py-2.5
-            rounded-full
-            bg-black
-            text-white
-            font-medium
-            hover:scale-105
-            transition-transform
-          "
-        >
-          Read More
-        </button>
-      </div>
-    </article>
   );
 }

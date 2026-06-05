@@ -1,4 +1,6 @@
-import { useEffect, useState, useRef } from "react";
+"use client";
+
+import { useEffect, useState, useRef, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { Star } from "lucide-react";
@@ -31,68 +33,91 @@ const testimonials = [
     quote:
       "Their attention to detail and commitment to deadlines is unmatched.",
   },
+  {
+    name: "Ramesh Kumar",
+    avatar: "/testimonials/ramesh.jpg",
+    rating: 5,
+    quote:
+      "Truly professional team. They delivered exactly what we needed on time.",
+  },
+  {
+    name: "Sita Devi",
+    avatar: "/testimonials/sita.jpg",
+    rating: 5,
+    quote:
+      "Amazing experience working with them. Highly recommended for any project.",
+  },
 ];
 
 export default function Testimonials() {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [scrollSnaps, setScrollSnaps] = useState([]);
   const videoRef = useRef(null);
+
+  const autoplay = useRef(
+    Autoplay({
+      delay: 4000,
+      stopOnInteraction: false,
+      stopOnMouseEnter: true,
+    })
+  );
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       loop: true,
-      align: "start",
+      align: "center",
+      dragFree: false,
+      skipSnaps: false,
+      containScroll: false,
     },
-    [
-      Autoplay({
-        delay: 4000,
-        stopOnInteraction: false,
-      }),
-    ],
+    [autoplay.current]
   );
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
 
   useEffect(() => {
     if (!emblaApi) return;
 
-   const onSelect = () => {
-  requestAnimationFrame(() => {
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-  });
-};
+    setScrollSnaps(emblaApi.scrollSnapList());
     emblaApi.on("select", onSelect);
-    return () => emblaApi.off("select", onSelect);
-  }, [emblaApi]);
+    onSelect();
 
-  // Autoplay muted on mount
+    return () => emblaApi.off("select", onSelect);
+  }, [emblaApi, onSelect]);
+
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.play().catch(() => {
-        // Browser blocked autoplay, that's fine
-      });
+      videoRef.current.play().catch(() => {});
     }
   }, []);
 
   return (
-    <section className="py-24 bg-brand-yellow text-black overflow-hidden">
+    <section className="py-28 bg-brand-yellow text-black overflow-visible">
       <div className="container mx-auto px-6">
+        
         {/* Heading */}
         <div className="text-center max-w-4xl mx-auto mb-16">
           <span className="text-orange-500 font-semibold uppercase tracking-widest">
             Testimonial
           </span>
 
-          <h2 className="text-4xl lg:text-6xl font-black mt-4 mb-6 text-black">
+          <h2 className="text-4xl lg:text-6xl font-black mt-4 mb-6">
             What Our Customers Are Saying?
           </h2>
 
-          <p className="text-lg text-gray-500">
+          <p className="text-lg text-gray-600">
             Many customers have chosen us and they know their happiness by
-            saving time and creating their sites
+            saving time and creating their sites.
           </p>
         </div>
 
-        {/* Grid: Video + Slider */}
+        {/* Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-[420px_minmax(0,1fr)] gap-12 items-center">
-          {/* ─── Video Left ───────────────────────────── */}
+          
+          {/* Video */}
           <div className="relative rounded-3xl overflow-hidden shadow-xl bg-gray-100">
             <video
               ref={videoRef}
@@ -106,143 +131,117 @@ export default function Testimonials() {
             />
           </div>
 
-          {/* ─── Right Column ─────────────────────────── */}
+          {/* Carousel */}
           <div>
+
             {/* Rating Bar */}
-            {/* Rating + Google Badge */}
             <div className="flex flex-wrap items-center justify-between gap-6 mb-8">
-              {/* Left: Rating Text */}
               <div className="flex items-center gap-2">
                 <Star className="fill-yellow-400 text-yellow-400" size={20} />
-                <span className="font-semibold text-black">
+                <span className="font-semibold">
                   5.0 Google Rating | Trusted by Happy Customers
                 </span>
               </div>
 
-              {/* Right: Google Review Tag */}
               <a
                 href="https://www.google.com/search?q=matin+softech+reviews"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="
-      flex items-center gap-3
-      px-4 py-2
-      rounded-xl
-      border border-black/10
-      shadow-sm
-      hover:shadow-md
-      transition
-      bg-white
-    "
+                className="flex items-center gap-3 px-4 py-2 rounded-xl border border-black/10 shadow-sm hover:shadow-md transition bg-white"
               >
-                {/* Google Logo Letter */}
                 <span className="text-blue-500 text-xl font-bold">G</span>
-
                 <div className="flex flex-col leading-tight">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-semibold text-black">
-                      Google Rating
-                    </span>
-
-                    <span className="text-sm font-semibold text-black">
-                      5.0
-                    </span>
-
-                    {/* Mini Stars */}
+                    <span className="text-sm font-semibold">Google Rating 5.0</span>
                     <div className="flex gap-0.5">
                       {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          size={12}
-                          className="fill-yellow-400 text-yellow-400"
-                        />
+                        <Star key={i} size={12} className="fill-yellow-400 text-yellow-400" />
                       ))}
                     </div>
                   </div>
-
-                  <span className="text-xs text-gray-500">
-                    See all our reviews
-                  </span>
+                  <span className="text-xs text-gray-500">See all our reviews</span>
                 </div>
               </a>
             </div>
 
-            {/* Embla Carousel */}
-            <div ref={emblaRef} className="overflow-y-auto w-full min-w-0">
+            {/* Embla */}
+            <div ref={emblaRef} className="overflow-x-hidden overflow-y-visible w-full py-8">
               <div className="flex">
-                {testimonials.map((item, index) => (
-                  <div
-                    key={index}
-                    className="
-                      flex-[0_0_85%]
-                      md:flex-[0_0_48%]
-                      lg:flex-[0_0_32%]
-                      shrink-0
-                        mr-4
-                    "
-                  >
+                {testimonials.map((item, index) => {
+                  const isActive = selectedIndex === index;
+
+                  return (
                     <div
-                      className="
-                        bg-brand
-                        rounded-3xl
-                        p-8
-                        border border-black/10
-                        shadow-lg
-                        h-full
-                        hover:shadow-2xl
-                        transition-all
-                        duration-300
-                      "
+                      key={index}
+                      className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] px-3"
                     >
-                      <div className="flex flex-col items-center text-center">
+                      <div
+                        className={`
+                          rounded-3xl p-8 border
+                          h-[340px]
+                          flex flex-col items-center justify-center
+                          text-center
+                          transition-all duration-500 ease-out
+                          ${
+                            isActive
+                              ? "bg-brand border-black/10 shadow-2xl scale-105 opacity-100"
+                              : "bg-brand/50 border-black/5 shadow-md scale-90 opacity-50"
+                          }
+                        `}
+                      >
+                        {/* Avatar */}
                         <img
                           src={item.avatar}
                           alt={item.name}
-                          className="
-                            w-24 h-24
-                            rounded-full
-                            object-cover
-                            border-4 border-white
-                            shadow-lg
-                            mb-5
-                          "
+                          className={`
+                            w-20 h-20 rounded-full object-cover
+                            border-4 border-white shadow-lg mb-4
+                            transition-all duration-500
+                            ${isActive ? "scale-100" : "scale-75"}
+                          `}
                         />
 
-                        <h3 className="text-xl font-bold text-black mb-3">
+                        {/* Name */}
+                        <h3 className="text-lg font-bold mb-2">
                           {item.name}
                         </h3>
 
-                        <p className="text-black/80 leading-relaxed mb-6">
+                        {/* Quote */}
+                        <p className="text-black/70 text-sm leading-relaxed mb-4 line-clamp-3">
                           "{item.quote}"
                         </p>
 
+                        {/* Stars */}
                         <div className="flex gap-1">
-                          {[...Array(5)].map((_, i) => (
+                          {[...Array(item.rating)].map((_, i) => (
                             <Star
                               key={i}
-                              size={18}
+                              size={16}
                               className="fill-yellow-400 text-yellow-400"
                             />
                           ))}
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
             {/* Dots */}
             <div className="flex justify-center gap-3 mt-10">
-              {testimonials.map((_, index) => (
+              {scrollSnaps.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => emblaApi?.scrollTo(index)}
-                  className={`h-3 rounded-full transition-all duration-300 ${
-                    selectedIndex === index
-                      ? "bg-orange-500 w-10"
-                      : "bg-gray-300 w-3"
-                  }`}
+                  className={`
+                    h-3 rounded-full transition-all duration-300
+                    ${
+                      selectedIndex === index
+                        ? "bg-orange-500 w-10"
+                        : "bg-gray-300 w-3 hover:bg-gray-400"
+                    }
+                  `}
                 />
               ))}
             </div>

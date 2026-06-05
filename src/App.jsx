@@ -15,6 +15,9 @@ import Services from './components/Services';
 import LatestBlog from './components/LatestBlog';
 import Footer from './components/Footer';
 import Testimonials from './components/Testimonials';
+import OurOffice from './components/OurOffice';
+import OurClients from './components/OurClients';
+import SubscribeSection from './components/SubscribeSection';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -54,6 +57,9 @@ const App = () => {
         <Services />
         <Testimonials />
         <LatestBlog />
+        <OurOffice/>
+        <OurClients/>
+        <SubscribeSection/>
         <Footer />
       </main>
     </>
