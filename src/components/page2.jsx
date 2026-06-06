@@ -96,7 +96,7 @@ const Page2 = () => {
         xPercent: 0,
         opacity: 1,
         duration: 0.6,
-        stagger: 0.12,
+        stagger: 0.08,
         ease: "power4.out",
       })
         .to(
@@ -161,7 +161,7 @@ const Page2 = () => {
       <div className="mt-8 max-w-4xl">
         <p
           ref={paragraphRef}
-          className="paint-paragraph text-base md:text-lg leading-8 md:leading-9 text-black "
+          className=" text-base md:text-lg leading-8 md:leading-9 text-black "
         >
           We are the IT company which deals on Web development, Application
           development, and Entrepreneurship. <br/> We always believe on Trust and

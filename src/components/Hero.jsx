@@ -84,9 +84,9 @@ const Hero = () => {
 
         <p
           ref={paragraphRef}
-          className="paint-paragraph text-lg leading-8 text-black text-wrap"
+          className="text-lg leading-8 text-black text-wrap"
         >
-        The #1 IT Company that provide various services like app development, <br /> website development , custom software development at a very affordable price.
+        The #1 IT Company that provide various services like app development, <br /> website development , custom software development at a very affordable price. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore labore eos iste repudiandae fugiat laboriosam quia, soluta repellat similique magni, alias libero voluptatum inventore.
         </p>
 
         <div className="flex space-x-4 absolute z-10 bottom-50">

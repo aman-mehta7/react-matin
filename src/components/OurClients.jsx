@@ -30,15 +30,14 @@ export default function OurClients() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+  
       gsap.fromTo(
         headingRef.current.children,
         {
           opacity: 0,
-          x: -40,
         },
         {
           opacity: 1,
-          x: 0,
           duration: 0.8,
           stagger: 0.08,
           ease: "power3.out",
@@ -50,26 +49,6 @@ export default function OurClients() {
         }
       );
 
-      gsap.fromTo(
-        ".client-card",
-        {
-          opacity: 0,
-          x: -40,
-          scale: 0.9,
-        },
-        {
-          opacity: 1,
-          x: 0,
-          scale: 1,
-          duration: 0.6,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 70%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
     }, sectionRef);
 
     return () => ctx.revert();
