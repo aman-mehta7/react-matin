@@ -98,7 +98,10 @@ export default function LatestBlog() {
                   className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] px-4"
                 >
                   <article
+                  data-cursor="view"
                     className={`
+                      group
+                      relative
                       h-[420px]
                       rounded-3xl
                       bg-brand-yellow
@@ -116,7 +119,7 @@ export default function LatestBlog() {
                       <img
                         src={card.image}
                         alt={card.title}
-                        className="w-full h-56 object-cover transition-transform duration-700 hover:scale-110"
+                        className="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                     </div>
 

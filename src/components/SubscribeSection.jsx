@@ -1,12 +1,70 @@
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Button from "./Button";
 
+gsap.registerPlugin(ScrollTrigger);
 
 export default function SubscribeSection() {
+  const sectionRef = useRef(null);
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        contentRef.current.children,
+        {
+          opacity: 0,
+          x: -40,
+          y: 20,
+        },
+        {
+          opacity: 1,
+          x: 0,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.12,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 75%",
+            once: true,
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".subscribe-image",
+        {
+          opacity: 0,
+          scale: 0.8,
+          y: 40,
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.8,
+          delay: 0.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 75%",
+            once: true,
+          },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="bg-brand-yellow py-24 px-6 md:px-20">
+    <section ref={sectionRef} className="bg-brand-yellow py-24 px-6 md:px-20">
       <div className="grid md:grid-cols-2 items-center gap-12 container mx-auto">
 
         {/* Left Content */}
-        <div>
+        <div ref={contentRef}>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-700 mb-6">
             Subscribe Now
           </h2>
@@ -24,21 +82,19 @@ export default function SubscribeSection() {
               className="flex-1 px-6 py-4 bg-transparent outline-none text-gray-700 placeholder-gray-500"
             />
 
-            <button
+            <Button data-cursor="link"
               className="
-                bg-blue-600
-                hover:bg-blue-700
-                text-white
                 px-8
                 py-4
                 rounded-full
                 font-medium
                 transition-all
                 duration-300
+                text-nowrap
               "
             >
               Subscribe Now
-            </button>
+            </Button>
 
           </div>
         </div>
@@ -46,9 +102,9 @@ export default function SubscribeSection() {
         {/* Right Image */}
         <div className="flex justify-center md:justify-end">
           <img
-            src="/astronaut.png" 
+            src="images/img_subscribe.png" 
             alt="Subscribe Illustration"
-            className="max-w-md w-full"
+            className="subscribe-image max-w-md w-full"
           />
         </div>
 

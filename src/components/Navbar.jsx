@@ -125,7 +125,7 @@ const Navbar = () => {
               className="flex items-center shrink-0"
             >
               <img
-                src="./logo/matin-logo.png"
+                src="./logo/MS logo.png"
                 alt="Matin Softech"
                 className="h-16 w-auto object-contain"
               />
@@ -248,11 +248,11 @@ const Navbar = () => {
 
             {/* CTA Buttons */}
             <div className="hidden lg:flex items-center gap-4">
-              <Button variant="primary" className="text-sm p-3 px-5">
+              <Button  className="text-sm p-3 px-5 border">
                 Start Journey
               </Button>
 
-              <Button variant="secondary" className="text-sm p-3 px-5">
+              <Button className="text-sm p-3 px-5 border">
                 Client Login
               </Button>
             </div>

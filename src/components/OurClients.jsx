@@ -1,6 +1,14 @@
 
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function OurClients() {
+  const sectionRef = useRef(null);
+  const headingRef = useRef(null);
+
   const clients = [
     "PSI",
     "BHE Service",
@@ -20,12 +28,59 @@ export default function OurClients() {
     "Wheels On Ride",
   ];
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        headingRef.current.children,
+        {
+          opacity: 0,
+          x: -40,
+        },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.8,
+          stagger: 0.08,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 75%",
+            once: true,
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".client-card",
+        {
+          opacity: 0,
+          x: -40,
+          scale: 0.9,
+        },
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: 0.6,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 70%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="bg-brand-yellow py-28 px-6 md:px-20">
+    <section ref={sectionRef} className="bg-brand-yellow py-28 px-6 md:px-20">
         <div className="container mx-auto">
       
       {/* Section Header */}
-      <div className="mb-16">
+      <div ref={headingRef} className="mb-16">
         <p className="text-blue-500 font-medium tracking-wide mb-3">
           Our Happy Customer
         </p>
@@ -54,7 +109,9 @@ export default function OurClients() {
 function LogoCard({ name }) {
   return (
     <div
+      data-cursor="view"
       className="
+        client-card
         bg-[#e8e6e4]
         rounded-2xl
         h-28

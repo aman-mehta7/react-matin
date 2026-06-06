@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, Center, PerspectiveCamera,Float } from "@react-three/drei";
-import { Model } from "../model/mode"; // Your Astronaut
+import { Model } from "../model/model"; // Your Astronaut
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Trophy, ClipboardList, Zap } from "lucide-react"; // Icons

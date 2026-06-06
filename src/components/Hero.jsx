@@ -90,8 +90,8 @@ const Hero = () => {
         </p>
 
         <div className="flex space-x-4 absolute z-10 bottom-50">
-          <Button className="p-5 px-8">Explore</Button>
-          <Button className="p-5 px-8" onClick={() => console.log("clicked")}>
+          <Button className="py-5 px-8">Explore</Button>
+          <Button className="py-5 px-8" onClick={() => console.log("clicked")}>
             Get Started
           </Button>
         </div>

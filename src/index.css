@@ -11,6 +11,26 @@
     --yellow: #ffc803;
 }
 
+* {
+  -webkit-touch-callout: none; /* Safari / iOS */
+  -webkit-user-select: none;   /* Chrome, Safari, Opera */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Standard */
+  cursor: none;              /* Hide the default cursor */
+}
+
+img {
+  /* Prevents the blue highlight selection box */
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none;     /* IE 10+ and Edge */
+  user-select: none;         /* Standard syntax */
+
+  /* Prevents dragging the image (ghost image effect) */
+  -webkit-user-drag: none;   /* Safari and Chrome */
+  user-drag: none;           /* Standard syntax (limited browser support) */
+}
+
 
 @theme inline {
   --color-background: var(--background);

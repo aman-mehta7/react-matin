@@ -3,7 +3,11 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Star } from "lucide-react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const testimonials = [
   {
@@ -53,6 +57,9 @@ export default function Testimonials() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState([]);
   const videoRef = useRef(null);
+  const sectionRef = useRef(null);
+  const headingRef = useRef(null);
+  const videoContainerRef = useRef(null);
 
   const autoplay = useRef(
     Autoplay({
@@ -94,12 +101,81 @@ export default function Testimonials() {
     }
   }, []);
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        headingRef.current.children,
+        {
+          opacity: 0,
+          y: 20,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 75%",
+            once: true,
+          },
+        }
+      );
+
+      gsap.fromTo(
+        videoContainerRef.current,
+        {
+          opacity: 0,
+          x: -40,
+          scale: 0.9,
+        },
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 75%",
+            once: true,
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".testimonial-carousel",
+        {
+          opacity: 0,
+          x: 40,
+          scale: 0.9,
+        },
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: 0.8,
+          delay: 0.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 75%",
+            once: true,
+          },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="py-28 bg-brand-yellow text-black overflow-visible">
+    <section ref={sectionRef} className="py-28 bg-brand-yellow text-black overflow-visible ">
       <div className="container mx-auto px-6">
         
         {/* Heading */}
-        <div className="text-center max-w-4xl mx-auto mb-16">
+        <div ref={headingRef} className="text-center max-w-4xl mx-auto mb-16">
           <span className="text-orange-500 font-semibold uppercase tracking-widest">
             Testimonial
           </span>
@@ -118,7 +194,7 @@ export default function Testimonials() {
         <div className="grid grid-cols-1 lg:grid-cols-[420px_minmax(0,1fr)] gap-12 items-center">
           
           {/* Video */}
-          <div className="relative rounded-3xl overflow-hidden shadow-xl bg-gray-100">
+          <div ref={videoContainerRef} className="relative rounded-3xl overflow-hidden shadow-xl bg-gray-100">
             <video
               ref={videoRef}
               src="/testimonials/customer-video.mp4"
@@ -132,10 +208,10 @@ export default function Testimonials() {
           </div>
 
           {/* Carousel */}
-          <div>
+          <div className="testimonial-carousel">
 
             {/* Rating Bar */}
-            <div className="flex flex-wrap items-center justify-between gap-6 mb-8">
+            <div className="flex flex-wrap items-center justify-between gap-6 mb-8 ">
               <div className="flex items-center gap-2">
                 <Star className="fill-yellow-400 text-yellow-400" size={20} />
                 <span className="font-semibold">

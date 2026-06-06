@@ -1,14 +1,70 @@
 
 
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MapPin, Phone, Mail, MessageCircle } from "lucide-react";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function OurOffice() {
+  const sectionRef = useRef(null);
+  const headingRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        headingRef.current.children,
+        {
+          opacity: 0,
+          x: -40,
+        },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.8,
+          stagger: 0.08,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 75%",
+            once: true,
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".office-card",
+        {
+          opacity: 0,
+          y: 40,
+          scale: 0.9,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          stagger: 0.12,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 70%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="bg-brand-yellow py-28 px-6 md:px-20">
+    <section ref={sectionRef} className="bg-brand-yellow py-28 px-6 md:px-20">
         <div className="container mx-auto">
       
       {/* Section Header */}
-      <div className="mb-20">
+      <div ref={headingRef} className="mb-20">
         <p className="text-blue-500 font-medium tracking-wide mb-2">
           Our Locations
         </p>
@@ -46,7 +102,7 @@ export default function OurOffice() {
 
 function LocationCard({ title, image, address }) {
   return (
-    <div className="group">
+    <div className="office-card group">
 
       {/* Image Box */}
       <div className="bg-[#eae7e5] rounded-3xl p-10 transition-all duration-500 group-hover:shadow-xl group-hover:-translate-y-2">
@@ -81,7 +137,7 @@ function LocationCard({ title, image, address }) {
 
 function IconCircle({ children }) {
   return (
-    <div className="
+    <div data-cursor="link" className="
       w-12 h-12
       bg-white
       rounded-full

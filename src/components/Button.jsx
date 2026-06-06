@@ -138,7 +138,7 @@ const Button = ({ children, onClick, className = "" }) => {
         transition-colors
         duration-300
         text-black
-        bg-white/50
+        bg-yellow/40
         ${className}
       `}
     >

@@ -12,7 +12,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SoftechLoader from "./Loader";
 
 // Lazy load 3D models
-const Model = lazy(() => import("../model/mode").then((m) => ({ default: m.Model })));
+const Model = lazy(() => import("../model/model").then((m) => ({ default: m.Model })));
 const Bulb = lazy(() => import("../model/Bulb"));
 const Cup = lazy(() => import("../model/cup"));
 const Donut = lazy(() => import("../model/donut"));

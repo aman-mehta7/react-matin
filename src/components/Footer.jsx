@@ -70,7 +70,7 @@ export default function Footer() {
             <div className="bg-white text-white rounded-lg p-4 shadow-lg">
               <h4 className="font-semibold">MATIN SOFTECH</h4>
               <p className="text-sm text-gray-600">1,813 followers</p>
-              <Button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md text-sm">
+              <Button className="mt-4 border border-black text-black px-4 py-2 rounded-md text-sm">
                 Follow Page
               </Button>
             </div>

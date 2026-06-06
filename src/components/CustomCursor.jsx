@@ -1,96 +1,316 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
+
+const INTERACTIVE_SELECTOR = [
+  "[data-cursor]",
+  "a",
+  "button",
+  "[role='button']",
+  "input[type='button']",
+  "input[type='submit']",
+  "input[type='reset']",
+].join(",");
 
 export default function CustomCursor() {
   const dotRef = useRef(null);
   const outlineRef = useRef(null);
   const textRef = useRef(null);
-  const [cursorText, setCursorText] = useState("");
+
+  const modeRef = useRef("default");
+  const labelRef = useRef("");
+  const visibleRef = useRef(false);
 
   useEffect(() => {
-    // 1. Smooth Position Setters
-    const xDotTo = gsap.quickTo(dotRef.current, "x", { duration: 0.12, ease: "power3" });
-    const yDotTo = gsap.quickTo(dotRef.current, "y", { duration: 0.12, ease: "power3" });
-    const xOutlineTo = gsap.quickTo(outlineRef.current, "x", { duration: 0.4, ease: "power3" });
-    const yOutlineTo = gsap.quickTo(outlineRef.current, "y", { duration: 0.4, ease: "power3" });
+    if (typeof window === "undefined") return;
 
-    const handleMouseMove = (e) => {
-      const { clientX, clientY, target } = e;
-      
-      xDotTo(clientX);
-      yDotTo(clientY);
-      xOutlineTo(clientX);
-      yOutlineTo(clientY);
+    // Disable on touch devices
+    if (window.matchMedia("(pointer: coarse)").matches) return;
 
-      // 2. REACTION LOGIC (Check for data-cursor attribute)
-      const interactiveEl = target.closest("[data-cursor]");
-      
-      if (interactiveEl) {
-        const mode = interactiveEl.getAttribute("data-cursor");
-        
-        if (mode === "view") {
-          setCursorText("VIEW");
-          gsap.to(outlineRef.current, { 
-            width: 80, height: 80, backgroundColor: "rgba(255, 215, 0, 0.1)", 
-            borderColor: "rgba(255, 215, 0, 1)", duration: 0.4 
+    const dot = dotRef.current;
+    const outline = outlineRef.current;
+    const text = textRef.current;
+
+    if (!dot || !outline || !text) return;
+
+    gsap.set([dot, outline], {
+      xPercent: -50,
+      yPercent: -50,
+      autoAlpha: 0,
+      force3D: true,
+    });
+
+    const xDotTo = gsap.quickTo(dot, "x", {
+      duration: 0.08,
+      ease: "power3.out",
+    });
+
+    const yDotTo = gsap.quickTo(dot, "y", {
+      duration: 0.08,
+      ease: "power3.out",
+    });
+
+    const xOutlineTo = gsap.quickTo(outline, "x", {
+      duration: 0.22,
+      ease: "power3.out",
+    });
+
+    const yOutlineTo = gsap.quickTo(outline, "y", {
+      duration: 0.22,
+      ease: "power3.out",
+    });
+
+    const showCursor = () => {
+      if (visibleRef.current) return;
+      visibleRef.current = true;
+
+      gsap.to([dot, outline], {
+        autoAlpha: 1,
+        duration: 0.18,
+        overwrite: "auto",
+      });
+    };
+
+    const hideCursor = () => {
+      visibleRef.current = false;
+
+      gsap.to([dot, outline], {
+        autoAlpha: 0,
+        duration: 0.18,
+        overwrite: "auto",
+      });
+    };
+
+    const applyMode = (mode = "default", label = "") => {
+      if (mode === modeRef.current && label === labelRef.current) return;
+
+      modeRef.current = mode;
+      labelRef.current = label;
+      text.textContent = label;
+
+      switch (mode) {
+        case "view":
+          gsap.to(outline, {
+            width: 82,
+            height: 82,
+            scale: 1,
+            backgroundColor: "rgba(255, 215, 0, 0.16)",
+            borderColor: "rgba(255, 215, 0, 1)",
+            duration: 0.25,
+            ease: "power3.out",
+            overwrite: "auto",
           });
-          gsap.to(dotRef.current, { opacity: 0, duration: 0.2 });
-        } else if (mode === "link") {
-          setCursorText("");
-          gsap.to(outlineRef.current, { width: 40, height: 40, scale: 1.5, borderColor: "white", duration: 0.4 });
-        }
-      } else {
-        // RESET to default
-        setCursorText("");
-        gsap.to(outlineRef.current, { 
-          width: 48, height: 48, scale: 1, backgroundColor: "transparent", 
-          borderColor: "rgba(255, 215, 0, 0.8)", duration: 0.4 
-        });
-        gsap.to(dotRef.current, { opacity: 1, scale: 1, duration: 0.2 });
+
+          gsap.to(dot, {
+            scale: 0,
+            autoAlpha: 0,
+            duration: 0.18,
+            ease: "power3.out",
+            overwrite: "auto",
+          });
+          break;
+
+        case "link":
+          gsap.to(outline, {
+            width: 40,
+            height: 40,
+            scale: 1.35,
+            backgroundColor: "transparent",
+            borderColor: "rgba(255,255,255,1)",
+            duration: 0.25,
+            ease: "power3.out",
+            overwrite: "auto",
+          });
+
+          gsap.to(dot, {
+            scale: 1,
+            autoAlpha: 1,
+            duration: 0.18,
+            ease: "power3.out",
+            overwrite: "auto",
+          });
+          break;
+
+        default:
+          gsap.to(outline, {
+            width: 48,
+            height: 48,
+            scale: 1,
+            backgroundColor: "transparent",
+            borderColor: "rgba(250, 204, 21, 0.85)",
+            duration: 0.25,
+            ease: "power3.out",
+            overwrite: "auto",
+          });
+
+          gsap.to(dot, {
+            scale: 1,
+            autoAlpha: 1,
+            duration: 0.18,
+            ease: "power3.out",
+            overwrite: "auto",
+          });
       }
     };
 
-    // 3. CLICK EFFECT
+    const resolveCursorMode = (target) => {
+      if (!(target instanceof Element)) {
+        return { mode: "default", label: "" };
+      }
+
+      const el = target.closest(INTERACTIVE_SELECTOR);
+
+      if (!el) {
+        return { mode: "default", label: "" };
+      }
+
+      // Manual override always wins
+      const explicitMode = el.getAttribute("data-cursor");
+      const explicitText = el.getAttribute("data-cursor-text");
+
+      if (explicitMode) {
+        if (explicitMode === "hidden") {
+          return { mode: "hidden", label: "" };
+        }
+
+        if (explicitMode === "view") {
+          return {
+            mode: "view",
+            label: explicitText || "VIEW",
+          };
+        }
+
+        if (explicitMode === "link") {
+          return {
+            mode: "link",
+            label: explicitText || "",
+          };
+        }
+
+        return {
+          mode: explicitMode,
+          label: explicitText || "",
+        };
+      }
+
+      const tag = el.tagName.toLowerCase();
+
+      // Automatic behavior
+      if (tag === "a") {
+        return {
+          mode: "view",
+          label: "VIEW",
+        };
+      }
+
+      if (
+        tag === "button" ||
+        el.matches(
+          "[role='button'], input[type='button'], input[type='submit'], input[type='reset']"
+        )
+      ) {
+        return {
+          mode: "link",
+          label: "",
+        };
+      }
+
+      return { mode: "default", label: "" };
+    };
+
+    const handleMouseMove = (e) => {
+      showCursor();
+
+      xDotTo(e.clientX);
+      yDotTo(e.clientY);
+      xOutlineTo(e.clientX);
+      yOutlineTo(e.clientY);
+
+      const { mode, label } = resolveCursorMode(e.target);
+
+      if (mode === "hidden") {
+        hideCursor();
+        return;
+      }
+
+      applyMode(mode, label);
+    };
+
     const handleMouseDown = () => {
-      gsap.to([dotRef.current, outlineRef.current], { scale: 0.7, duration: 0.15 });
+      if (!visibleRef.current) return;
+
+      gsap.to(outline, {
+        scale: modeRef.current === "link" ? 1.15 : 0.9,
+        duration: 0.12,
+        overwrite: "auto",
+      });
+
+      gsap.to(dot, {
+        scale: modeRef.current === "view" ? 0 : 0.75,
+        duration: 0.12,
+        overwrite: "auto",
+      });
     };
+
     const handleMouseUp = () => {
-      gsap.to([dotRef.current, outlineRef.current], { scale: 1, duration: 0.15 });
+      applyMode(modeRef.current, labelRef.current);
     };
+
+    // Hide when leaving website/window
+    const handleWindowMouseOut = (e) => {
+      if (!e.relatedTarget && !e.toElement) {
+        hideCursor();
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        hideCursor();
+      }
+    };
+
+    applyMode("default", "");
 
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mouseup", handleMouseUp);
+    window.addEventListener("mouseout", handleWindowMouseOut);
+    window.addEventListener("blur", hideCursor);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("mouseout", handleWindowMouseOut);
+      window.removeEventListener("blur", hideCursor);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      gsap.killTweensOf([dot, outline]);
     };
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[99999]">
-      {/* Trailing Ring */}
+    <div className="pointer-events-none fixed inset-0 z-[99999]">
+      {/* Ring */}
       <div
         ref={outlineRef}
-        className="absolute top-0 left-0 w-12 h-12 border-2 border-yellow-400 rounded-full flex items-center justify-center -translate-x-1/2 -translate-y-1/2 will-change-transform"
-        style={{ boxShadow: "0 0 20px rgba(255, 215, 0, 0.3)" }}
+        className="absolute left-0 top-0 flex h-12 w-12 items-center justify-center rounded-full border border-yellow-400 will-change-transform"
+        style={{
+          boxShadow: "0 0 20px rgba(255, 215, 0, 0.22)",
+        }}
       >
-        {/* The "VIEW" or "Explore" Text */}
-        <span 
+        <span
           ref={textRef}
-          className="text-[10px] font-bold text-black tracking-tighter"
-        >
-          {cursorText}
-        </span>
+          className="select-none text-[10px] font-semibold tracking-[0.18em] text-yellow-200"
+        />
       </div>
 
-      {/* Center Dot */}
+      {/* Dot */}
       <div
         ref={dotRef}
-        className="absolute top-0 left-0 w-2 h-2 bg-yellow-400 rounded-full -translate-x-1/2 -translate-y-1/2 will-change-transform"
-        style={{ boxShadow: "0 0 10px rgba(255, 215, 0, 0.8)" }}
+        className="absolute left-0 top-0 h-2.5 w-2.5 rounded-full bg-yellow-400 will-change-transform"
+        style={{
+          boxShadow: "0 0 10px rgba(255, 215, 0, 0.85)",
+        }}
       />
     </div>
   );

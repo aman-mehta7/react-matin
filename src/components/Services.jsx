@@ -45,7 +45,7 @@ const SmallCard = ({ service }) => {
   return (
     <div
       data-cursor="view"
-      className="group service-card relative overflow-hidden rounded-3xl border border-white/10 bg-brand backdrop-blur-sm transition-all duration-500 hover:-translate-y-3 hover:border-brand hover:shadow-2xl hover:shadow-brand/20"
+      className="group service-card relative overflow-hidden rounded-3xl border border-brand bg-brand-yellow backdrop-blur-sm transition-all duration-500 hover:-translate-y-3 hover:border-brand hover:shadow-2xl hover:shadow-brand/20"
     >
       {/* Image */}
       <div className="h-64 overflow-hidden">
@@ -58,11 +58,11 @@ const SmallCard = ({ service }) => {
 
       {/* Content */}
       <div className="p-6">
-        <h3 className="mb-3 text-xl font-semibold text-white">
+        <h3 className="mb-3 text-xl font-semibold text-black">
           {service.title}
         </h3>
 
-        <p className="text-sm leading-7 text-white/70">
+        <p className="text-sm leading-7 text-black">
           {service.description}
         </p>
       </div>
@@ -97,7 +97,7 @@ const Services = () => {
           x: 0,
           scale: 1,
           duration: 0.2,
-          stagger: 0.08,
+          stagger: 0.05,
           ease: "power2.out",
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -116,7 +116,7 @@ const Services = () => {
           opacity: 1,
           x: 0,
           duration: 0.8,
-          stagger: 0.08,
+          stagger: 0.05,
           ease: "power3.out",
           scrollTrigger: {
             trigger: sectionRef.current,
