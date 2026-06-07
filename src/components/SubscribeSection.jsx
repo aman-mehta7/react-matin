@@ -60,7 +60,7 @@ export default function SubscribeSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-brand-yellow py-16 sm:py-24 px-4 sm:px-6 md:px-20">
+    <section ref={sectionRef} className="bg-brand-yellow py-24 px-6 md:px-20">
       <div className="grid md:grid-cols-2 items-center gap-12 container mx-auto">
 
         {/* Left Content */}
@@ -74,7 +74,7 @@ export default function SubscribeSection() {
           </p>
 
           {/* Input + Button */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center bg-[#dce3ea] rounded-full overflow-hidden max-w-md">
+          <div className="flex items-center bg-[#dce3ea] rounded-full overflow-hidden max-w-md">
 
             <input
               type="email"

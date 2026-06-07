@@ -7,19 +7,19 @@ import Button from "./Button";
 export default function Footer() {
   return (
     <footer className="relative bg-brand border-t border-black overflow-hidden text-white py-5">
-      <div>
+      <div className="">
 
-      {/* Animated Dot Background */}
+      {/* ✅ Animated Dot Background */}
       <div className="absolute inset-0 opacity-20 pointer-events-none">
         <div className="wave-bg"></div>
       </div>
 
-      <div className="relative container mx-auto px-4 sm:px-6">
-        <div className="pt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+      <div className=" relative container mx-auto">
+        <div className=" pt-10 grid md:grid-cols-4 gap-12">
 
           {/* Column 1 */}
           <div>
-            <h2 className="text-xl sm:text-2xl font-bold mb-4">
+            <h2 className="text-2xl font-bold mb-4">
               <span className="text-yellow-400">MS</span> MATIN SOFTECH
             </h2>
 
@@ -28,7 +28,7 @@ export default function Footer() {
               website development, and custom software at affordable prices.
             </p>
 
-            <div className="flex space-x-3">
+            <div className="flex space-x-4">
               <IconWrap><Globe size={18} /></IconWrap>
               <IconWrap><Mail size={18} /></IconWrap>
               <IconWrap><MessageCircle size={18} /></IconWrap>
@@ -44,7 +44,7 @@ export default function Footer() {
             <FooterLink>Refund Policy</FooterLink>
             <FooterLink>Privacy Policy</FooterLink>
             <FooterLink>Terms and Conditions</FooterLink>
-            <FooterLink>License &amp; Copyright</FooterLink>
+            <FooterLink>License & Copyright</FooterLink>
           </div>
 
           {/* Column 3 */}
@@ -68,7 +68,7 @@ export default function Footer() {
               Like us on Facebook
             </h3>
             <div className="bg-white text-white rounded-lg p-4 shadow-lg">
-              <h4 className="font-semibold text-black">MATIN SOFTECH</h4>
+              <h4 className="font-semibold">MATIN SOFTECH</h4>
               <p className="text-sm text-gray-600">1,813 followers</p>
               <Button className="mt-4 border border-black text-black px-4 py-2 rounded-md text-sm">
                 Follow Page
@@ -83,7 +83,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="text-center text-gray-500 text-sm mt-12 pb-4">
+        <div className=" text-center text-gray-500 text-sm mt-50">
           ©2026 Matinsoftech. All rights reserved.
         </div>
       </div>
@@ -94,7 +94,7 @@ export default function Footer() {
 
 function FooterLink({ children }) {
   return (
-    <p className="text-gray-400 hover:text-yellow-400 transition cursor-pointer mb-3 text-sm">
+    <p className="text-gray-400 hover:text-yellow-400 transition cursor-pointer mb-3">
       {children}
     </p>
   );
@@ -102,7 +102,7 @@ function FooterLink({ children }) {
 
 function IconWrap({ children }) {
   return (
-    <div className="w-8 h-8 sm:w-9 sm:h-9 bg-white hover:bg-yellow-400 text-black flex items-center justify-center rounded-full transition cursor-pointer">
+    <div className="w-9 h-9 bg-white hover:bg-yellow-400 text-black flex items-center justify-center rounded-full transition cursor-pointer">
       {children}
     </div>
   );

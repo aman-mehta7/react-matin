@@ -174,7 +174,7 @@ export default function Scene({ onLoaded }) {
       <SoftechLoader progress={progress} active={active} />
 
       <Canvas
-        className="w-full h-full"
+        className="w-full h-screen"
         camera={{ position: [0, 0, 5], fov: 50 }}
         dpr={[1, 2]}
       >
