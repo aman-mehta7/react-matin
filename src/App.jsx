@@ -48,7 +48,7 @@ const App = () => {
         <Navbar />
         <Hero />
         <Page2 />
-        <section className="w-full bg-brandarc px-6 md:px-16 xl:px-24 py-20">
+        <section className="w-full bg-brandarc px-4 sm:px-6 md:px-16 xl:px-24 py-12 sm:py-20">
           <Paage3 />
         </section>
         <WhyChooseUs />

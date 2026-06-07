@@ -4,8 +4,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Gather images from `public/images` (served at `/images`) and from `src/assets`
-// Vite supports `import.meta.glob` for static imports under `src`.
 const publicImages = [
   "/images/BUYRRO.jpg",
   "/images/ENEPALSHOP.jpg",
@@ -17,13 +15,6 @@ const publicImages = [
   "/images/Pioneer Electrocables.jpg",
 ];
 
-// const assetModules = import.meta.glob("../assets/*.{png,jpg,jpeg,svg}", {
-//   eager: true,
-//   as: "url",
-// });
-
-// const assetImages = Object.values(assetModules || {});
-
 const ALL_IMAGES = Array.from(new Set([...publicImages]));
 
 export default function PortfolioShowcase() {
@@ -31,15 +22,23 @@ export default function PortfolioShowcase() {
   const leftContentRef = useRef(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: containerRef.current,
-        start: "top top",
-        end: "bottom bottom",
-        pin: leftContentRef.current,
-        pinSpacing: false,
-      });
+    // Only pin on large screens
+    const mm = gsap.matchMedia();
 
+    mm.add("(min-width: 1024px)", () => {
+      const ctx = gsap.context(() => {
+        ScrollTrigger.create({
+          trigger: containerRef.current,
+          start: "top top",
+          end: "bottom bottom",
+          pin: leftContentRef.current,
+          pinSpacing: false,
+        });
+      }, containerRef);
+      return () => ctx.revert();
+    });
+
+    const ctx2 = gsap.context(() => {
       gsap.from(leftContentRef.current, {
         opacity: 0,
         x: -40,
@@ -66,55 +65,55 @@ export default function PortfolioShowcase() {
       });
     }, containerRef);
 
-    return () => ctx.revert();
+    return () => {
+      mm.revert();
+      ctx2.revert();
+    };
   }, []);
 
   return (
     <section>
-    <div
-      ref={containerRef}
-      className="relative flex flex-col lg:flex-row container mx-auto"
-    >
-      {/* LEFT SIDE - Pinned Content */}
-      <div className="w-full lg:w-1/2 lg:h-screen flex items-center  z-10">
-        <div ref={leftContentRef} className="max-w-xl">
-          <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-8 leading-[1.1]">
-            We Are the Best Software Company{" "}
-            <span className="text-blue-600">Manage.</span>
-          </h2>
-          <p className="text-gray-600 text-lg leading-relaxed mb-10">
-            Our clients value us for our deep industry expertise, experience and
-            robust research capabilities, and for aggressively driving
-            innovation with thought leadership and implementation to enable them
-            to become high-performance organizations.
-          </p>
+      <div
+        ref={containerRef}
+        className="relative flex flex-col lg:flex-row container mx-auto px-4 sm:px-6"
+      >
+        {/* LEFT SIDE - Pinned Content */}
+        <div className="w-full lg:w-1/2 lg:h-screen flex items-center z-10 py-10 lg:py-0">
+          <div ref={leftContentRef} className="max-w-xl w-full">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 mb-8 leading-[1.1]">
+              We Are the Best Software Company{" "}
+              <span className="text-blue-600">Manage.</span>
+            </h2>
+            <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-10">
+              Our clients value us for our deep industry expertise, experience and
+              robust research capabilities, and for aggressively driving innovation
+              with thought leadership and implementation to enable them to become
+              high-performance organizations.
+            </p>
 
-          {/* 3D Model Placeholder */}
-          <div className="relative w-full flex items-center justify-center pointer-events-none select-none mt-20">
-            <img
-              src="./logo/rocketPoint.png"
-              alt="3D Model"
-              className="h-64 object-cover animate-yo-yo pointer-events-none select-none"
-              draggable="false"
-            />
+            {/* Rocket illustration */}
+            <div className="relative w-full flex items-center justify-center pointer-events-none select-none mt-8 lg:mt-20">
+              <img
+                src="./logo/rocketPoint.png"
+                alt="3D Model"
+                className="h-40 sm:h-56 lg:h-64 object-cover animate-yo-yo pointer-events-none select-none"
+                draggable="false"
+              />
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* RIGHT SIDE - Scrollable Cards */}
-      <div className="mt-50 ml-40 w-full lg:w-1/2 p-8 md:p-10 space-y-20 lg:space-y-[20vh] pb-[20vh] ">
-        {ALL_IMAGES.map((src, idx) => (
-          <ProjectCard
-            key={idx}
-            image={src}
-            title={src
-              .split("/")
-              .pop()
-              .replace(/\.[^.]+$/, "")}
-          />
-        ))}
+        {/* RIGHT SIDE - Scrollable Cards */}
+        <div className="w-full lg:w-1/2 px-0 sm:px-4 lg:p-8 space-y-8 sm:space-y-12 lg:space-y-[15vh] pb-[10vh] lg:pb-[20vh]">
+          {ALL_IMAGES.map((src, idx) => (
+            <ProjectCard
+              key={idx}
+              image={src}
+              title={src.split("/").pop().replace(/\.[^.]+$/, "")}
+            />
+          ))}
+        </div>
       </div>
-    </div>
     </section>
   );
 }
@@ -123,7 +122,7 @@ function ProjectCard({ title, image }) {
   return (
     <div
       data-cursor="view"
-      className="project-card group w-[20vw] h-[50vh] object-ontain overflow-hidden shadow-2xl transition-transform duration-500"
+      className="project-card group w-full sm:w-4/5 md:w-3/4 lg:w-[28vw] max-w-md h-[40vw] sm:h-64 lg:h-[35vh] object-contain overflow-hidden shadow-2xl rounded-xl transition-transform duration-500"
     >
       <img
         src={image}

@@ -154,7 +154,7 @@ export default function WhyChooseUs() {
       </div>
 
       {/* HTML CONTENT LAYER (Foreground/Left) */}
-      <div className="container mx-auto px-8 md:px-24 z-10 grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="container mx-auto px-4 sm:px-8 md:px-16 lg:px-24 z-10 grid grid-cols-1 lg:grid-cols-2 gap-12">
         <div className="max-w-xl">
           {/* Header Section */}
           <header ref={headerRef} className="mb-12">
