@@ -125,6 +125,8 @@ const Page2 = () => {
 
     buildAnimation();
 
+    
+
     const handleResize = () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(buildAnimation, 250);
@@ -147,12 +149,12 @@ const Page2 = () => {
   return (
     <section
       ref={sectionRef}
-      className="flex w-full h-screen flex-col items-end justify-end bg-brand  px-6 md:px-16 xl:px-[100px] py-20  "
+      className="flex w-full h-screen flex-col items-center justify-center bg-brand  px-6 md:px-16 xl:px-[100px] py-20  "
     >
-      <div className="max-w-5xl overflow-hidden text-center">
+      <div className="max-w-5xl overflow-hidden ">
         <h1
           ref={headingRef}
-          className="text-3xl md:text-5xl font-bold uppercase tracking-wide text-white"
+          className="text-3xl md:text-5xl font-bold uppercase tracking-wide text-white text-center"
         >
           WE BELIEVE IN TRUST AND PASSION <br /> ON QUALITY.
         </h1>
@@ -161,7 +163,7 @@ const Page2 = () => {
       <div className="mt-8 max-w-4xl">
         <p
           ref={paragraphRef}
-          className=" text-base md:text-lg leading-8 md:leading-9 text-black "
+          className=" text-center md:text-lg leading-8 md:leading-9 text-black "
         >
           We are the IT company which deals on Web development, Application
           development, and Entrepreneurship. <br/> We always believe on Trust and

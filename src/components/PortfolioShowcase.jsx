@@ -76,7 +76,7 @@ export default function PortfolioShowcase() {
       className="relative flex flex-col lg:flex-row container mx-auto"
     >
       {/* LEFT SIDE - Pinned Content */}
-      <div className="w-full lg:w-1/2 lg:h-screen flex items-center  z-10">
+      <div className="w-full lg:w-1/2 lg:h-screen flex items-center pb-20  z-10">
         <div ref={leftContentRef} className="max-w-xl">
           <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-8 leading-[1.1]">
             We Are the Best Software Company{" "}
@@ -91,12 +91,12 @@ export default function PortfolioShowcase() {
 
           {/* 3D Model Placeholder */}
           <div className="relative w-full flex items-center justify-center pointer-events-none select-none mt-20">
-            <img
+            {/* <img
               src="./logo/rocketPoint.png"
               alt="3D Model"
               className="h-64 object-cover animate-yo-yo pointer-events-none select-none"
               draggable="false"
-            />
+            /> */}
           </div>
         </div>
       </div>

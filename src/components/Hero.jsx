@@ -89,17 +89,11 @@ const Hero = () => {
         The #1 IT Company that provide various services like app development, <br /> website development , custom software development at a very affordable price. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore labore eos iste repudiandae fugiat laboriosam quia, soluta repellat similique magni, alias libero voluptatum inventore.
         </p>
 
-        <div className="flex space-x-4 absolute z-10 bottom-50">
+        <div className="flex space-x-4 mt-20">
           <Button className="py-5 px-8">Explore</Button>
           <Button className="py-5 px-8" onClick={() => console.log("clicked")}>
             Get Started
           </Button>
-        </div>
-      </div>
-
-      <div className="model  absolute  right-0 top-0 h-[210vh] w-full bg-transparent  ">
-        <div className="w-full h-screen sticky top-0 ">
-        <Scene />  
         </div>
       </div>
     </div>
