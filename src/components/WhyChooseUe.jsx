@@ -12,7 +12,6 @@ import Particles from "./Particle";
 gsap.registerPlugin(ScrollTrigger);
 
 function Scene({ mouse, triggerRef }) {
-  const scrollGroup = useRef();
   const rotationGroup = useRef();
 
   // --- ANIMATION ON SCROLL ---
@@ -56,20 +55,19 @@ useFrame(() => {
   return (
     <>
       <Particles count={200} />
-    <group ref={scrollGroup}>
+    {/* <group ref={scrollGroup}>
        <group ref={rotationGroup} scale={1.05}>
           <Float
             floatIntensity={2}
             rotationIntensity={2}
             floatingRange={[0, 0.2]}
           >
-          {/* CENTER: Fixes the weird pivot point */}
           <Center>
             <Model />
           </Center>
           </Float>
         </group>
-    </group>
+    </group> */}
     </>
   );
 }
@@ -144,14 +142,14 @@ export default function WhyChooseUs() {
     <main ref={mainRef} className="relative min-h-screen  bg-brand overflow-hidden flex items-center">
         <div className="absolute z-20 -top-1 left-0 w-full h-20 pointer-events-none cloud" />
       {/* 3D CANVAS LAYER (Background/Right) */}
-      {/* <div className="absolute inset-0 z-0 pointer-events-none">
+      <div className="absolute inset-0 z-0 pointer-events-none">
         <Canvas shadows={false}>
           <ambientLight intensity={1.5} />
           <Environment preset="city" />
           <Scene mouse={mouse} triggerRef={mainRef} />
           <PerspectiveCamera makeDefault position={[-1.2, .2, 5]} fov={40} />
         </Canvas>
-      </div> */}
+      </div>
 
       {/* HTML CONTENT LAYER (Foreground/Left) */}
       <div className="container mx-auto px-8 md:px-24 z-10 grid grid-cols-1 lg:grid-cols-2 gap-12">

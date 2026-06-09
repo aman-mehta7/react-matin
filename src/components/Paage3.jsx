@@ -27,6 +27,13 @@ const services = [
     size: "small",
   },
   {
+    title: "E-commerce Development",
+    description:
+      "Design and develop a creative website with our microscopic detailing and scrupulous strategies.",
+    image: "https://cdn-icons-png.flaticon.com/512/3081/3081559.png",
+    size: "small",
+  },
+  {
     title: "Graphics Design",
     description:
       "Branding, Website & Logo Design, Exhibition & Environment Design, Report Design, Brochure Design etc",
@@ -198,7 +205,7 @@ const Page3 = () => {
       ref={sectionRef}
       className="relative w-full bg-brandarc py-20 text-black flex  items-end justify-end"
     >
-      <div className="w-[70%] px-6 md:px-10 lg:px-16">
+      <div className="w-full px-6 md:px-10 lg:px-16">
         {/* Heading */}
         <div ref={headingRef} className="max-w-3xl mb-14 text-left">
           <p className="font-medium mb-3 uppercase tracking-wider text-sm text-black">
@@ -214,7 +221,7 @@ const Page3 = () => {
         </div>
 
         {/* Small cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-6">
           {smallCards.map((s, i) => (
             <div
               key={s.title}

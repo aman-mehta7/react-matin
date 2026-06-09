@@ -149,7 +149,7 @@ const Page2 = () => {
   return (
     <section
       ref={sectionRef}
-      className="flex w-full h-screen flex-col items-center justify-center bg-brand  px-6 md:px-16 xl:px-[100px] py-20  "
+      className="flex w-full h-screen flex-col items-end justify-end bg-brand  px-6 md:px-16 xl:px-[100px] py-20  "
     >
       <div className="max-w-5xl overflow-hidden ">
         <h1
@@ -159,21 +159,38 @@ const Page2 = () => {
           WE BELIEVE IN TRUST AND PASSION <br /> ON QUALITY.
         </h1>
       </div>
+<div className="mt-8 max-w-4xl">
+  <ul
+    ref={paragraphRef}
+    className="list-disc pl-6 text-left md:text-lg leading-8 md:leading-8 text-black space-y-2"
+  >
+    <li>
+      We are an IT company specializing in web development, application
+      development, and entrepreneurship.
+    </li>
 
-      <div className="mt-8 max-w-4xl">
-        <p
-          ref={paragraphRef}
-          className=" text-center md:text-lg leading-8 md:leading-9 text-black "
-        >
-          We are the IT company which deals on Web development, Application
-          development, and Entrepreneurship. <br/> We always believe on Trust and
-          client satisfaction.  <br/> We always try to never give a chance to our
-          client any type of regretation. <br/> Our believe is make our Clients happy
-          and Satisfied. <br/> We trust in your brand and we are here to help you
-          enhancing your brand digitally. <br/> We will turn your dream website or app
-          into reality because your business is our business.
-        </p>
-      </div>
+    <li>
+      We always believe in trust and client satisfaction.
+    </li>
+
+    <li>
+      We strive to ensure our clients never have any reason for regret.
+    </li>
+
+    <li>
+      Our goal is to make our clients happy and fully satisfied.
+    </li>
+
+    <li>
+      We trust in your brand and are here to help enhance it digitally.
+    </li>
+
+    <li>
+      We turn your dream website or application into reality because your
+      business is our business.
+    </li>
+  </ul>
+</div>
     </section>
   );
 };

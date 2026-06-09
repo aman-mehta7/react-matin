@@ -87,7 +87,7 @@ section h1{
 }
 
 html, body {
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth; */
 }
 
 main {
