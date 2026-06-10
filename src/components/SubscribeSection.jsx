@@ -60,7 +60,8 @@ export default function SubscribeSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-brand-yellow py-24 px-6 md:px-20">
+    <div
+     ref={sectionRef} className="bg-brand-yellow pb-24 px-6 md:px-20">
       <div className="grid md:grid-cols-2 items-center gap-12 container mx-auto">
 
         {/* Left Content */}
@@ -109,6 +110,6 @@ export default function SubscribeSection() {
         </div>
 
       </div>
-    </section>
+    </div>
   );
 }

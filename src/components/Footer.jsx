@@ -14,7 +14,7 @@ export default function Footer() {
         <div className="wave-bg"></div>
       </div>
 
-      <div className=" relative container mx-auto">
+      <div className=" relative z-30 container mx-auto">
         <div className=" pt-10 grid md:grid-cols-4 gap-12">
 
           {/* Column 1 */}

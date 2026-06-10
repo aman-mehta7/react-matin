@@ -6,7 +6,7 @@ import { useGLTF } from '@react-three/drei'
 export default function Donut(props) {
   const { nodes, materials } = useGLTF('model/donut3.glb')
   return (
-    <group {...props} dispose={null} scale={.3} position={[3.4, 1, 0]} rotation={[-.9, Math.PI / 2.5, Math.PI / 2]}>
+    <group {...props} dispose={null} scale={.3}  rotation={[-.9, Math.PI / 2.5, Math.PI / 2]}>
       <mesh
         castShadow
         receiveShadow

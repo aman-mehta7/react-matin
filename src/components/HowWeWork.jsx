@@ -80,14 +80,16 @@ export default function HowWeWork() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-brand py-28 px-6 md:px-20 overflow-hidden"
+      className="relative bg-brand py-28 overflow-hidden"
     >
+      <div className="relative z-40 container mx-auto ">
+
       {/* Title */}
       <div className="text-center max-w-3xl mx-auto mb-20">
         <h2 className="how-title text-4xl md:text-5xl font-bold text-gray-900 mb-6">
           How We Work
         </h2>
-        <p className="how-subtitle text-gray-600 text-lg leading-relaxed">
+        <p className="how-subtitle text-black text-lg leading-relaxed">
           Our process is designed to deliver high-quality results through careful
           planning, transparent communication, and continuous improvement at
           every stage of the project.
@@ -137,6 +139,7 @@ export default function HowWeWork() {
           desc="Your completed project is delivered fully polished, tested, and ready."
         />
       </div>
+</div>
     </section>
   );
 }

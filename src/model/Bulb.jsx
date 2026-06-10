@@ -18,9 +18,9 @@ export default function Bulb(props) {
   return (
     <group {...props} dispose={null}>
       <group
-        position={[-0.043, 1.954, 0.878]}
-        rotation={[0.34, 0.003, 0.09]}
-        scale={0.123}
+        // position={[-0.043, 1.954, 0.878]}
+        // rotation={[0.34, 0.003, 0.09]}
+        scale={0.2}
       >
         {/* ✅ TOP GLASS — GLOWING */}
         <mesh geometry={nodes.Sphere001.geometry}>

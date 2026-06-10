@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Lenis from "@studio-freight/lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,74 +10,39 @@ import Paage3 from "./components/Paage3";
 import WhyChooseUs from "./components/WhyChooseUe";
 import HowWeWork from "./components/HowWeWork";
 import PortfolioShowcase from "./components/PortfolioShowcase";
-import Services from "./components/Services";
 import Testimonials from "./components/Testimonials";
 import LatestBlogs from "./components/LatestBlog";
 import OurOffice from "./components/OurOffice";
-import OurClients from "./components/OurClients";
-import Footer from "./components/Footer";
-
 import Scene from "./components/Scene";
+import OurClients from './components/OurClients';
+import SubscribeSection from './components/SubscribeSection';
 import CustomCursor from "./components/CustomCursor";
 import ScrollBar from "./components/ScrollBar";
+import Footer from './components/Footer';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const sections = [
-  {
-    id: "hero",
-    Component: Hero,
-  },
-  {
-    id: "page2",
-    Component: Page2,
-  },
-  {
-    id: "page3",
-    Component: Paage3,
-  },
-  {
-    id: "choose-us",
-    Component: WhyChooseUs,
-  },
-  {
-    id: "how-work",
-    Component: HowWeWork,
-  },
-  {
-    id: "portfolio",
-    Component: PortfolioShowcase,
-  },
-  {
-    id: "services",
-    Component: Services,
-  },
-  {
-    id: "testimonials",
-    Component: Testimonials,
-  },
-  {
-    id: "latest-blogs",
-    Component: LatestBlogs,
-  },
-  {
-    id: "our-office",
-    Component: OurOffice,
-  },
-  {
-    id: "our-clients",
-    Component: OurClients,
-  },
-  {
-    id: "footer",
-    Component: Footer,
-  },
+  { id: "hero", Component: Hero },
+  { id: "page2", Component: Page2 },
+  { id: "page3", Component: Paage3 },
+  { id: "choose-us", Component: WhyChooseUs },
+  { id: "how-work", Component: HowWeWork },
+  { id: "portfolio", Component: PortfolioShowcase },
+  { id: "testimonials", Component: Testimonials },
+  { id: "LatestBlog", Component: LatestBlogs },
+  { id: "OurOffice", Component: OurOffice },
+  { id: "OurClients", Component: OurClients },
+  // { id: "SubscribeSection", Component: SubscribeSection },
+  // { id: "Footer", Component: Footer },
 ];
 
 const App = () => {
+  const mouse = useRef({ x: 0, y: 0 }); // ✅ Global mouse ref
+
   useEffect(() => {
     const lenis = new Lenis({
-      lerp: 0.12, // normal smooth, not too delayed
+      lerp: 0.12,
       smoothWheel: true,
       smoothTouch: false,
     });
@@ -104,19 +69,33 @@ const App = () => {
     };
   }, []);
 
+  useEffect(() => {
+  const handleMouseMove = (e) => {
+    mouse.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+    mouse.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
+  };
+
+  window.addEventListener("mousemove", handleMouseMove);
+
+  return () => {
+    window.removeEventListener("mousemove", handleMouseMove);
+  };
+}, []);
+
   return (
     <>
       <CustomCursor />
       <ScrollBar />
       <Navbar />
 
-      {/* 3D Scene */}
-      <div className="fixed inset-0 z-20 pointer-events-none">
-        <Scene />
+      {/* ✅ 3D Scene (unchanged except mouse prop added) */}
+      <div className="fixed inset-0 z-30">
+        <Scene mouse={mouse} />
       </div>
 
-      {/* Scroll Content */}
-      <main className="relative z-10">
+      {/* ✅ Mouse tracking moved to MAIN (global & reliable) */}
+      <main
+      >
         {sections.map(({ id, Component }) => (
           <section
             key={id}
@@ -126,7 +105,10 @@ const App = () => {
             <Component />
           </section>
         ))}
+        <SubscribeSection />
+        <Footer />
       </main>
+
     </>
   );
 };

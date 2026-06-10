@@ -149,48 +149,45 @@ const Page2 = () => {
   return (
     <section
       ref={sectionRef}
-      className="flex w-full h-screen flex-col items-end justify-end bg-brand  px-6 md:px-16 xl:px-[100px] py-20  "
+      className="flex w-full h-screen flex-col items-end justify-center bg-brand  "
     >
-      <div className="max-w-5xl overflow-hidden ">
+      <div className="container mx-auto flex flex-col items-left lg:items-end justify-end ">
+
+      <div className="lg:max-w-4xl pl-6 lg:p-0  overflow-hidden text-wrap">
         <h1
           ref={headingRef}
-          className="text-3xl md:text-5xl font-bold uppercase tracking-wide text-white text-center"
-        >
-          WE BELIEVE IN TRUST AND PASSION <br /> ON QUALITY.
+          className=" header-text font-bold uppercase  text-white text-left lg:text-center"
+          >
+          WE BELIEVE IN TRUST AND PASSION ON QUALITY.
         </h1>
       </div>
-<div className="mt-8 max-w-4xl">
-  <ul
+<div className="mt-8 max-w-4xl text-wrap">
+  <p
     ref={paragraphRef}
-    className="list-disc pl-6 text-left md:text-lg leading-8 md:leading-8 text-black space-y-2"
+    className="c pl-6 text-left md:text-lg  text-black space-y-2"
   >
-    <li>
+
       We are an IT company specializing in web development, application
       development, and entrepreneurship.
-    </li>
 
-    <li>
       We always believe in trust and client satisfaction.
-    </li>
 
-    <li>
       We strive to ensure our clients never have any reason for regret.
-    </li>
 
-    <li>
+
+
       Our goal is to make our clients happy and fully satisfied.
-    </li>
 
-    <li>
+
       We trust in your brand and are here to help enhance it digitally.
-    </li>
 
-    <li>
+
       We turn your dream website or application into reality because your
       business is our business.
-    </li>
-  </ul>
+
+  </p>
 </div>
+          </div>
     </section>
   );
 };

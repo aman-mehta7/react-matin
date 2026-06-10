@@ -1,131 +1,113 @@
-import { useEffect, useRef, Suspense, lazy } from "react";
+import { useEffect, useRef, Suspense, lazy, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Center, PerspectiveCamera, Environment } from "@react-three/drei";
+import { Center, PerspectiveCamera, Environment, useProgress, Float } from "@react-three/drei";
 import * as THREE from "three";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+import Bulb from "../model/Bulb";
+import Cup from "../model/cup";
+import Donut from "../model/donut";
+import SoftechLoader from "./Loader";
 
 const Model = lazy(() =>
   import("../model/model").then((m) => ({ default: m.Model }))
 );
 
-/**
- * EASY CONTROL AREA
- *
- * Edit only these values:
- * x, y, z      -> model position
- * rotX, rotY   -> model rotation in radians
- * scale        -> model size
- *
- * Each object matches one section id from App.jsx.
- */
+/* ===============================
+   MAIN MODEL STATES
+================================ */
+
 const MODEL_STATES = [
+  { id: "hero", x: 2, y: 0, z: 0, rotX: 0, rotY: 0, rotZ: 0, scale: 1 },
+  { id: "page2", x: -2.5, y: 0, z: 0, rotX: 0, rotY: 2, rotZ: 0.3, scale: 1 },
+  { id: "page3", x: 1, y: 0, z: 0, rotX: 0, rotY: 2, rotZ: -0.9, scale: 1 },
+  { id: "choose-us", x: 2, y: 0, z: 0, rotX: 0, rotY: -1, rotZ: 0.2, scale: 1.2 },
+  { id: "how-work", x: 0, y: 0, z: 0, rotX: 0, rotY: -1, rotZ: -0.3, scale: 0.7 },
+  { id: "portfolio", x: -2.5, y: -1, z: 0, rotX: 2, rotY: 1, rotZ: 0.6, scale: 0.5 },
+  { id: "testimonals", x: -2.5, y: -0.6, z: 0, rotX: 0, rotY: 8, rotZ: 0, scale: 0.7 },
+  { id: "LatestBlog", x: -2.5, y: 0, z: 0, rotX: 0, rotY: 8, rotZ: 0, scale: 0.8 },
+  { id: "OurOffice", x: 1, y: 0, z: 0, rotX: 0, rotY: 0, rotZ: 0, scale: 0.9 },
+  { id: "OurClients", x: 0, y: .8, z: 0, rotX: 0, rotY: 0, rotZ: 0, scale: .5 },
+  // { id: "SuscribeSection", x: -2.5, y: -0.6, z: 0, rotX: 0, rotY: 8, rotZ: 0, scale: 0.5 },
+  // { id: "Footer", x: -2.5, y: -2.5, z: 0, rotX: 0, rotY: 8, rotZ: 0, scale: 0.5 },
+];
+
+/* ===============================
+   SUB MODEL STATES (FULL CONTROL)
+================================ */
+
+const SUB_STATES = [
   {
     id: "hero",
-    x: 2 ,
-    y: 0,
-    z: 0,
-    rotX: 0,
-    rotY: 0,
+    radius: 2,
+    offsetX: .5,
+    offsetY: 0,
+    offsetZ: 0,
     scale: 1,
   },
   {
     id: "page2",
-    x: -2.5,
-    y: 0.5,
-    z: 0,
-    rotX: 0,
-    rotY: 2,
+    radius: 2,
+    offsetX: -1,
+    offsetY: 0,
+    offsetZ: 0,
     scale: 1,
   },
   {
     id: "page3",
-    x: 1,
-    y: 0,
-    z: 0,
-    rotX: 2,
-    rotY: 2,
-    scale: 1.4,
+    radius: 2.5,
+    offsetX: 1.5,
+    offsetY: 0.3,
+    offsetZ: 0,
+    scale: 0,
   },
   {
     id: "choose-us",
-    x: 2,
-    y: 0,
-    z: 0,
-    rotX: 0,
-    rotY: -1,
-    scale: 1.2,
+    radius: 2.1,
+    offsetX: 1,
+    offsetY: 0.5,
+    offsetZ: 0,
+    scale: 1,
   },
   {
     id: "how-work",
-    x: 2.2,
-    y: -0.1,
-    z: 0,
-    rotX: 2,
-    rotY: -1,
-    scale: 0.7,
-  },
-  {
-    id: "portfolio",
-    x: -2,
-    y: -1.5,
-    z: 0,
-    rotX: 7,
-    rotY: 5,
+    radius: 1.2,
+    offsetX: 0.5,
+    offsetY: -0.3,
+    offsetZ: 0,
     scale: 0.5,
   },
   {
-    id: "services",
-    x: -2.2,
-    y: 0.2,
-    z: 0,
-    rotX: -0.1,
-    rotY: 1.2,
-    scale: 1,
+    id: "portfolio",
+    radius: 1.2,
+    offsetX: -1,
+    offsetY: 0,
+    offsetZ: 0,
+    scale: .5,
   },
   {
-    id: "testimonials",
-    x: 2.3,
-    y: 2,
-    z: 0,
-    rotX: 0.05,
-    rotY: -1.4,
-    scale: 0.8,
+    id: "testimonals",
+    radius: 1.2,
+    offsetX: -1,
+    offsetY: 0,
+    offsetZ: 0,
+    scale: .5,
   },
   {
-    id: "latest-blogs",
-    x: -1.8,
-    y: -0.1,
-    z: 0,
-    rotX: 0,
-    rotY: 1,
-    scale: 0.85,
+    id: "LatestBlog",
+    radius: 1,
+    offsetX: -1,
+    offsetY: 0,
+    offsetZ: 0,
+    scale: 0.5,
   },
   {
-    id: "our-office",
-    x: 1.8,
-    y: 0.1,
-    z: 0,
-    rotX: 0.1,
-    rotY: -0.8,
-    scale: 1.2,
-  },
-  {
-    id: "our-clients",
-    x: -2,
-    y: 0,
-    z: 0,
-    rotX: 0,
-    rotY: 1.3,
-    scale: 1,
-  },
-  {
-    id: "footer",
-    x: 0,
-    y: 0,
-    z: 0,
-    rotX: 0,
-    rotY: 0,
-    scale: 0.9,
+    id: "OurOffice",
+    radius: 1,
+    offsetX: 1,
+    offsetY: 0.2,
+    offsetZ: 0,
+    scale: 0,
   },
 ];
 
@@ -138,26 +120,35 @@ function lerpState(from, to, progress) {
     z: THREE.MathUtils.lerp(from.z, to.z, progress),
     rotX: THREE.MathUtils.lerp(from.rotX, to.rotX, progress),
     rotY: THREE.MathUtils.lerp(from.rotY, to.rotY, progress),
+    rotZ: THREE.MathUtils.lerp(from.rotZ, to.rotZ, progress),
     scale: THREE.MathUtils.lerp(from.scale, to.scale, progress),
   };
 }
 
-function SceneContent() {
+function SceneContent({ mouse }) {
   const cameraRef = useRef(null);
   const modelRef = useRef(null);
+  const subGroupRef = useRef(null);
 
-  const target = useRef({
-    x: MODEL_STATES[0].x,
-    y: MODEL_STATES[0].y,
-    z: MODEL_STATES[0].z,
-    rotX: MODEL_STATES[0].rotX,
-    rotY: MODEL_STATES[0].rotY,
-    scale: MODEL_STATES[0].scale,
+  const target = useRef({ ...MODEL_STATES[0] });
+  const subTarget = useRef({
+    radius: 2,
+    offsetX: .5,
+    offsetY: 0,
+    offsetZ: 0,
+    scale: 1,
   });
+
+  const smoothMouse = useRef({ x: 0, y: 0 });
+
+  /* ===============================
+     ScrollTrigger Setup
+  ================================= */
 
   useEffect(() => {
     const triggers = [];
 
+    /* MAIN MODEL */
     MODEL_STATES.forEach((state, index) => {
       const section = document.querySelector(`#${state.id}`);
       if (!section) return;
@@ -168,113 +159,234 @@ function SceneContent() {
         trigger: section,
         start: "top top",
         end: "bottom top",
-
         onUpdate: (self) => {
           const newState = lerpState(state, nextState, self.progress);
-
-          target.current.x = newState.x;
-          target.current.y = newState.y;
-          target.current.z = newState.z;
-          target.current.rotX = newState.rotX;
-          target.current.rotY = newState.rotY;
-          target.current.scale = newState.scale;
+          Object.assign(target.current, newState);
         },
       });
 
       triggers.push(trigger);
     });
 
-    requestAnimationFrame(() => {
-      ScrollTrigger.refresh();
+    /* SUB MODELS */
+    SUB_STATES.forEach((state, index) => {
+      const section = document.querySelector(`#${state.id}`);
+      if (!section) return;
+
+      const nextState = SUB_STATES[index + 1] || state;
+
+      const trigger = ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        end: "bottom top",
+        onUpdate: (self) => {
+          subTarget.current.radius = THREE.MathUtils.lerp(
+            state.radius,
+            nextState.radius,
+            self.progress
+          );
+
+          subTarget.current.offsetX = THREE.MathUtils.lerp(
+            state.offsetX,
+            nextState.offsetX,
+            self.progress
+          );
+
+          subTarget.current.offsetY = THREE.MathUtils.lerp(
+            state.offsetY,
+            nextState.offsetY,
+            self.progress
+          );
+
+          subTarget.current.offsetZ = THREE.MathUtils.lerp(
+            state.offsetZ,
+            nextState.offsetZ,
+            self.progress
+          );
+
+          subTarget.current.scale = THREE.MathUtils.lerp(
+            state.scale,
+            nextState.scale,
+            self.progress
+          );
+        },
+      });
+
+      triggers.push(trigger);
     });
 
-    return () => {
-      triggers.forEach((trigger) => trigger.kill());
-    };
+    requestAnimationFrame(() => ScrollTrigger.refresh());
+
+    return () => triggers.forEach((t) => t.kill());
   }, []);
 
-  useFrame((_, delta) => {
-    if (!modelRef.current || !cameraRef.current) return;
+  /* ===============================
+     Frame Loop
+  ================================= */
 
-    const t = 1 - Math.exp(-FOLLOW_SPEED * delta);
+useFrame((state, delta) => {
+  if (!modelRef.current || !cameraRef.current) return;
 
-    cameraRef.current.position.set(0, 0, 5);
-    cameraRef.current.lookAt(0, 0, 0);
+  const t = 1 - Math.exp(-FOLLOW_SPEED * delta);
+  const time = state.clock.elapsedTime;
 
-    modelRef.current.position.x = THREE.MathUtils.lerp(
-      modelRef.current.position.x,
-      target.current.x,
-      t
+  const mouseX = mouse?.current?.x ?? 0;
+  const mouseY = mouse?.current?.y ?? 0;
+
+  /* -------------------------
+     Smooth Mouse
+  -------------------------- */
+
+  smoothMouse.current.x +=
+    (mouseX - smoothMouse.current.x) * t;
+
+  smoothMouse.current.y +=
+    (mouseY - smoothMouse.current.y) * t;
+
+  /* -------------------------
+     Camera
+  -------------------------- */
+
+  cameraRef.current.position.set(0, 0, 5);
+  cameraRef.current.lookAt(0, 0, 0);
+
+  /* -------------------------
+     POSITION
+  -------------------------- */
+
+  modelRef.current.position.x +=
+    (target.current.x - modelRef.current.position.x) * t;
+
+  modelRef.current.position.y +=
+    (target.current.y - modelRef.current.position.y) * t;
+
+  /* -------------------------
+     ROTATION (main model)
+  -------------------------- */
+
+  const desiredRotX =
+    target.current.rotX + smoothMouse.current.y * -0.04;
+
+  const desiredRotY =
+    target.current.rotY + smoothMouse.current.x * 0.1;
+
+  modelRef.current.rotation.x +=
+    (desiredRotX - modelRef.current.rotation.x) * t;
+
+  modelRef.current.rotation.y +=
+    (desiredRotY - modelRef.current.rotation.y) * t;
+
+  modelRef.current.rotation.z +=
+    (target.current.rotZ - modelRef.current.rotation.z) * t;
+
+  /* -------------------------
+     SCALE (main model)
+  -------------------------- */
+
+  const desiredScale = target.current.scale;
+
+  modelRef.current.scale.x +=
+    (desiredScale - modelRef.current.scale.x) * t;
+
+  modelRef.current.scale.y =
+    modelRef.current.scale.x;
+
+  modelRef.current.scale.z =
+    modelRef.current.scale.x;
+
+  /* ===============================
+     SUB MODEL RING WITH ORBIT
+  ================================= */
+
+  if (subGroupRef.current) {
+    const children = subGroupRef.current.children;
+    const total = children.length;
+
+    const { radius, offsetX, offsetY, offsetZ, scale } =
+      subTarget.current;
+
+    // Follow main model position with offset
+    subGroupRef.current.position.set(
+      modelRef.current.position.x + offsetX,
+      modelRef.current.position.y + offsetY,
+      modelRef.current.position.z + offsetZ
     );
 
-    modelRef.current.position.y = THREE.MathUtils.lerp(
-      modelRef.current.position.y,
-      target.current.y,
-      t
-    );
+    const orbitSpeed = 0.8;
 
-    modelRef.current.position.z = THREE.MathUtils.lerp(
-      modelRef.current.position.z,
-      target.current.z,
-      t
-    );
+    children.forEach((child, i) => {
+      const angle =
+        (i / total) * Math.PI * 2 +
+        time * orbitSpeed;
 
-    modelRef.current.rotation.x = THREE.MathUtils.lerp(
-      modelRef.current.rotation.x,
-      target.current.rotX,
-      t
-    );
+      // Orbit ring
+      child.position.x = Math.cos(angle) * radius;
+      child.position.y = Math.sin(angle) * radius;
+      child.position.z = -2;
 
-    modelRef.current.rotation.y = THREE.MathUtils.lerp(
-      modelRef.current.rotation.y,
-      target.current.rotY,
-      t
-    );
-
-    const newScale = THREE.MathUtils.lerp(
-      modelRef.current.scale.x,
-      target.current.scale,
-      t
-    );
-
-    modelRef.current.scale.set(newScale, newScale, newScale);
-  });
+      child.scale.setScalar(scale);
+    });
+  }
+});
 
   return (
     <>
       <PerspectiveCamera ref={cameraRef} makeDefault position={[0, 0, 5]} />
-
-      <ambientLight intensity={1} />
-      <directionalLight position={[5, 5, 5]} intensity={1.5} />
-
+      <ambientLight intensity={0.8} />
+      <directionalLight position={[5, 5, 5]} intensity={1.4} />
       <Environment preset="sunset" />
 
       <group ref={modelRef}>
+        <Float>
         <Center>
           <Model />
         </Center>
+        </Float>
       </group>
+
+  <group ref={subGroupRef}>
+  <group scale={0.5}>
+    <Cup />
+  </group>
+
+  <group scale={0.3}>
+    <Bulb />
+  </group>
+
+  <group scale={0.4}>
+    <Donut />
+  </group>
+</group>
     </>
   );
 }
 
-export default function Scene() {
+export default function Scene({ mouse }) {
+  const [loaderState, setLoaderState] = useState({ active: false, progress: 0 });
+
   return (
-    <Canvas
-      dpr={Math.min(window.devicePixelRatio, 2)}
-      gl={{
-        antialias: true,
-        powerPreference: "high-performance",
-      }}
-      onCreated={({ gl }) => {
-        gl.outputColorSpace = THREE.SRGBColorSpace;
-        gl.toneMapping = THREE.ACESFilmicToneMapping;
-        gl.toneMappingExposure = 1.1;
-      }}
-    >
-      <Suspense fallback={null}>
-        <SceneContent />
-      </Suspense>
-    </Canvas>
+    <>
+      <SoftechLoader progress={loaderState.progress} active={loaderState.active} />
+
+      <Canvas
+        dpr={Math.min(window.devicePixelRatio, 2)}
+        gl={{ antialias: true, powerPreference: "high-performance" }}
+      >
+        <Suspense fallback={null}>
+          <SceneContent mouse={mouse} />
+          <LoaderBridge setLoaderState={setLoaderState} />
+        </Suspense>
+      </Canvas>
+    </>
   );
+}
+
+function LoaderBridge({ setLoaderState }) {
+  const { active, progress } = useProgress();
+
+  useEffect(() => {
+    setLoaderState({ active, progress });
+  }, [active, progress, setLoaderState]);
+
+  return null;
 }

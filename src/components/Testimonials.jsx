@@ -180,7 +180,7 @@ export default function Testimonials() {
             Testimonial
           </span>
 
-          <h2 className="text-4xl lg:text-6xl font-black mt-4 mb-6">
+          <h2 className="header-text text-black  my-8">
             What Our Customers Are Saying?
           </h2>
 
@@ -260,7 +260,7 @@ export default function Testimonials() {
                           transition-all duration-500 ease-out
                           ${
                             isActive
-                              ? "bg-brand border-black/10 shadow-2xl scale-105 opacity-100"
+                              ? "bg-brand border-black/10 shadow-xl scale-105 opacity-100"
                               : "bg-brand/50 border-black/5 shadow-md scale-90 opacity-50"
                           }
                         `}
@@ -314,7 +314,7 @@ export default function Testimonials() {
                     h-3 rounded-full transition-all duration-300
                     ${
                       selectedIndex === index
-                        ? "bg-orange-500 w-10"
+                        ? "bg-black w-10"
                         : "bg-gray-300 w-3 hover:bg-gray-400"
                     }
                   `}

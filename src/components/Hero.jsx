@@ -2,7 +2,6 @@ import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import SplitType from "split-type";
 import Button from "./Button";
-import Scene from "./Scene";
 
 const Hero = () => {
   const paragraphRef = useRef(null);
@@ -47,7 +46,6 @@ const Hero = () => {
       });
 
       tl = gsap.timeline({
-        delay: 2,
         defaults: { ease: "power3.out" },
       });
 
@@ -75,28 +73,28 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative w-full h-screen bg-brand ">
-    <div className="flex  items-center justify-between h-full text-white  container mx-auto">
-      <div className="h-screen w-1/2 flex flex-col pt-70  relative ">
-        <h1 className="text-6xl font-bold mb-4 ">
-          Welcome to Matin development company
-        </h1>
+    <section className="w-full min-h-screen bg-brand">
+      <div className="flex flex-col lg:flex-row relative z-30 items-center justify-start min-h-screen text-white container mx-auto px-4 py-12 lg:px-0">
+        <div className="w-full lg:w-1/2 flex flex-col justify-center gap-8 py-10 lg:py-0">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold">
+            Welcome to <span className="bg-gradient-to-r from-blue-700 to-yellow-700 bg-clip-text text-transparent">Matin #1</span> development company
+          </h1>
 
-        <p
-          ref={paragraphRef}
-          className="text-lg leading-8 text-black text-wrap"
-        >
-        The #1 IT Company that provide various services like app development, <br /> website development , custom software development at a very affordable price. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore labore eos iste repudiandae fugiat laboriosam quia, soluta repellat similique magni, alias libero voluptatum inventore.
-        </p>
+          <p
+            ref={paragraphRef}
+            className="max-w-2xl text-base sm:text-lg leading-7 sm:leading-8 text-black"
+          >
+          <span className="font-bold">The #1 IT Company</span> that provide various services like app development , website development , custom software development at a very affordable price
+          </p>
 
-        <div className="flex space-x-4 mt-20">
-          <Button className="py-5 px-8">Explore</Button>
-          <Button className="py-5 px-8" onClick={() => console.log("clicked")}>
-            Get Started
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 mt-8">
+            <Button className="py-4 px-8 w-full sm:w-auto">Explore</Button>
+            <Button className="py-4 px-8 w-full sm:w-auto" onClick={() => console.log("clicked")}>
+              Get Started
+            </Button>
+          </div>
         </div>
       </div>
-    </div>
     </section>
   );
 };

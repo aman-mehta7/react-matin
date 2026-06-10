@@ -32,6 +32,44 @@ img {
 }
 
 
+.hero-title {
+  font-size: clamp(2.5rem, 1rem + 6vw, 8rem);
+  line-height: 0.95;
+  font-weight: 900;
+  letter-spacing: -0.06em;
+}
+
+.hero-description {
+  font-size: clamp(1rem, 0.85rem + 0.7vw, 1.5rem);
+  line-height: 1.9;
+  max-width: 42rem;
+  color: #6b7280;
+}
+/* Main Heading */
+.header-text {
+  @apply text-2xl lg:text-5xl   font-bold
+}
+
+/* Paragraph */
+.paragraph-text {
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.35rem);
+  line-height: 1.8;
+  font-weight: 400;
+  max-width: 65ch;
+}
+/* Mobile */
+@media (max-width: 640px) {
+  .header-text {
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+  }
+
+  .paragraph-text {
+    line-height: 1.75;
+  }
+}
+
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

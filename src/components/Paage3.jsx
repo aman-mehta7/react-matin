@@ -135,8 +135,8 @@ const Page3 = () => {
   const smallCardsRef = useRef([]);
   const largeCardsRef = useRef([]);
 
-  smallCardsRef.current = [];
-  largeCardsRef.current = [];
+  // smallCardsRef.current = [];
+  // largeCardsRef.current = [];
 
   const smallCards = services.filter((s) => s.size === "small");
   const largeCards = services.filter((s) => s.size === "large");
@@ -203,11 +203,11 @@ const Page3 = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-brandarc py-20 text-black flex  items-end justify-end"
+      className="relative z-40 w-full bg-brandarc py-20 text-black flex  items-end justify-end backdrop-blur-xl"
     >
-      <div className="w-full px-6 md:px-10 lg:px-16">
+      <div className=" container mx-auto">
         {/* Heading */}
-        <div ref={headingRef} className="max-w-3xl mb-14 text-left">
+        <div ref={headingRef} className="w-full mb-14 ">
           <p className="font-medium mb-3 uppercase tracking-wider text-sm text-black">
             Our Services
           </p>

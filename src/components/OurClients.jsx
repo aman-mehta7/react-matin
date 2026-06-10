@@ -56,7 +56,7 @@ export default function OurClients() {
 
   return (
     <section ref={sectionRef} className="bg-brand-yellow py-28 px-6 md:px-20">
-        <div className="container mx-auto">
+        <div className=" relative z-30 container mx-auto">
       
       {/* Section Header */}
       <div ref={headingRef} className="mb-16">
