@@ -172,7 +172,7 @@ export default function Testimonials() {
 
   return (
     <section ref={sectionRef} className="py-28 bg-brand-yellow text-black overflow-visible ">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         
         {/* Heading */}
         <div ref={headingRef} className="text-center max-w-4xl mx-auto mb-16">
@@ -203,7 +203,7 @@ export default function Testimonials() {
               muted
               loop
               playsInline
-              className="w-full h-[500px] object-cover"
+              className="w-full h-[280px] sm:h-[380px] lg:h-[500px] object-cover"
             />
           </div>
 
@@ -253,8 +253,8 @@ export default function Testimonials() {
                     >
                       <div
                         className={`
-                          rounded-3xl p-8 border
-                          h-[340px]
+                          rounded-3xl p-6 sm:p-8 border
+                          h-auto min-h-[280px]
                           flex flex-col items-center justify-center
                           text-center
                           transition-all duration-500 ease-out

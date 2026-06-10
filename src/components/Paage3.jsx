@@ -60,7 +60,7 @@ const services = [
 const SmallCard = ({ service }) => (
   <div
     data-cursor="view"
-    className="service-card flex flex-col h-96 bg-brand rounded-2xl p-6 overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand/30"
+    className="service-card flex flex-col min-h-[18rem] bg-brand rounded-2xl p-6 overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand/30"
   >
     <div className="flex items-center justify-center h-44 mb-4 overflow-hidden">
       <img
@@ -203,9 +203,9 @@ const Page3 = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative z-40 w-full bg-brandarc py-20 text-black flex  items-end justify-end backdrop-blur-xl"
+      className="relative z-40 w-full bg-brandarc py-16 sm:py-20 text-black flex items-end justify-end backdrop-blur-xl px-4 sm:px-0"
     >
-      <div className=" container mx-auto">
+      <div className="container mx-auto">
         {/* Heading */}
         <div ref={headingRef} className="w-full mb-14 ">
           <p className="font-medium mb-3 uppercase tracking-wider text-sm text-black">

@@ -140,7 +140,7 @@ function MobilePortfolio() {
 
   return (
 
-    <div className="lg:hidden container mx-auto px-6 py-20">
+    <div className="lg:hidden container mx-auto px-4 sm:px-6 py-16 sm:py-20">
       {/* Heading */}
       <div className="mb-12">
         <h2 className="header-text text-black text-left mb-8">
@@ -170,7 +170,7 @@ function MobilePortfolio() {
                 data-cursor="view"
                 className="
                   drop-shadow-2xl
-                  h-[450px]
+                  h-[300px] sm:h-[400px] md:h-[450px]
                 "
               >
                 <img
@@ -216,7 +216,8 @@ function ProjectCard({ title, image }) {
       className="
         project-card
         group
-        w-[420px]
+        w-full
+        max-w-[420px]
         h-[550px]
         overflow-hidden
         rounded-3xl

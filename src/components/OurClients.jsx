@@ -55,7 +55,7 @@ export default function OurClients() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-brand-yellow py-28 px-6 md:px-20">
+    <section ref={sectionRef} className="bg-brand-yellow py-20 sm:py-28 px-4 sm:px-8 md:px-16">
         <div className=" relative z-30 container mx-auto">
       
       {/* Section Header */}

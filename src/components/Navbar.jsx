@@ -54,6 +54,8 @@ const navItems = [
 
 const Navbar = () => {
   const [visible, setVisible] = useState(true);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [expandedItem, setExpandedItem] = useState(null);
 
   const lastY = useRef(
     typeof window !== "undefined" ? window.scrollY : 0
@@ -101,6 +103,22 @@ const Navbar = () => {
       window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+  const closeMobile = () => {
+    setMobileOpen(false);
+    setExpandedItem(null);
+  };
+
+  const toggleExpanded = (title) => {
+    setExpandedItem((prev) => (prev === title ? null : title));
+  };
+
   return (
     <nav
       className={`
@@ -115,11 +133,11 @@ const Navbar = () => {
           backdrop-blur-xl
           border-b border-white/10
           shadow-lg
+         
         "
       >
-        <div className="container mx-auto">
-          <div className="h-24 flex items-center justify-between">
-            {/* Logo */}
+        <div className="container mx-auto  text-nowrap">
+          <div className="h-20 sm:h-24 flex items-center justify-between">
             <a
               href="/"
               className="flex items-center shrink-0"
@@ -127,11 +145,10 @@ const Navbar = () => {
               <img
                 src="./logo/MS logo.png"
                 alt="Matin Softech"
-                className="h-16 w-auto object-contain"
+                className="h-12 sm:h-16 w-auto object-contain"
               />
             </a>
 
-            {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-5">
               {navItems.map((item) => (
                 <div
@@ -171,7 +188,6 @@ const Navbar = () => {
                     )}
                   </button>
 
-                  {/* Underline */}
                   <span
                     className="
                       absolute
@@ -186,7 +202,6 @@ const Navbar = () => {
                     "
                   />
 
-                  {/* Dropdown */}
                   {item.dropdown.length > 0 && (
                     <div
                       className="
@@ -246,9 +261,8 @@ const Navbar = () => {
               ))}
             </div>
 
-            {/* CTA Buttons */}
             <div className="hidden lg:flex items-center gap-4">
-              <Button  className="text-sm p-3 px-5 border">
+              <Button className="text-sm p-3 px-5 border">
                 Start Journey
               </Button>
 
@@ -257,28 +271,158 @@ const Navbar = () => {
               </Button>
             </div>
 
-            {/* Mobile Menu Button */}
             <button
+              type="button"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileOpen}
+              onClick={() => setMobileOpen((prev) => !prev)}
               className="
                 lg:hidden
-                text-white
+                text-black
                 p-2
+                min-w-[44px]
+                min-h-[44px]
+                flex items-center justify-center
               "
             >
-              <svg
-                className="w-7 h-7"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
+              {mobileOpen ? (
+                <svg
+                  className="w-7 h-7"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  className="w-7 h-7"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              )}
             </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile drawer */}
+      <div
+        className={`
+          lg:hidden fixed inset-0 top-20 sm:top-24 z-40
+          transition-opacity duration-300
+          ${mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
+        `}
+      >
+        <button
+          type="button"
+          aria-label="Close menu overlay"
+          className="absolute inset-0 bg-black/50"
+          onClick={closeMobile}
+        />
+
+        <div
+          className={`
+            absolute top-0 right-0 h-full w-full max-w-sm
+            bg-brand backdrop-blur-xl
+            border-l border-white/10
+            shadow-2xl
+            flex flex-col
+            transition-transform duration-300 ease-out
+            ${mobileOpen ? "translate-x-0" : "translate-x-full"}
+          `}
+        >
+          <div className="flex-1 overflow-y-auto px-6 py-6">
+            <nav className="space-y-1">
+              {navItems.map((item) => (
+                <div key={item.title} className="border-b border-white/10">
+                  {item.dropdown.length > 0 ? (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => toggleExpanded(item.title)}
+                        className="
+                          w-full flex items-center justify-between
+                          py-4 text-left text-white font-semibold text-base
+                          min-h-[44px]
+                        "
+                      >
+                        {item.title}
+                        <svg
+                          className={`
+                            w-5 h-5 transition-transform duration-200
+                            ${expandedItem === item.title ? "rotate-180" : ""}
+                          `}
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                        >
+                          <path
+                            d="M6 9L12 15L18 9"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </button>
+
+                      {expandedItem === item.title && (
+                        <div className="pb-3 pl-4 space-y-1">
+                          {item.dropdown.map((sub) => (
+                            <a
+                              key={sub}
+                              href="#"
+                              onClick={closeMobile}
+                              className="
+                                block py-2.5 text-sm text-white/70
+                                hover:text-brand-yellow transition-colors
+                                min-h-[44px] flex items-center
+                              "
+                            >
+                              {sub}
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <a
+                      href="#"
+                      onClick={closeMobile}
+                      className="
+                        block py-4 text-white font-semibold text-base
+                        hover:text-brand-yellow transition-colors
+                        min-h-[44px]
+                      "
+                    >
+                      {item.title}
+                    </a>
+                  )}
+                </div>
+              ))}
+            </nav>
+          </div>
+
+          <div className="p-6 border-t border-white/10 space-y-3">
+            <Button className="w-full text-sm p-3 px-5 border justify-center">
+              Start Journey
+            </Button>
+            <Button className="w-full text-sm p-3 px-5 border justify-center">
+              Client Login
+            </Button>
           </div>
         </div>
       </div>

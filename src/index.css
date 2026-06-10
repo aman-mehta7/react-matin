@@ -17,7 +17,12 @@
   -moz-user-select: none;      /* Firefox */
   -ms-user-select: none;       /* Internet Explorer/Edge */
   user-select: none;           /* Standard */
-  cursor: none;              /* Hide the default cursor */
+}
+
+@media (pointer: fine) {
+  * {
+    cursor: none;
+  }
 }
 
 img {
@@ -32,22 +37,10 @@ img {
 }
 
 
-.hero-title {
-  font-size: clamp(2.5rem, 1rem + 6vw, 8rem);
-  line-height: 0.95;
-  font-weight: 900;
-  letter-spacing: -0.06em;
-}
 
-.hero-description {
-  font-size: clamp(1rem, 0.85rem + 0.7vw, 1.5rem);
-  line-height: 1.9;
-  max-width: 42rem;
-  color: #6b7280;
-}
 /* Main Heading */
 .header-text {
-  @apply text-2xl lg:text-5xl   font-bold
+  @apply text-4xl md:text-5xl font-bold
 }
 
 /* Paragraph */
@@ -110,6 +103,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
 }
 
 
@@ -129,12 +123,36 @@ html, body {
 }
 
 main {
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: none;
+}
+
+@media (min-width: 1024px) {
+  main {
+    scroll-snap-type: y mandatory;
+  }
 }
 
 section {
   scroll-snap-align: start;
-  min-height: 100vh;
+  min-height: auto;
+}
+
+@media (min-width: 1024px) {
+  section {
+    min-height: 100vh;
+  }
+}
+
+.container {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
 }
 
 /* Hide native scrollbar for Chrome, Safari and Opera */
@@ -149,9 +167,11 @@ section {
 }
 
 
-/* Hide the default browser cursor */
-body, a, button, [role="button"] {
-  cursor: none !important;
+/* Hide the default browser cursor on pointer devices only */
+@media (pointer: fine) {
+  body, a, button, [role="button"] {
+    cursor: none !important;
+  }
 }
 
 /* Ensure the custom cursor doesn't interfere with clicks */

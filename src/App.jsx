@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Lenis from "@studio-freight/lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -38,7 +38,12 @@ const sections = [
 ];
 
 const App = () => {
-  const mouse = useRef({ x: 0, y: 0 }); // ✅ Global mouse ref
+  const mouse = useRef({ x: 0, y: 0 });
+  const [isPointerDevice, setIsPointerDevice] = useState(false);
+
+  useEffect(() => {
+    setIsPointerDevice(window.matchMedia("(pointer: fine)").matches);
+  }, []);
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -84,12 +89,11 @@ const App = () => {
 
   return (
     <>
-      <CustomCursor />
+      {isPointerDevice && <CustomCursor />}
       <ScrollBar />
       <Navbar />
 
-      {/* ✅ 3D Scene (unchanged except mouse prop added) */}
-      <div className="fixed inset-0 z-30">
+      <div className="fixed inset-0 z-30 hidden lg:block pointer-events-none">
         <Scene mouse={mouse} />
       </div>
 

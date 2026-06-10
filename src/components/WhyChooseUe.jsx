@@ -142,7 +142,7 @@ export default function WhyChooseUs() {
     <main ref={mainRef} className="relative min-h-screen  bg-brand overflow-hidden flex items-center">
         <div className="absolute z-20 -top-1 left-0 w-full h-20 pointer-events-none cloud" />
       {/* 3D CANVAS LAYER (Background/Right) */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      <div className="absolute inset-0 z-0 pointer-events-none hidden lg:block">
         <Canvas shadows={false}>
           <ambientLight intensity={1.5} />
           <Environment preset="city" />
@@ -152,7 +152,7 @@ export default function WhyChooseUs() {
       </div>
 
       {/* HTML CONTENT LAYER (Foreground/Left) */}
-      <div className="container mx-auto px-8 md:px-24 z-10 grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="container mx-auto px-4 sm:px-8 md:px-16 z-10 grid grid-cols-1 lg:grid-cols-2 gap-12">
         <div className="max-w-xl">
           {/* Header Section */}
           <header ref={headerRef} className="mb-12">

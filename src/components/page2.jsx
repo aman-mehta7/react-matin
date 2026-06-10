@@ -149,22 +149,22 @@ const Page2 = () => {
   return (
     <section
       ref={sectionRef}
-      className="flex w-full h-screen flex-col items-end justify-center bg-brand  "
+      className="flex w-full min-h-screen flex-col items-start lg:items-end justify-center bg-brand px-4 sm:px-8 py-24 lg:py-0"
     >
-      <div className="container mx-auto flex flex-col items-left lg:items-end justify-end ">
+      <div className="container mx-auto flex flex-col items-start lg:items-end justify-center">
 
-      <div className="lg:max-w-4xl pl-6 lg:p-0  overflow-hidden text-wrap">
+      <div className="w-full lg:max-w-4xl overflow-hidden text-wrap">
         <h1
           ref={headingRef}
-          className=" header-text font-bold uppercase  text-white text-left lg:text-center"
+          className="header-text font-bold uppercase text-white text-left lg:text-center"
           >
           WE BELIEVE IN TRUST AND PASSION ON QUALITY.
         </h1>
       </div>
-<div className="mt-8 max-w-4xl text-wrap">
+<div className="mt-8 w-full max-w-4xl text-wrap">
   <p
     ref={paragraphRef}
-    className="c pl-6 text-left md:text-lg  text-black space-y-2"
+    className="text-left md:text-lg text-black space-y-2"
   >
 
       We are an IT company specializing in web development, application

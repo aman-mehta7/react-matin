@@ -78,8 +78,8 @@ export default function LatestBlog() {
   }, [emblaApi, onSelect]);
 
   return (
-    <section className="relative z-30 bg-brand py-28 overflow-visible backdrop-blur-2xl">
-      <div className="container mx-auto">
+    <section className="relative z-30 bg-brand py-20 sm:py-28 overflow-visible backdrop-blur-2xl">
+      <div className="container mx-auto px-4 md:px-0">
         <div className="mb-14">
           <h2 className="text-4xl font-bold text-gray-900">
             Latest Blog
@@ -102,7 +102,7 @@ export default function LatestBlog() {
                     className={`
                       group
                       relative
-                      h-[420px]
+                      h-auto min-h-[380px]
                       rounded-3xl
                       bg-brand-yellow
                       shadow-lg
@@ -124,7 +124,7 @@ export default function LatestBlog() {
                     </div>
 
                     {/* Content */}
-                    <div className="p-6 flex flex-col justify-between h-[calc(100%-224px)]">
+                    <div className="p-6 flex flex-col justify-between flex-1">
                       <div>
                         <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
                           <span className="flex items-center gap-1">

@@ -80,9 +80,9 @@ export default function HowWeWork() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-brand py-28 overflow-hidden"
+      className="relative bg-brand py-20 sm:py-28 overflow-hidden px-4 sm:px-0"
     >
-      <div className="relative z-40 container mx-auto ">
+      <div className="relative z-40 container mx-auto">
 
       {/* Title */}
       <div className="text-center max-w-3xl mx-auto mb-20">
@@ -97,7 +97,7 @@ export default function HowWeWork() {
       </div>
 
       {/* Steps Container */}
-      <div className="relative flex flex-col md:flex-row justify-between items-center gap-16 md:gap-8 max-w-7xl mx-auto">
+      <div className="relative flex flex-col md:flex-row justify-between items-center gap-10 md:gap-8 max-w-7xl mx-auto">
 
         {/* ✅ Curved SVG Connector Line */}
         <svg
@@ -147,7 +147,7 @@ export default function HowWeWork() {
 function Step({ Icon, title, desc }) {
   return (
     <div data-cursor="view" className="step-card relative flex flex-col items-center text-center max-w-xs group">
-      <div className="w-28 h-28 bg-blue-600 rounded-full flex items-center justify-center border-4 border-orange-400 shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl">
+      <div className="w-20 h-20 md:w-28 md:h-28 bg-blue-600 rounded-full flex items-center justify-center border-4 border-orange-400 shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl">
         <Icon className="w-10 h-10 text-white transition-transform duration-300 group-hover:rotate-6" />
       </div>
 
