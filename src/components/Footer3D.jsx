@@ -1,7 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import { Environment, Center, Float } from "@react-three/drei";
 import { useRef, useEffect } from "react";
-import { Model } from "../model/model";
+// import { Model } from "../model/model";
 import gsap from "gsap";
 
 function Scene() {

@@ -1,12 +1,12 @@
-import { useEffect, useRef, Suspense, lazy, useState } from "react";
+import { useEffect, useRef, Suspense, lazy, } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Center, PerspectiveCamera, Environment, useProgress, Float } from "@react-three/drei";
+import { Center, PerspectiveCamera, Environment,Float } from "@react-three/drei";
 import * as THREE from "three";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import Bulb from "../model/Bulb";
 import Cup from "../model/cup";
-import Donut from "../model/donut";
+const Donut = lazy(() => import("../model/donut"));
 // import SoftechLoader from "./Loader";
 
 const Model = lazy(() =>
