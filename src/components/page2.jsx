@@ -151,7 +151,7 @@ const Page2 = () => {
       ref={sectionRef}
       className="flex w-full min-h-screen flex-col items-start lg:items-end justify-center bg-brand px-4 sm:px-8 py-24 lg:py-0"
     >
-      <div className="container mx-auto flex flex-col items-start lg:items-end justify-center">
+      <div className=" relative z-30 container mx-auto flex flex-col items-start lg:items-end justify-center">
 
       <div className="w-full lg:max-w-4xl overflow-hidden text-wrap">
         <h1

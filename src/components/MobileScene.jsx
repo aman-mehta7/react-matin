@@ -4,9 +4,9 @@ import { Center, PerspectiveCamera, Environment, useProgress, Float } from "@rea
 import * as THREE from "three";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import Bulb from "../model/Bulb";
-import Cup from "../model/cup";
-import Donut from "../model/donut";
+// import Bulb from "../model/Bulb";
+// import Cup from "../model/cup";
+// import Donut from "../model/donut";
 // import SoftechLoader from "./Loader";
 
 const Model = lazy(() =>
@@ -18,16 +18,16 @@ const Model = lazy(() =>
 ================================ */
 
 const MODEL_STATES = [
-  { id: "hero", x: 2, y: 0, z: 0, rotX: 0, rotY: 0, rotZ: 0, scale: 1 },
-  { id: "page2", x: -2.5, y: 0, z: 0, rotX: 0, rotY: 2, rotZ: 0.3, scale: 1 },
-  { id: "page3", x: 1, y: 0, z: 0, rotX: 0, rotY: 2, rotZ: -0.9, scale: 1 },
-  { id: "choose-us", x: 2, y: 0, z: 0, rotX: 0, rotY: -1, rotZ: 0.2, scale: 1.2 },
+  { id: "hero", x: 0, y: -2, z: 0, rotX: 0, rotY: 0, rotZ: 0, scale: 0.6 },
+  { id: "page2", x: -.5, y: 0, z: 0, rotX: 0, rotY: 2, rotZ: 0.3, scale: 1 },
+  { id: "page3", x: 0, y: 0, z: 0, rotX: 0, rotY: 2, rotZ: -0.9, scale: 1 },
+  { id: "choose-us", x: .5, y: 0, z: 0, rotX: 0, rotY: -1, rotZ: 0.2, scale: 0.5 },
   { id: "how-work", x: 0, y: 0, z: 0, rotX: 0, rotY: -1, rotZ: -0.3, scale: 0.7 },
-  { id: "portfolio", x: -2.5, y: -0.8, z: 0, rotX: 0, rotY: 3, rotZ: -0.6, scale: 0.5 },
-  { id: "testimonals", x: -2.5, y: -0.8, z: 0, rotX: 0, rotY: 8, rotZ: -.6, scale: 0.9 },
-  { id: "LatestBlog", x: 0, y: 0, z: -6, rotX: 0, rotY: 0, rotZ: -0.6, scale: 0 },
-  // { id: "OurOffice", x: 2, y: 8, z: 0, rotX: 0, rotY: 0, rotZ: 0, scale: 0.9 },
-  // { id: "OurClients", x: -8, y: 10, z: 0, rotX: 0, rotY: 2, rotZ: 0, scale: 1 },
+  { id: "portfolio", x: -.5, y: -0.8, z: 0, rotX: 0, rotY: 3, rotZ: -0.6, scale: 0.5 },
+  { id: "testimonals", x: -4, y: 0.8, z: 0, rotX: 0, rotY: 8, rotZ: -.6, scale: 0.9 },
+  { id: "LatestBlog",  x: -4, y: 0.8, z: 0, rotX: 0, rotY: 8, rotZ: -.6, scale: 0.9  },
+  // { id: "OurOffice",x: -4, y: 0.8, z: 0, rotX: 0, rotY: 8, rotZ: -.6, scale: 0.9 },
+  // { id: "OurClients", x: 4, y: 0, z: 0, rotX: 0, rotY: 5, rotZ: -0.3, scale: 0.7 },
   // { id: "SuscribeSection", x: -2.5, y: -0.6, z: 0, rotX: 0, rotY: 8, rotZ: 0, scale: 0.5 },
   // { id: "Footer", x: -2.5, y: -2.5, z: 0, rotX: 0, rotY: 8, rotZ: 0, scale: 0.5 },
 ];
@@ -133,10 +133,10 @@ function SceneContent({ mouse }) {
   const target = useRef({ ...MODEL_STATES[0] });
   const subTarget = useRef({
     radius: 2,
-    offsetX: .7,
+    offsetX: .5,
     offsetY: 0,
     offsetZ: 0,
-    scale: 0.9,
+    scale: 1,
   });
 
   const smoothMouse = useRef({ x: 0, y: 0 });
@@ -343,7 +343,7 @@ useFrame((state, delta) => {
         </Center>
         </Float>
       </group>
-
+{/* 
   <group ref={subGroupRef}>
   <group scale={0.5}>
     <Cup />
@@ -356,7 +356,7 @@ useFrame((state, delta) => {
   <group scale={0.4}>
     <Donut />
   </group>
-</group>
+</group> */}
     </>
   );
 }

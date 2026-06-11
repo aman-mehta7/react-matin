@@ -129,6 +129,9 @@ const Button = ({ children, onClick, className = "" }) => {
         perspective: "1000px",
       }}
       className={`
+        flex
+        items-center
+        justify-center
         group
         relative
         overflow-hidden

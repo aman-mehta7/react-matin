@@ -6,7 +6,7 @@ import Button from "./Button";
 
 export default function Footer() {
   return (
-    <footer className="relative bg-brand border-t border-black overflow-hidden text-white py-5">
+    <footer className="relative z-30 bg-brand border-t border-black overflow-hidden text-white py-5">
       <div className=" container mx-auto">
 
       {/* ✅ Animated Dot Background */}
@@ -14,7 +14,7 @@ export default function Footer() {
         <div className="wave-bg"></div>
       </div>
 
-      <div className="relative z-30 container mx-auto px-4 sm:px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         <div className="pt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
 
           {/* Column 1 */}

@@ -171,8 +171,8 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-28 bg-brand-yellow text-black overflow-visible ">
-      <div className="container mx-auto px-4 sm:px-6">
+    <section ref={sectionRef} className="relative z-30 py-28 bg-brand-yellow text-black overflow-visible backdrop-blur-2xl">
+      <div className="  container mx-auto px-4 sm:px-6">
         
         {/* Heading */}
         <div ref={headingRef} className="text-center max-w-4xl mx-auto mb-16">

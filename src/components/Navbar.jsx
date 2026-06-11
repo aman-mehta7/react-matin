@@ -195,7 +195,7 @@ const Navbar = () => {
                       -bottom-2
                       h-[2px]
                       w-0
-                      bg-brand-yellow
+                      bg-black
                       transition-all
                       duration-300
                       group-hover:w-full
@@ -262,11 +262,11 @@ const Navbar = () => {
             </div>
 
             <div className="hidden lg:flex items-center gap-4">
-              <Button className="text-sm p-3 px-5 border">
+              <Button className="text-sm p-3 px-5 ">
                 Start Journey
               </Button>
 
-              <Button className="text-sm p-3 px-5 border">
+              <Button className="text-sm p-3 px-5">
                 Client Login
               </Button>
             </div>
@@ -319,113 +319,155 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile drawer */}
-      <div
-        className={`
-          lg:hidden fixed inset-0 top-20 sm:top-24 z-40
-          transition-opacity duration-300
-          ${mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
-        `}
-      >
-        <button
-          type="button"
-          aria-label="Close menu overlay"
-          className="absolute inset-0 bg-black/50"
-          onClick={closeMobile}
-        />
+{/* Mobile Menu */}
+<div
+  className={`
+    xl:hidden fixed inset-0 z-40
+    transition-opacity duration-300
+    ${mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
+  `}
+>
+  {/* Overlay */}
+  <div
+    className="absolute inset-0"
+    onClick={closeMobile}
+  />
 
-        <div
-          className={`
-            absolute top-0 right-0 h-full w-full max-w-sm
-            bg-brand backdrop-blur-xl
-            border-l border-white/10
-            shadow-2xl
-            flex flex-col
-            transition-transform duration-300 ease-out
-            ${mobileOpen ? "translate-x-0" : "translate-x-full"}
-          `}
-        >
-          <div className="flex-1 overflow-y-auto px-6 py-6">
-            <nav className="space-y-1">
-              {navItems.map((item) => (
-                <div key={item.title} className="border-b border-white/10">
-                  {item.dropdown.length > 0 ? (
-                    <>
-                      <button
-                        type="button"
-                        onClick={() => toggleExpanded(item.title)}
-                        className="
-                          w-full flex items-center justify-between
-                          py-4 text-left text-white font-semibold text-base
-                          min-h-[44px]
-                        "
-                      >
-                        {item.title}
-                        <svg
-                          className={`
-                            w-5 h-5 transition-transform duration-200
-                            ${expandedItem === item.title ? "rotate-180" : ""}
-                          `}
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                        >
-                          <path
-                            d="M6 9L12 15L18 9"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </button>
+  {/* Drawer */}
+  <aside
+    className={`
+      absolute top-20 sm:top-24 right-0
+      h-[calc(100dvh-5rem)]
+      sm:h-[calc(100dvh-6rem)]
+      w-full
+      bg-black
+      border-l border-white/10
+      shadow-2xl
+      flex flex-col
+      transition-transform duration-300 ease-out
+      ${mobileOpen ? "translate-x-0" : "translate-x-full"}
+    `}
+  >
+    {/* Navigation */}
+    <div className="flex-1 overflow-y-auto px-6 py-6">
+      <nav className="space-y-2">
+        {navItems.map((item) => {
+          const isOpen = expandedItem === item.title;
 
-                      {expandedItem === item.title && (
-                        <div className="pb-3 pl-4 space-y-1">
-                          {item.dropdown.map((sub) => (
-                            <a
-                              key={sub}
-                              href="#"
-                              onClick={closeMobile}
-                              className="
-                                block py-2.5 text-sm text-white/70
-                                hover:text-brand-yellow transition-colors
-                                min-h-[44px] flex items-center
-                              "
-                            >
-                              {sub}
-                            </a>
-                          ))}
-                        </div>
-                      )}
-                    </>
-                  ) : (
-                    <a
-                      href="#"
-                      onClick={closeMobile}
-                      className="
-                        block py-4 text-white font-semibold text-base
-                        hover:text-brand-yellow transition-colors
-                        min-h-[44px]
-                      "
+          return (
+            <div
+              key={item.title}
+              className="border-b border-white/10"
+            >
+              {item.dropdown?.length > 0 ? (
+                <>
+                  {/* Main Button */}
+                  <button
+                    type="button"
+                    onClick={() => toggleExpanded(item.title)}
+                    className="
+                      w-full flex items-center justify-between
+                      py-4
+                      text-left
+                      text-white
+                      font-semibold
+                      text-base
+                      transition-all duration-200
+                      active:scale-[0.98]
+                    "
+                  >
+                    <span>{item.title}</span>
+
+                    <svg
+                      className={`
+                        w-5 h-5 transition-transform duration-300
+                        ${isOpen ? "rotate-180 text-yellow-400" : ""}
+                      `}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
                     >
-                      {item.title}
-                    </a>
-                  )}
-                </div>
-              ))}
-            </nav>
-          </div>
+                      <path
+                        d="M6 9L12 15L18 9"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
 
-          <div className="p-6 border-t border-white/10 space-y-3">
-            <Button className="w-full text-sm p-3 px-5 border justify-center">
-              Start Journey
-            </Button>
-            <Button className="w-full text-sm p-3 px-5 border justify-center">
-              Client Login
-            </Button>
-          </div>
-        </div>
-      </div>
+                  {/* Animated Dropdown */}
+                  <div
+                    className={`
+                      grid transition-all duration-300 ease-in-out
+                      ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}
+                    `}
+                  >
+                    <div className="overflow-hidden">
+                      <div className="pl-4 pb-3 space-y-2 pt-2">
+                        {item.dropdown.map((sub, index) => (
+                          <a
+                            key={sub}
+                            href="#"
+                            onClick={closeMobile}
+                            className="
+                              block py-2.5 px-4
+                              text-sm
+                              rounded-md
+                              border border-white/10
+                              bg-black
+                              text-white
+                              transition-all duration-300
+                              hover:border-yellow-400
+                              hover:text-yellow-400
+                              active:scale-[0.97]
+                            "
+                            style={{
+                              transitionDelay: isOpen ? `${index * 40}ms` : "0ms",
+                              transform: isOpen ? "translateY(0)" : "translateY(-6px)",
+                            }}
+                          >
+                            {sub}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <a
+                  href="#"
+                  onClick={closeMobile}
+                  className="
+                    block py-4
+                    text-white
+                    font-semibold
+                    text-base
+                    hover:text-yellow-400
+                    transition-colors duration-300
+                  "
+                >
+                  {item.title}
+                </a>
+              )}
+            </div>
+          );
+        })}
+      </nav>
+    <div className="p-6 border-t border-white/10 space-y-3">
+      <Button className="w-full p-2 py-3 justify-center border border-white text-white hover:bg-white hover:text-black transition-all duration-300">
+        Start Journey
+      </Button>
+
+      <Button className="w-full p-2 py-3 justify-center border border-white text-white hover:bg-white hover:text-black transition-all duration-300">
+        Client Login
+      </Button>
+    </div>
+    </div>
+
+    {/* Footer Buttons */}
+  </aside>
+</div>
     </nav>
   );
 };

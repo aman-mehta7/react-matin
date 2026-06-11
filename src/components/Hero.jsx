@@ -73,8 +73,8 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="w-full min-h-screen bg-brand">
-      <div className="flex flex-col lg:flex-row relative z-30 items-center justify-start min-h-screen text-white container mx-auto px-4 py-12 lg:px-0">
+    <section className="w-full min-h-screen bg-brand pt-10 lg:pt-0">
+      <div className="flex flex-col lg:flex-row relative z-30 items-center justify-start h-screen text-white container mx-auto py-12 ">
         <div className="w-full lg:w-1/2 flex flex-col justify-center gap-8 py-10 lg:py-0">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold">
             Welcome to{" "}

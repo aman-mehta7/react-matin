@@ -78,17 +78,17 @@ export default function PortfolioShowcase() {
       {/* DESKTOP */}
       <div
         ref={containerRef}
-        className="hidden lg:flex relative container mx-auto"
+        className="hidden lg:flex relative container mx-auto "
       >
         {/* LEFT CONTENT */}
-        <div className="w-1/2 h-screen flex items-center">
+        <div className="w-1/2 h-screen flex items-start pt-40">
           <div ref={leftContentRef} className="max-w-xl">
             <h2 className="header-text text-black text-left mb-8">
               We Are the Best Software Company{" "}
               <span className="text-blue-600">Manage.</span>
             </h2>
 
-            <p className="text-lg text-gray-600 leading-relaxed mb-10">
+            <p className="text-lg text-black leading-relaxed mb-10">
               Our clients value us for our deep industry expertise,
               experience and robust research capabilities, and for
               aggressively driving innovation with thought leadership
@@ -140,7 +140,7 @@ function MobilePortfolio() {
 
   return (
 
-    <div className="lg:hidden container mx-auto px-4 sm:px-6 py-16 sm:py-20">
+    <div className="lg:hidden container mx-auto px-4 sm:px-6 py-16 sm:py-20 ">
       {/* Heading */}
       <div className="mb-12">
         <h2 className="header-text text-black text-left mb-8">
@@ -148,7 +148,7 @@ function MobilePortfolio() {
           <span className="text-blue-600">Manage.</span>
         </h2>
 
-        <p className="mt-6 text-gray-600 leading-relaxed">
+        <p className="mt-6 text-black leading-relaxed">
           Our clients value us for our deep industry expertise,
           experience and robust research capabilities.
         </p>

@@ -60,8 +60,8 @@ export default function OurOffice() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-brand-yellow py-20 sm:py-28 px-4 sm:px-8 md:px-16">
-        <div className=" relative z-30 container mx-auto">
+    <section ref={sectionRef} className="relative z-30 bg-brand-yellow py-20 sm:py-28 px-4 sm:px-8 md:px-16">
+        <div className="  container mx-auto">
       
       {/* Section Header */}
       <div ref={headingRef} className="mb-20">

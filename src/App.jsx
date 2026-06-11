@@ -1,3 +1,127 @@
+// import { useEffect, useRef, useState } from "react";
+// import Lenis from "@studio-freight/lenis";
+// import { gsap } from "gsap";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// import Navbar from "./components/Navbar";
+// import Hero from "./components/Hero";
+// import Page2 from "./components/page2";
+// import Paage3 from "./components/Paage3";
+// import WhyChooseUs from "./components/WhyChooseUe";
+// import HowWeWork from "./components/HowWeWork";
+// import PortfolioShowcase from "./components/PortfolioShowcase";
+// import Testimonials from "./components/Testimonials";
+// import LatestBlogs from "./components/LatestBlog";
+// import OurOffice from "./components/OurOffice";
+// import Scene from "./components/Scene";
+// import OurClients from './components/OurClients';
+// import SubscribeSection from './components/SubscribeSection';
+// import CustomCursor from "./components/CustomCursor";
+// import ScrollBar from "./components/ScrollBar";
+// import Footer from './components/Footer';
+// import SoftechLoader from "./components/Loader"; // Import Loader
+
+// gsap.registerPlugin(ScrollTrigger);
+
+// const sections = [
+//   { id: "hero", Component: Hero },
+//   { id: "page2", Component: Page2 },
+//   { id: "page3", Component: Paage3 },
+//   { id: "choose-us", Component: WhyChooseUs },
+//   { id: "how-work", Component: HowWeWork },
+//   { id: "portfolio", Component: PortfolioShowcase },
+//   { id: "testimonials", Component: Testimonials },
+//   { id: "LatestBlog", Component: LatestBlogs },
+//   { id: "OurOffice", Component: OurOffice },
+//   { id: "OurClients", Component: OurClients },
+// ];
+
+// const App = () => {
+//   const mouse = useRef({ x: 0, y: 0 });
+//   const [isPointerDevice, setIsPointerDevice] = useState(false);
+  
+//   // Loader States
+//   const [loading, setLoading] = useState(true);
+//   const [progress, setProgress] = useState(0);
+
+//   useEffect(() => {
+//     setIsPointerDevice(window.matchMedia("(pointer: fine)").matches);
+    
+//     // Simulate Loading Progress
+//     let interval = setInterval(() => {
+//       setProgress(prev => {
+//         if (prev >= 100) {
+//           clearInterval(interval);
+//           setTimeout(() => setLoading(false), 500);
+//           return 100;
+//         }
+//         return prev + Math.random() * 10;
+//       });
+//     }, 200);
+//   }, []);
+
+//   useEffect(() => {
+//     const lenis = new Lenis({
+//       lerp: 0.12,
+//       smoothWheel: true,
+//       smoothTouch: false,
+//     });
+
+//     if (loading) lenis.stop(); // Stop Lenis while loading
+//     else lenis.start();
+
+//     const raf = (time) => {
+//       lenis.raf(time);
+//       requestAnimationFrame(raf);
+//     };
+//     const rafId = requestAnimationFrame(raf);
+//     lenis.on("scroll", ScrollTrigger.update);
+
+//     return () => {
+//       cancelAnimationFrame(rafId);
+//       lenis.destroy();
+//     };
+//   }, [loading]);
+
+//   useEffect(() => {
+//     const handleMouseMove = (e) => {
+//       mouse.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+//       mouse.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
+//     };
+//     window.addEventListener("mousemove", handleMouseMove);
+//     return () => window.removeEventListener("mousemove", handleMouseMove);
+//   }, []);
+
+//   return (
+//     <>
+//       <SoftechLoader progress={progress} active={loading} />
+//       {isPointerDevice && !loading && <CustomCursor />}
+//     <CustomCursor />
+//       <ScrollBar />
+//       <Navbar />
+
+//       <div className="fixed inset-0 z-30 hidden lg:block pointer-events-none">
+//         <Scene mouse={mouse} />
+//       </div>
+
+//       <main>
+//         {sections.map(({ id, Component }) => (
+//           <section key={id} id={id} className="scroll-section  min-h-screen overflow-hidden">
+//             <Component />
+//           </section>
+//         ))}
+//         <SubscribeSection />
+//         <Footer />
+//       </main>
+//     </>
+//   );
+// };
+
+// export default App;
+
+
+
+
 import { useEffect, useRef, useState } from "react";
 import Lenis from "@studio-freight/lenis";
 import { gsap } from "gsap";
@@ -13,12 +137,14 @@ import PortfolioShowcase from "./components/PortfolioShowcase";
 import Testimonials from "./components/Testimonials";
 import LatestBlogs from "./components/LatestBlog";
 import OurOffice from "./components/OurOffice";
+import MobileScene from "./components/MobileScene";
 import Scene from "./components/Scene";
 import OurClients from './components/OurClients';
 import SubscribeSection from './components/SubscribeSection';
 import CustomCursor from "./components/CustomCursor";
 import ScrollBar from "./components/ScrollBar";
 import Footer from './components/Footer';
+import SoftechLoader from "./components/Loader"; // Import Loader
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -33,78 +159,110 @@ const sections = [
   { id: "LatestBlog", Component: LatestBlogs },
   { id: "OurOffice", Component: OurOffice },
   { id: "OurClients", Component: OurClients },
-  // { id: "SubscribeSection", Component: SubscribeSection },
-  // { id: "Footer", Component: Footer },
 ];
 
 const App = () => {
   const mouse = useRef({ x: 0, y: 0 });
   const [isPointerDevice, setIsPointerDevice] = useState(false);
 
+  const [loading, setLoading] = useState(true);
+  const [progress, setProgress] = useState(0);
+
+  /* =========================
+     POINTER CHECK
+  ========================== */
   useEffect(() => {
     setIsPointerDevice(window.matchMedia("(pointer: fine)").matches);
   }, []);
 
+  /* =========================
+     FAKE LOADER
+  ========================== */
+  useEffect(() => {
+    let interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setTimeout(() => setLoading(false), 400);
+          return 100;
+        }
+        return prev + Math.random() * 10;
+      });
+    }, 180);
+  }, []);
+
+  /* =========================
+     LENIS (ALWAYS ACTIVE)
+  ========================== */
   useEffect(() => {
     const lenis = new Lenis({
-      lerp: 0.12,
+      lerp: 0.1,
       smoothWheel: true,
       smoothTouch: false,
     });
 
-    let rafId;
-
     const raf = (time) => {
       lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
+      requestAnimationFrame(raf);
     };
 
-    rafId = requestAnimationFrame(raf);
-
+    requestAnimationFrame(raf);
     lenis.on("scroll", ScrollTrigger.update);
 
-    requestAnimationFrame(() => {
-      ScrollTrigger.refresh();
-    });
-
-    return () => {
-      cancelAnimationFrame(rafId);
-      lenis.off?.("scroll", ScrollTrigger.update);
-      lenis.destroy();
-    };
+    return () => lenis.destroy();
   }, []);
 
+  /* =========================
+     REFRESH SCROLLTRIGGER AFTER LOAD
+  ========================== */
   useEffect(() => {
-  const handleMouseMove = (e) => {
-    mouse.current.x = (e.clientX / window.innerWidth) * 2 - 1;
-    mouse.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
-  };
+    if (!loading) {
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 200);
+    }
+  }, [loading]);
 
-  window.addEventListener("mousemove", handleMouseMove);
-
-  return () => {
-    window.removeEventListener("mousemove", handleMouseMove);
-  };
-}, []);
+  /* =========================
+     MOUSE
+  ========================== */
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      mouse.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   return (
     <>
+      <SoftechLoader progress={progress} active={loading} />
+
       {isPointerDevice && <CustomCursor />}
       <ScrollBar />
       <Navbar />
 
+      {/* ✅ Scene always mounted (smooth desktop) */}
       <div className="fixed inset-0 z-30 hidden lg:block pointer-events-none">
         <Scene mouse={mouse} />
       </div>
 
-      {/* ✅ Mouse tracking moved to MAIN (global & reliable) */}
+      <div className="fixed inset-0 z-30 block lg:hidden pointer-events-none">
+        <MobileScene />
+      </div>
+
+      {/* ✅ Fade content instead of delaying mount */}
       <main
+        className={`transition-opacity duration-500 ${
+          loading ? "opacity-0" : "opacity-100"
+        }`}
       >
         {sections.map(({ id, Component }) => (
           <section
             key={id}
             id={id}
-            className="scroll-section min-h-screen"
+            className="scroll-section min-h-screen overflow-hidden"
           >
             <Component />
           </section>
@@ -112,9 +270,8 @@ const App = () => {
         <SubscribeSection />
         <Footer />
       </main>
-
     </>
   );
-};
+};  
 
 export default App;

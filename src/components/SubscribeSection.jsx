@@ -62,7 +62,7 @@ export default function SubscribeSection() {
   return (
     <div
      ref={sectionRef} className="bg-brand-yellow pb-16 sm:pb-24 px-4 sm:px-8 md:px-16">
-      <div className="grid md:grid-cols-2 items-center gap-12 container mx-auto">
+      <div className=" relative z-30 grid md:grid-cols-2 items-center gap-12 container mx-auto">
 
         {/* Left Content */}
         <div ref={contentRef}>
