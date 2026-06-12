@@ -153,12 +153,12 @@ const Page2 = () => {
     >
       <div className=" relative z-30 container mx-auto flex flex-col items-start lg:items-end justify-center">
 
-      <div className="w-full lg:max-w-4xl overflow-hidden text-wrap">
+      <div className="w-full lg:max-w-4xl overflow-hidden">
         <h1
           ref={headingRef}
-          className="header-text font-bold uppercase text-white text-left lg:text-center"
+          className="header-text font-bold uppercase text-white text-left  w-full"
           >
-          WE BELIEVE IN TRUST AND PASSION ON QUALITY.
+          WE BELIEVE IN TRUST <br /> AND PASSION ON QUALITY.
         </h1>
       </div>
 <div className="mt-8 w-full max-w-4xl text-wrap">
