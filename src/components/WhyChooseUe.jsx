@@ -152,17 +152,17 @@ export default function WhyChooseUs() {
       </div>
 
       {/* HTML CONTENT LAYER (Foreground/Left) */}
-      <div className=" relative z-30 container mx-auto px-4 sm:px-8 md:px-16 grid grid-cols-1 lg:grid-cols-2 gap-12 ">
-        <div className="max-w-xl">
+      <div className=" relative z-30 container mx-auto  ">
+        <div className="lg:max-w-1/2 bg-brand p-10 rounded-lg ">
           {/* Header Section */}
           <header ref={headerRef} className="mb-12">
-            <h4 className="text-[#3B82F6] font-semibold tracking-wide mb-2">
-              Why Choose Us
+            <h4 className="text-black font-semibold body-sm bg-brand-yellow/20 w-fit p-2 mb-2">
+              # Why Choose Us
             </h4>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6">
+            <h1 className="heading-lg font-bold text-black  mb-6 text-balance">
               Quality Work Through Dedication
             </h1>
-            <p className="text-gray-600 leading-relaxed">
+            <p className=" leading-relaxed text-balance body-md">
               Our clients value us for our deep industry expertise, experience and
               robust research capabilities, and for aggressively driving innovation
               with thought leadership and implementation.
@@ -210,8 +210,8 @@ function FeatureItem({ Icon, title, desc }) {
         <Icon className="w-8 h-8 text-[#3B82F6]" strokeWidth={1.5} />
       </div>
       <div>
-        <h3 className="text-xl font-bold text-gray-900 mb-2">{title}</h3>
-        <p className="text-gray-500 leading-relaxed max-w-sm">{desc}</p>
+        <h3 className="heading-sm font-bold text-gray-900 mb-2">{title}</h3>
+        <p className="text-gray-500 leading-relaxed body-sm text-balance">{desc}</p>
       </div>
     </div>
   );

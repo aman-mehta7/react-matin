@@ -39,14 +39,14 @@
 // const App = () => {
 //   const mouse = useRef({ x: 0, y: 0 });
 //   const [isPointerDevice, setIsPointerDevice] = useState(false);
-  
+
 //   // Loader States
 //   const [loading, setLoading] = useState(true);
 //   const [progress, setProgress] = useState(0);
 
 //   useEffect(() => {
 //     setIsPointerDevice(window.matchMedia("(pointer: fine)").matches);
-    
+
 //     // Simulate Loading Progress
 //     let interval = setInterval(() => {
 //       setProgress(prev => {
@@ -119,9 +119,6 @@
 
 // export default App;
 
-
-
-
 import { useEffect, useRef, useState } from "react";
 import Lenis from "@studio-freight/lenis";
 import { gsap } from "gsap";
@@ -139,31 +136,36 @@ import LatestBlogs from "./components/LatestBlog";
 import OurOffice from "./components/OurOffice";
 import MobileScene from "./components/MobileScene";
 import Scene from "./components/Scene";
-import OurClients from './components/OurClients';
-import SubscribeSection from './components/SubscribeSection';
+import OurClients from "./components/OurClients";
+import SubscribeSection from "./components/SubscribeSection";
 import CustomCursor from "./components/CustomCursor";
 import ScrollBar from "./components/ScrollBar";
-import Footer from './components/Footer';
+import Footer from "./components/Footer";
 import SoftechLoader from "./components/Loader"; // Import Loader
 
 gsap.registerPlugin(ScrollTrigger);
+
+ScrollTrigger.config({
+  ignoreMobileResize: true,
+});
 
 const sections = [
   { id: "hero", Component: Hero },
   { id: "page2", Component: Page2 },
   { id: "page3", Component: Paage3 },
-  { id: "choose-us", Component: WhyChooseUs },
-  { id: "how-work", Component: HowWeWork },
-  { id: "portfolio", Component: PortfolioShowcase },
-  { id: "testimonials", Component: Testimonials },
-  { id: "LatestBlog", Component: LatestBlogs },
-  { id: "OurOffice", Component: OurOffice },
-  { id: "OurClients", Component: OurClients },
+  { id: "choose", Component: WhyChooseUs },
+  { id: "work", Component: HowWeWork },
+  { id: "port", Component: PortfolioShowcase },
+  { id: "test", Component: Testimonials },
+  { id: "blog", Component: LatestBlogs },
+  { id: "office", Component: OurOffice },
+  { id: "clients", Component: OurClients },
+  { id: "subscribe", Component: SubscribeSection },
+  { id: "footer", Component: Footer },
 ];
 
 const App = () => {
   const mouse = useRef({ x: 0, y: 0 });
-  const [isPointerDevice, setIsPointerDevice] = useState(false);
 
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
@@ -172,7 +174,48 @@ const App = () => {
      POINTER CHECK
   ========================== */
   useEffect(() => {
-    setIsPointerDevice(window.matchMedia("(pointer: fine)").matches);
+    const lenis = new Lenis({
+      lerp: 0.1,
+      smoothWheel: true,
+      smoothTouch: false,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    // ✅ CRITICAL SYNC
+    lenis.on("scroll", ScrollTrigger.update);
+
+    ScrollTrigger.scrollerProxy(document.body, {
+      scrollTop(value) {
+        if (arguments.length) {
+          lenis.scrollTo(value);
+        }
+        return lenis.scroll;
+      },
+      getBoundingClientRect() {
+        return {
+          top: 0,
+          left: 0,
+          width: window.innerWidth,
+          height: window.innerHeight,
+        };
+      },
+    });
+
+    ScrollTrigger.defaults({
+      scroller: document.body,
+    });
+
+    ScrollTrigger.refresh();
+
+    return () => {
+      lenis.destroy();
+    };
   }, []);
 
   /* =========================
@@ -194,23 +237,23 @@ const App = () => {
   /* =========================
      LENIS (ALWAYS ACTIVE)
   ========================== */
-  useEffect(() => {
-    const lenis = new Lenis({
-      lerp: 0.1,
-      smoothWheel: true,
-      smoothTouch: false,
-    });
+  // useEffect(() => {
+  //   const lenis = new Lenis({
+  //     lerp: 0.1,
+  //     smoothWheel: true,
+  //     smoothTouch: false,
+  //   });
 
-    const raf = (time) => {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    };
+  //   const raf = (time) => {
+  //     lenis.raf(time);
+  //     requestAnimationFrame(raf);
+  //   };
 
-    requestAnimationFrame(raf);
-    lenis.on("scroll", ScrollTrigger.update);
+  //   requestAnimationFrame(raf);
+  //   lenis.on("scroll", ScrollTrigger.update);
 
-    return () => lenis.destroy();
-  }, []);
+  //   return () => lenis.destroy();
+  // }, []);
 
   /* =========================
      REFRESH SCROLLTRIGGER AFTER LOAD
@@ -238,8 +281,7 @@ const App = () => {
   return (
     <>
       <SoftechLoader progress={progress} active={loading} />
-
-      {isPointerDevice && <CustomCursor />}
+      <CustomCursor />
       <ScrollBar />
       <Navbar />
 
@@ -259,19 +301,13 @@ const App = () => {
         }`}
       >
         {sections.map(({ id, Component }) => (
-          <section
-            key={id}
-            id={id}
-            className="scroll-section min-h-screen overflow-hidden"
-          >
+          <section key={id} id={id} className=" overflow-hidden">
             <Component />
           </section>
         ))}
-        <SubscribeSection />
-        <Footer />
       </main>
     </>
   );
-};  
+};
 
 export default App;

@@ -141,7 +141,7 @@ const Button = ({ children, onClick, className = "" }) => {
         transition-colors
         duration-300
         text-black
-        bg-yellow/40
+        bg-yellow/60
         ${className}
       `}
     >
@@ -181,15 +181,7 @@ const Button = ({ children, onClick, className = "" }) => {
       />
 
       {/* Border */}
-      <span
-        className="
-          absolute
-          inset-0
-          rounded-full
-          border
-          border-white/20
-        "
-      />
+   
 
       {/* Content */}
       <span

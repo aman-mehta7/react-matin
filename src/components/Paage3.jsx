@@ -60,7 +60,7 @@
   const SmallCard = ({ service }) => (
     <div
       data-cursor="view"
-      className="service-card flex flex-col min-h-[18rem] bg-brand rounded-2xl p-6 overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand/30"
+      className="service-card flex flex-col min-h-[380px] bg-brand rounded-2xl p-6 overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand/30"
     >
       <div className="flex items-center justify-center h-44 mb-4 overflow-hidden">
         <img
@@ -83,7 +83,7 @@
   const LargeCard = ({ service }) => (
     <div
       data-cursor="view"
-      className="service-card flex flex-col md:flex-row items-center gap-6 bg-brandarc border border-brand rounded-2xl p-8 overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2 h-full min-h-[340px]"
+      className="service-card flex flex-col md:flex-row items-center gap-6 bg-brand-yellow border border-brand rounded-2xl p-8 overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2 h-full min-h-[340px]"
     >
       <div className="shrink-0 w-full md:w-[220px] h-[180px] md:h-full flex items-center justify-center">
         <img
@@ -203,18 +203,18 @@
     return (
       <section
         ref={sectionRef}
-        className="relative z-40 w-full bg-brandarc py-16 sm:py-20 text-black flex items-end justify-end backdrop-blur-xl px-4 sm:px-0"
+        className="relative z-40 w-full py-16 sm:py-20 text-black flex items-end justify-end backdrop-blur-xl px-4 sm:px-0"
       >
         <div className="container mx-auto">
           {/* Heading */}
           <div ref={headingRef} className="w-full mb-14 ">
-            <p className="font-medium mb-3 uppercase tracking-wider text-sm text-black">
-              Our Services
+            <p className=" body-sm mb-3 uppercase  text-black bg-brand/20 w-fit p-2">
+              # Our Services
             </p>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <h2 className="heading-lg font-bold mb-4">
               Why provide best services
             </h2>
-            <p className="text-base max-w-xl">
+            <p className="text-md max-w-xl">
               We think big and have hands in all leading technology platforms to
               provide you wide array of services.
             </p>

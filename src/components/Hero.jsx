@@ -73,30 +73,30 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="w-full min-h-screen bg-brand pt-10 lg:pt-0">
-      <div className="flex flex-col lg:flex-row relative z-30 items-center justify-start h-screen text-white container mx-auto py-12 ">
-        <div className="w-full lg:w-1/2 flex flex-col justify-center gap-8 py-10 lg:py-0">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold">
+    <section className="w-full min-h-screen bg-brand pt-30 lg:pt-0">
+      <div className="flex flex-col lg:flex-row relative z-30 items-center justify-start h-screen text-black container mx-auto  ">
+        <div className="w-full lg:w-[55%] flex flex-col justify-center gap-8 p-10 bg-brand rounded-lg">
+          <h1 className="heading-lg  font-bold">
             Welcome to{" "}
-            <span className="bg-gradient-to-r from-blue-700 to-yellow-700 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-blue-700 to-cyan-500 bg-clip-text text-transparent ">
               Matin #1
             </span>{" "}
             development company
           </h1>
 
           <p
-            ref={paragraphRef}
-            className="max-w-2xl text-base sm:text-lg leading-7 sm:leading-8 text-black"
+            className="max-w-3xl leading-relaxed
+             body-lg text-black text-balance"
           >
             <span className="font-bold">The #1 IT Company</span> that provide
-            various services like app development , website development , custom
+            various services like app development , <br className="hidden lg:block" /> website development , custom
             software development at a very affordable price
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mt-8">
-            <Button className="py-4 px-8 w-full sm:w-auto">Explore</Button>
+            <Button className="py-4 px-8 w-full sm:w-auto bg-linear-to-r from-blue-400 to-cyan-500">Explore</Button>
             <Button
-              className="py-4 px-8 w-full sm:w-auto"
+              className="py-4 px-8 w-full sm:w-auto bg-linear-to-r from-blue-400 to-cyan-500"
               onClick={() => console.log("clicked")}
             >
               Get Started

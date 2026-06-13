@@ -75,7 +75,7 @@ export default function SubscribeSection() {
           </p>
 
           {/* Input + Button */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center bg-[#dce3ea] rounded-2xl sm:rounded-full overflow-hidden max-w-md gap-2 sm:gap-0 p-2 sm:p-0">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center bg-[#dce3ea] rounded-2xl sm:rounded-full  max-w-md gap-2 sm:gap-0 p-2 sm:p-0">
 
             <input
               type="email"
@@ -103,13 +103,13 @@ export default function SubscribeSection() {
         </div>
 
         {/* Right Image */}
-        <div className="flex justify-center md:justify-end">
+        {/* <div className="flex justify-center md:justify-end">
           <img
             src="images/img_subscribe.png" 
             alt="Subscribe Illustration"
             className="subscribe-image max-w-md w-full"
           />
-        </div>
+        </div> */}
 
       </div>
     </div>

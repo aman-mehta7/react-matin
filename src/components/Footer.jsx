@@ -6,11 +6,11 @@ import Button from "./Button";
 
 export default function Footer() {
   return (
-    <footer className="relative z-30 bg-brand border-t border-black overflow-hidden text-white py-5">
+    <footer className="relative z-30 bg-brand border-t border-black overflow-hidden text-black py-5">
       <div className=" container mx-auto">
 
       {/* ✅ Animated Dot Background */}
-      <div className="absolute inset-0 opacity-20 pointer-events-none">
+      <div className="absolute inset-0 -z-10 opacity-20 pointer-events-none">
         <div className="wave-bg"></div>
       </div>
 
@@ -67,7 +67,7 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-6">
               Like us on Facebook
             </h3>
-            <div className="bg-white text-white rounded-lg p-4 shadow-lg">
+            <div className="bg-white text-black rounded-lg p-4 shadow-lg">
               <h4 className="font-semibold">MATIN SOFTECH</h4>
               <p className="text-sm text-gray-600">1,813 followers</p>
               <Button className="mt-4 border border-black text-black px-4 py-2 rounded-md text-sm">

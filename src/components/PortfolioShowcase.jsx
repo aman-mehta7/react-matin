@@ -30,9 +30,10 @@ export default function PortfolioShowcase() {
         ScrollTrigger.create({
           trigger: containerRef.current,
           start: "top top",
-          end: "bottom bottom",
+          end: () => "+=" + containerRef.current.offsetHeight,
           pin: leftContentRef.current,
           pinSpacing: false,
+          pinType: "transform",
         });
 
         gsap.from(leftContentRef.current, {
@@ -47,21 +48,18 @@ export default function PortfolioShowcase() {
           },
         });
 
-        gsap.from(
-          containerRef.current?.querySelectorAll(".project-card"),
-          {
-            opacity: 0,
-            x: -40,
-            duration: 0.8,
-            ease: "power3.out",
-            stagger: 0.12,
-            scrollTrigger: {
-              trigger: containerRef.current,
-              start: "top 70%",
-              once: true,
-            },
-          }
-        );
+        gsap.from(containerRef.current?.querySelectorAll(".project-card"), {
+          opacity: 0,
+          x: -40,
+          duration: 0.8,
+          ease: "power3.out",
+          stagger: 0.12,
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 70%",
+            once: true,
+          },
+        });
       }, containerRef);
 
       return () => ctx.revert();
@@ -71,8 +69,9 @@ export default function PortfolioShowcase() {
   }, []);
 
   return (
-    <section className="relative z-40 overflow-hidden">
+    <section className="relative z-40  overflow-hidden ">
       {/* MOBILE + TABLET */}
+      
       <MobilePortfolio />
 
       {/* DESKTOP */}
@@ -81,19 +80,21 @@ export default function PortfolioShowcase() {
         className="hidden lg:flex relative container mx-auto "
       >
         {/* LEFT CONTENT */}
-        <div className="w-1/2 h-screen flex items-start pt-40">
-          <div ref={leftContentRef} className="max-w-xl">
-            <h2 className="header-text text-black text-left mb-8">
-              We Are the Best Software Company{" "}
+        <div className="w-1/2 flex items-start pt-40 ">
+          <div
+            ref={leftContentRef}
+            className="max-w-xl bg-brand p-10 rounded-lg"
+          >
+            <h2 className="heading-md text-black text-left mb-8">
+              We Are the Best <br /> Software Company{" "}
               <span className="text-blue-600">Manage.</span>
             </h2>
 
-            <p className="text-lg text-black leading-relaxed mb-10">
-              Our clients value us for our deep industry expertise,
-              experience and robust research capabilities, and for
-              aggressively driving innovation with thought leadership
-              and implementation to enable them to become
-              high-performance organizations.
+            <p className="body-lg text-black leading-relaxed mb-10  text-balance">
+              Our clients value us for our deep industry expertise, experience
+              and robust research capabilities, and for aggressively driving
+              innovation with thought leadership and implementation to enable
+              them to become high-performance organizations.
             </p>
           </div>
         </div>
@@ -115,7 +116,6 @@ export default function PortfolioShowcase() {
     </section>
   );
 }
-
 
 function MobilePortfolio() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -139,18 +139,17 @@ function MobilePortfolio() {
   }, [emblaApi]);
 
   return (
-
-    <div className="lg:hidden container mx-auto px-4 sm:px-6 py-16 sm:py-20 ">
+    <div className="lg:hidden container mx-auto py-16  ">
       {/* Heading */}
-      <div className="mb-12">
-        <h2 className="header-text text-black text-left mb-8">
+      <div className="mb-12 bg-brand p-5 rounded-md">
+        <h2 className="heading-md text-black text-left mb-8 text-balance">
           We Are the Best Software Company{" "}
           <span className="text-blue-600">Manage.</span>
         </h2>
 
-        <p className="mt-6 text-black leading-relaxed">
-          Our clients value us for our deep industry expertise,
-          experience and robust research capabilities.
+        <p className="mt-6 body-sm text-black leading-relaxed text-balance">
+          Our clients value us for our deep industry expertise, experience and
+          robust research capabilities.
         </p>
       </div>
 
@@ -198,9 +197,7 @@ function MobilePortfolio() {
             key={index}
             onClick={() => emblaApi && emblaApi.scrollTo(index)}
             className={`w-3 h-3 rounded-full transition-all ${
-              index === selectedIndex
-                ? "bg-black scale-125"
-                : "bg-gray-300"
+              index === selectedIndex ? "bg-black scale-125" : "bg-gray-300"
             }`}
           />
         ))}

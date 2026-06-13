@@ -78,8 +78,8 @@ export default function LatestBlog() {
   }, [emblaApi, onSelect]);
 
   return (
-    <section className="relative z-30 bg-brand-yellow overflow-visible">
-      <div className="bg-brand  w-full h-full py-20 sm:py-28">
+    <section className="relative z-30 bg-brand overflow-visible backdrop-blur-xl">
+      <div className="  w-full h-full py-20 sm:py-28">
       <div className="container mx-auto px-4 md:px-0">
         <div className="mb-14">
           <h2 className="text-4xl font-bold text-gray-900">

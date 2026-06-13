@@ -193,7 +193,7 @@ const Navbar = () => {
                       absolute
                       left-0
                       -bottom-2
-                      h-[2px]
+                      h-0.5
                       w-0
                       bg-black
                       transition-all
@@ -261,12 +261,12 @@ const Navbar = () => {
               ))}
             </div>
 
-            <div className="hidden lg:flex items-center gap-4">
-              <Button className="text-sm p-3 px-5 ">
+            <div className="hidden lg:flex items-center  gap-4">
+              <Button className="text-sm p-3 px-5 rounded-xl">
                 Start Journey
               </Button>
 
-              <Button className="text-sm p-3 px-5">
+              <Button className="text-sm p-3 px-5 rounded-xl ">
                 Client Login
               </Button>
             </div>

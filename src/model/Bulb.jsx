@@ -39,8 +39,9 @@ export default function Bulb(props) {
             color="#cccccc"
             metalness={3}
             roughness={0.3}
-            //  emissive="#ffae42"
-             emissive="#ff0303"
+            //  emissive="#00f7ff"
+             emissive="#00f2ff"
+
             emissiveIntensity={1}
             toneMapped={false}
           />

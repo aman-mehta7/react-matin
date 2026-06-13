@@ -289,7 +289,7 @@ export default function CustomCursor() {
   }, []);
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[99999]">
+    <div className="pointer-events-none fixed inset-0 z-99999 hidden lg:block">
       {/* Ring */}
       <div
         ref={outlineRef}
@@ -300,7 +300,7 @@ export default function CustomCursor() {
       >
         <span
           ref={textRef}
-          className="select-none text-[10px] font-semibold tracking-[0.18em] text-yellow-200"
+          className="select-none text-[10px] font-semibold tracking-[0.18em] text-black"
         />
       </div>
 

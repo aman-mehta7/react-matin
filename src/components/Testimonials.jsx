@@ -171,20 +171,20 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative z-30 py-28 bg-brand-yellow text-black overflow-visible backdrop-blur-2xl">
+    <section ref={sectionRef} className="relative z-30 py-28  text-black overflow-visible backdrop-blur-xl">
       <div className="  container mx-auto px-4 sm:px-6">
         
         {/* Heading */}
         <div ref={headingRef} className="text-center max-w-4xl mx-auto mb-16">
-          <span className="text-orange-500 font-semibold uppercase tracking-widest">
-            Testimonial
+          <span className=" bg-brand/20 p-2 rounded-lg font-semibold uppercase tracking-widest body-sm">
+            # Testimonial
           </span>
 
-          <h2 className="header-text text-black  my-8">
+          <h2 className="heading-md text-black  my-8">
             What Our Customers Are Saying?
           </h2>
 
-          <p className="text-lg text-gray-600">
+          <p className="body-sm">
             Many customers have chosen us and they know their happiness by
             saving time and creating their sites.
           </p>
@@ -235,7 +235,6 @@ export default function Testimonials() {
                       ))}
                     </div>
                   </div>
-                  <span className="text-xs text-gray-500">See all our reviews</span>
                 </div>
               </a>
             </div>
@@ -278,12 +277,12 @@ export default function Testimonials() {
                         />
 
                         {/* Name */}
-                        <h3 className="text-lg font-bold mb-2">
+                        <h3 className="heading-sm font-bold mb-2">
                           {item.name}
                         </h3>
 
                         {/* Quote */}
-                        <p className="text-black/70 text-sm leading-relaxed mb-4 line-clamp-3">
+                        <p className="text-black/70 body-sm leading-relaxed mb-4 line-clamp-3">
                           "{item.quote}"
                         </p>
 

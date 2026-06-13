@@ -21,15 +21,15 @@ const MODEL_STATES = [
   { id: "hero", x: 2, y: 0, z: 0, rotX: 0, rotY: 0, rotZ: 0, scale: 1 },
   { id: "page2", x: -2.5, y: 0, z: 0, rotX: 0, rotY: 2, rotZ: 0.3, scale: 1 },
   { id: "page3", x: 1, y: 0, z: 0, rotX: 0, rotY: 2, rotZ: -0.9, scale: 1 },
-  { id: "choose-us", x: 2, y: 0, z: 0, rotX: 0, rotY: -1, rotZ: 0.2, scale: 1.2 },
-  { id: "how-work", x: 0, y: 0, z: 0, rotX: 0, rotY: -1, rotZ: -0.3, scale: 0.7 },
-  { id: "portfolio", x: -2.5, y: -0.8, z: 0, rotX: 0, rotY: 3, rotZ: -0.6, scale: 0.5 },
-  { id: "testimonals", x: -2.5, y: -0.8, z: 0, rotX: 0, rotY: 8, rotZ: -.6, scale: 0.9 },
-  { id: "LatestBlog", x: 0, y: 0, z: -6, rotX: 0, rotY: 0, rotZ: -0.6, scale: 0 },
-  // { id: "OurOffice", x: 2, y: 8, z: 0, rotX: 0, rotY: 0, rotZ: 0, scale: 0.9 },
-  // { id: "OurClients", x: -8, y: 10, z: 0, rotX: 0, rotY: 2, rotZ: 0, scale: 1 },
-  // { id: "SuscribeSection", x: -2.5, y: -0.6, z: 0, rotX: 0, rotY: 8, rotZ: 0, scale: 0.5 },
-  // { id: "Footer", x: -2.5, y: -2.5, z: 0, rotX: 0, rotY: 8, rotZ: 0, scale: 0.5 },
+  { id: "choose", x: 2, y: 0, z: 0, rotX: 0, rotY: -1, rotZ: 0.2, scale: 1.2 },
+  { id: "work", x: 0, y: -1.5, z: 0, rotX: 0, rotY: -1, rotZ: -0.3, scale: 0.7 },
+  { id: "port", x: -2.5, y: -0.8, z: 0, rotX: 0, rotY: -4, rotZ: -0.6, scale: 0.5 },
+  { id: "test", x: -2, y: -1, z: 0, rotX: .5, rotY: 0, rotZ: 0, scale: 0.9 },
+  { id: "blog",  x: 1, y: 0, z: 0, rotX: 0, rotY: 0, rotZ: -.6, scale: 0.9},
+  { id: "office", x: 1.5, y: 0, z: 0, rotX: 0, rotY: 0, rotZ: 0.8, scale: 0.9 },
+  { id: "clients", x: 0, y: 0, z: 0, rotX: 0, rotY: 2, rotZ: 0, scale: 1 },
+  { id: "subscribe", x: 2.5, y: 1.5, z: 0, rotX: 0.7, rotY: 7, rotZ: -0.6 , scale: 0.5 },
+  // { id: "footer", x: 2.5, y: -2.5, z: 0, rotX: 0, rotY: 8, rotZ: 0, scale: 0.5 },
 ];
 
 /* ===============================
@@ -55,30 +55,30 @@ const SUB_STATES = [
   },
   {
     id: "page3",
-    radius: 2.5,
-    offsetX: 1.5,
+    radius: 0,
+    offsetX: 0,
     offsetY: 0.3,
     offsetZ: 0,
     scale: 0,
   },
   {
-    id: "choose-us",
+    id: "choose",
     radius: 2.1,
     offsetX: 1,
-    offsetY: 0.5,
+    offsetY: 0,
     offsetZ: 0,
     scale: 1,
   },
   {
-    id: "how-work",
-    radius: 1.2,
+    id: "work",
+    radius: 1,
     offsetX: 0.5,
     offsetY: -0.3,
     offsetZ: 0,
     scale: 0.5,
   },
   {
-    id: "portfolio",
+    id: "port",
     radius: 1.2,
     offsetX: -1,
     offsetY: 0,
@@ -86,7 +86,7 @@ const SUB_STATES = [
     scale: .5,
   },
   {
-    id: "testimonals",
+    id: "test",
     radius: 1.2,
     offsetX: -1,
     offsetY: 0,
@@ -94,21 +94,21 @@ const SUB_STATES = [
     scale: .5,
   },
   {
-    id: "LatestBlog",
+    id: "blog",
     radius: 0,
     offsetX: -1,
     offsetY: 0,
     offsetZ: 0,
     scale: 0,
   },
-  // {
-  //   id: "OurOffice",
-  //   radius: 1,
-  //   offsetX: 1,
-  //   offsetY: 0.2,
-  //   offsetZ: 0,
-  //   scale: 0,
-  // },
+  {
+    id: "office",
+    radius: 1,
+    offsetX: 1,
+    offsetY: 0.2,
+    offsetZ: 0,
+    scale: 0,
+  },
 ];
 
 const FOLLOW_SPEED = 10;
@@ -159,6 +159,7 @@ function SceneContent({ mouse }) {
         trigger: section,
         start: "top top",
         end: "bottom top",
+          invalidateOnRefresh: true,
         onUpdate: (self) => {
           const newState = lerpState(state, nextState, self.progress);
           Object.assign(target.current, newState);
@@ -179,6 +180,7 @@ function SceneContent({ mouse }) {
         trigger: section,
         start: "top top",
         end: "bottom top",
+             invalidateOnRefresh: true,
         onUpdate: (self) => {
           subTarget.current.radius = THREE.MathUtils.lerp(
             state.radius,
@@ -215,7 +217,7 @@ function SceneContent({ mouse }) {
       triggers.push(trigger);
     });
 
-    requestAnimationFrame(() => ScrollTrigger.refresh());
+    setTimeout(() => ScrollTrigger.refresh(), 200);
 
     return () => triggers.forEach((t) => t.kill());
   }, []);
@@ -265,10 +267,10 @@ useFrame((state, delta) => {
   -------------------------- */
 
   const desiredRotX =
-    target.current.rotX + smoothMouse.current.y * -0.04;
+    target.current.rotX + smoothMouse.current.y * -0.1;
 
   const desiredRotY =
-    target.current.rotY + smoothMouse.current.x * 0.1;
+    target.current.rotY + smoothMouse.current.x * 0.4;
 
   modelRef.current.rotation.x +=
     (desiredRotX - modelRef.current.rotation.x) * t;
@@ -278,6 +280,19 @@ useFrame((state, delta) => {
 
   modelRef.current.rotation.z +=
     (target.current.rotZ - modelRef.current.rotation.z) * t;
+
+
+  // const desiredRotXsub =
+  //   target.current.rotX + smoothMouse.current.y * -0.04;
+
+  // const desiredRotYsub =
+  //   target.current.rotY + smoothMouse.current.x * -0.2;
+
+  // subGroupRef.current.rotation.x +=
+  //   (desiredRotXsub - subGroupRef.current.rotation.x) * t;
+
+  // subGroupRef.current.rotation.y +=
+  //   (desiredRotYsub - subGroupRef.current.rotation.y) * t;
 
   /* -------------------------
      SCALE (main model)

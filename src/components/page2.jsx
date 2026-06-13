@@ -153,40 +153,35 @@ const Page2 = () => {
     >
       <div className=" relative z-30 container mx-auto flex flex-col items-start lg:items-end justify-center">
 
-      <div className="w-full lg:max-w-4xl overflow-hidden">
+        <div className="bg-brand md:p-10 p-5 rounded-lg"> 
+
+      <div className="w-full lg:max-w-3xl overflow-hidden">
+        <h3 className=" body-sm uppercase text-black mb-6 bg-brand-yellow/20 w-fit p-2 text-balance md:text-left text-center">
+         # the best destination for all your software needs
+        </h3>
         <h1
           ref={headingRef}
-          className="header-text font-bold uppercase text-white text-left  w-full"
+          className="heading-md font-bold uppercase text-black md:text-left text-center  w-full"
           >
           WE BELIEVE IN TRUST <br /> AND PASSION ON QUALITY.
         </h1>
       </div>
-<div className="mt-8 w-full max-w-4xl text-wrap">
+<div className="mt-8 w-full max-w-3xl text-wrap">
   <p
-    ref={paragraphRef}
-    className="text-left md:text-lg text-black space-y-2"
+    className="md:text-left text-center body-md text-black text-balance"
   >
 
       We are an IT company specializing in web development, application
       development, and entrepreneurship.
-
       We always believe in trust and client satisfaction.
-
       We strive to ensure our clients never have any reason for regret.
-
-
-
-      Our goal is to make our clients happy and fully satisfied.
-
-
+      Our goal is to make our clients happy and fully satisfied
       We trust in your brand and are here to help enhance it digitally.
-
-
       We turn your dream website or application into reality because your
       business is our business.
-
   </p>
 </div>
+          </div>
           </div>
     </section>
   );
