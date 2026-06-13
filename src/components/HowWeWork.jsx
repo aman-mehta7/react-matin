@@ -147,7 +147,7 @@ export default function HowWeWork() {
 function Step({ Icon, title, desc }) {
   return (
     <div data-cursor="view" className="step-card relative flex flex-col items-center text-center max-w-xs group">
-      <div className="w-20 h-20 md:w-28 md:h-28 bg-blue-600 rounded-full flex items-center justify-center border-4 border-orange-400 shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl">
+      <div className="w-20 h-20 md:w-28 md:h-28 bg-brandark rounded-full flex items-center justify-center border-4 border-orange-400 shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl">
         <Icon className="w-10 h-10 text-black transition-transform duration-300 group-hover:rotate-6" />
       </div>
 
