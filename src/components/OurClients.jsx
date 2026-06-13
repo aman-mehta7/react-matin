@@ -60,15 +60,15 @@ export default function OurClients() {
       
       {/* Section Header */}
       <div ref={headingRef} className="mb-16">
-        <p className="text-blue-500 font-medium tracking-wide mb-3">
+        <p className="text-black font-medium tracking-wide mb-3 bg-brand/20 p-2 w-fit rounded-md">
           Our Happy Customer
         </p>
 
-        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        <h2 className="text-black heading-lg mb-6">
           Some of our Clients?
         </h2>
 
-        <p className="text-gray-600 max-w-2xl">
+        <p className="text-gray-600 max-w-2xl body-md leading-tight text-balance">
           We think big and have hands in all leading technology platforms to provide
           you wide array of services.
         </p>

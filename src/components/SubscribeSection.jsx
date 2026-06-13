@@ -61,16 +61,16 @@ export default function SubscribeSection() {
 
   return (
     <div
-     ref={sectionRef} className="bg-brand-yellow pb-16 sm:pb-24 px-4 sm:px-8 md:px-16">
+     ref={sectionRef} className="bg-brand-yellow pb-16 sm:pb-30">
       <div className=" relative z-30 grid md:grid-cols-2 items-center gap-12 container mx-auto">
 
         {/* Left Content */}
         <div ref={contentRef}>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-700 mb-6">
+          <h2 className=" heading-lg font-bold text-black mb-6">
             Subscribe Now
           </h2>
 
-          <p className="text-gray-600 mb-8">
+          <p className="text-gray-600 mb-8 body-md text-balance">
             Subscribe to our newsletter to receive the latest news and blog updates.
           </p>
 

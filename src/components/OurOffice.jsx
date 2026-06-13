@@ -65,10 +65,10 @@ export default function OurOffice() {
       
       {/* Section Header */}
       <div ref={headingRef} className="mb-20">
-        <p className="text-blue-500 font-medium tracking-wide mb-2">
+        <p className="text-black font-medium tracking-wide mb-2 bg-brand/20 p-2 w-fit rounded-md">
           Our Locations
         </p>
-        <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+        <h2 className="heading-lg font-bold text-black">
           Our Office
         </h2>
       </div>
@@ -115,11 +115,11 @@ function LocationCard({ title, image, address }) {
 
       {/* Text */}
       <div className="mt-8">
-        <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+        <h3 className="heading-md uppercase font-semibold text-black mb-4">
           {title}
         </h3>
 
-        <p className="text-gray-600 leading-relaxed mb-6">
+        <p className="text-gray-600 leading-relaxed mb-6 body-md">
           {address}
         </p>
 
