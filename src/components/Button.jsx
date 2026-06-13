@@ -141,7 +141,7 @@ const Button = ({ children, onClick, className = "" }) => {
         transition-colors
         duration-300
         text-black
-        bg-yellow/60
+        bg-[#3cd7faa8]
         ${className}
       `}
     >
@@ -160,7 +160,7 @@ const Button = ({ children, onClick, className = "" }) => {
         style={{
           opacity: 0,
           background:
-            "radial-gradient(circle,#FFE27A 0%,#FFB100 100%)",
+            "radial-gradient(circle, #00D2FF 0%, #03001E 100%)",
         }}
       />
 
@@ -176,7 +176,7 @@ const Button = ({ children, onClick, className = "" }) => {
         "
         style={{
           background:
-            "radial-gradient(circle at var(--x) var(--y), rgba(255,255,255,.15), transparent 40%)",
+            "radial-gradient(circle at var(--x) var(--y), rgba(255,255,255,.15), transparent 80%)",
         }}
       />
 

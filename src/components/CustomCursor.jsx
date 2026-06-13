@@ -293,7 +293,7 @@ export default function CustomCursor() {
       {/* Ring */}
       <div
         ref={outlineRef}
-        className="absolute left-0 top-0 flex h-12 w-12 items-center justify-center rounded-full border border-yellow-400 will-change-transform"
+        className="absolute left-0 top-0 flex h-12 w-12 items-center justify-center rounded-full border border-indigo-700 will-change-transform"
         style={{
           boxShadow: "0 0 20px rgba(255, 215, 0, 0.22)",
         }}
@@ -307,7 +307,7 @@ export default function CustomCursor() {
       {/* Dot */}
       <div
         ref={dotRef}
-        className="absolute left-0 top-0 h-2.5 w-2.5 rounded-full bg-yellow-400 will-change-transform"
+        className="absolute left-0 top-0 h-2.5 w-2.5 rounded-full bg-indigo-600 will-change-transform"
         style={{
           boxShadow: "0 0 10px rgba(255, 215, 0, 0.85)",
         }}

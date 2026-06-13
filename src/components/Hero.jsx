@@ -78,7 +78,7 @@ const Hero = () => {
         <div className="w-full lg:w-[55%] flex flex-col justify-center gap-8 p-10 bg-brand rounded-lg">
           <h1 className="heading-lg  font-bold">
             Welcome to{" "}
-            <span className="bg-linear-to-r from-blue-700 to-cyan-500 bg-clip-text text-transparent ">
+            <span className="bg-linear-to-r from-yellow-700 to-cyan-500 bg-clip-text text-transparent ">
               Matin #1
             </span>{" "}
             development company
@@ -94,9 +94,9 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mt-8">
-            <Button className="py-4 px-8 w-full sm:w-auto bg-linear-to-r from-blue-400 to-cyan-500">Explore</Button>
+            <Button className="py-4 px-8 w-full sm:w-auto bg-linear-to-r from-yellow-500/10 to-cyan-500/90">Explore</Button>
             <Button
-              className="py-4 px-8 w-full sm:w-auto bg-linear-to-r from-blue-400 to-cyan-500"
+              className="py-4 px-8 w-full sm:w-auto bg-linear-to-r from-yellow-500/10 to-cyan-500/90"
               onClick={() => console.log("clicked")}
             >
               Get Started

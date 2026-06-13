@@ -12,7 +12,7 @@ const blogCards = [
       "Websites are the main component for enhancing any business production.",
     author: "Super-Admin user",
     category: "App Development",
-    image: "/blogs/website.png",
+    image: "/react-matin/blogs/website.png",
   },
   {
     title: "What is actually digital marketing? How does it work?",
@@ -20,7 +20,7 @@ const blogCards = [
       "How digital marketing helps enhancing any businesses digitally.",
     author: "Super-Admin user",
     category: "Digital Marketing",
-    image: "/blogs/dgmarketing.jpg",
+    image: "/react-matin/blogs/dgmarketing.jpg",
   },
   {
     title:
@@ -29,7 +29,7 @@ const blogCards = [
       "A vehicle tracking solution that offers live tracking, geo-fencing and many more.",
     author: "Matin Softech",
     category: "App Development",
-    image: "/blogs/logo.png",
+    image: "/react-matin/blogs/logo.png",
   },
   {
     title: "Why should businesses switch from physical to online?",
@@ -37,7 +37,7 @@ const blogCards = [
       "Create compelling digital journeys that keep users engaged and drive action.",
     author: "Super-Admin user",
     category: "Web Development",
-    image: "/blogs/online.jpeg",
+    image: "/react-matin/blogs/online.jpeg",
   },
 ];
 

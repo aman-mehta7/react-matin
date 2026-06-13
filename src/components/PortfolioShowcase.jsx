@@ -6,14 +6,14 @@ import useEmblaCarousel from "embla-carousel-react";
 gsap.registerPlugin(ScrollTrigger);
 
 const publicImages = [
-  "/images/BUYRRO.jpg",
-  "/images/ENEPALSHOP.jpg",
-  "/images/ENVIRO.jpg",
-  "/images/HEALTH24.jpg",
-  "/images/Kartcomfort.jpg",
-  "/images/Mahaagromart.jpg",
-  "/images/Merogadi.png",
-  "/images/Pioneer Electrocables.jpg",
+  "/react-matin/images/BUYRRO.jpg",
+  "/react-matin/images/ENEPALSHOP.jpg",
+  "/react-matin/images/ENVIRO.jpg",
+  "/react-matin/images/HEALTH24.jpg",
+  "/react-matin/images/Kartcomfort.jpg",
+  "/react-matin/images/Mahaagromart.jpg",
+  "/react-matin/images/Merogadi.png",
+  "/react-matin/images/Pioneer Electrocables.jpg",
 ];
 
 const ALL_IMAGES = [...new Set(publicImages)];
