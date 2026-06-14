@@ -94,9 +94,9 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mt-8">
-            <Button className="py-4 px-8 w-full sm:w-auto bg-linear-to-r from-yellow-500/10 to-cyan-500/90">Explore</Button>
+            <Button className="py-4 px-8 w-full sm:w-auto bg-linear-to-r from-yellow-500 to-cyan-500/90">Explore</Button>
             <Button
-              className="py-4 px-8 w-full sm:w-auto bg-linear-to-r from-yellow-500/10 to-cyan-500/90"
+              className="py-4 px-8 w-full sm:w-auto bg-linear-to-r from-yellow-500 to-cyan-500/90"
               onClick={() => console.log("clicked")}
             >
               Get Started

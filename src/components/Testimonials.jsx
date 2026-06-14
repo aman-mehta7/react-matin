@@ -12,41 +12,41 @@ gsap.registerPlugin(ScrollTrigger);
 const testimonials = [
   {
     name: "Mateo Levi Brown",
-    avatar: "/testimonials/mateo.jpg",
+    avatar: "react-matin/testimonials/mateo.jpg",
     rating: 5,
     quote:
       "The best thing about Matin Softech is that they treat your project like their own.",
   },
   {
     name: "Karamchandra Rajbanshi",
-    avatar: "/testimonials/karamchandra.jpg",
+    avatar: "react-matin/testimonials/karamchandra.jpg",
     rating: 5,
     quote:
       "Working with them has been an excellent experience from start to finish.",
   },
   {
     name: "Ashmin Niraula",
-    avatar: "/testimonials/ashmin.jpg",
+    avatar: "react-matin/testimonials/ashmin.jpg",
     rating: 5,
     quote: "Excellent software company. Delivery exceeded expectations.",
   },
   {
     name: "Priya Sharma",
-    avatar: "/testimonials/priya.jpg",
+    avatar: "react-matin/testimonials/priya.jpg",
     rating: 5,
     quote:
       "Their attention to detail and commitment to deadlines is unmatched.",
   },
   {
     name: "Ramesh Kumar",
-    avatar: "/testimonials/ramesh.jpg",
+    avatar: "react-matin/testimonials/ramesh.jpg",
     rating: 5,
     quote:
       "Truly professional team. They delivered exactly what we needed on time.",
   },
   {
     name: "Sita Devi",
-    avatar: "/testimonials/sita.jpg",
+    avatar: "react-matin/testimonials/sita.jpg",
     rating: 5,
     quote:
       "Amazing experience working with them. Highly recommended for any project.",

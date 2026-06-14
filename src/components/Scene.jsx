@@ -13,6 +13,7 @@ const Model = lazy(() =>
   import("../model/model").then((m) => ({ default: m.Model }))
 );
 
+
 /* ===============================
    MAIN MODEL STATES
 ================================ */
@@ -23,12 +24,12 @@ const MODEL_STATES = [
   { id: "page3", x: 1, y: 0, z: 0, rotX: 0, rotY: 2, rotZ: -0.9, scale: 1 },
   { id: "choose", x: 2, y: 0, z: 0, rotX: 0, rotY: -1, rotZ: 0.2, scale: 1.2 },
   { id: "work", x: 0, y: -1.5, z: 0, rotX: 0, rotY: -1, rotZ: -0.3, scale: 0.7 },
-  { id: "port", x: -2.5, y: -0.8, z: 0, rotX: 0, rotY: -4, rotZ: -0.6, scale: 0.5 },
-  { id: "test", x: -2, y: -1, z: 0, rotX: .5, rotY: 0, rotZ: 0, scale: 0.9 },
+  { id: "port", x: -2.5, y: -1, z: 0, rotX: 0, rotY: -4, rotZ: -0.6, scale: 0.5 },
+  { id: "test", x: -2, y: -1.5, z: 0, rotX: .5, rotY: 0, rotZ: 0, scale: 0.5 },
   { id: "blog",  x: 1, y: 0, z: 0, rotX: 0, rotY: 0, rotZ: -.6, scale: 0.9},
   { id: "office", x: 1.5, y: 0, z: 0, rotX: 0, rotY: 0, rotZ: 0.8, scale: 0.9 },
   { id: "clients", x: 0, y: 0, z: 0, rotX: 0, rotY: 2, rotZ: 0, scale: 1 },
-  { id: "subscribe", x: 2.5, y: 1.5, z: 0, rotX: 0.7, rotY: 7, rotZ: -0.6 , scale: 0.5 },
+  { id: "subscribe", x: 2.5, y: 1.5, z: 0, rotX: 0.2, rotY: 6.2, rotZ: 0 , scale: 0.5 },
   // { id: "footer", x: 2.5, y: -2.5, z: 0, rotX: 0, rotY: 8, rotZ: 0, scale: 0.5 },
 ];
 
@@ -40,7 +41,7 @@ const SUB_STATES = [
   {
     id: "hero",
     radius: 2,
-    offsetX: .5,
+    offsetX: 1,
     offsetY: 0,
     offsetZ: 0,
     scale: 1,
@@ -52,7 +53,7 @@ const SUB_STATES = [
     offsetY: 0,
     offsetZ: 0,
     scale: 1,
-  },
+  },  
   {
     id: "page3",
     radius: 0,
@@ -149,7 +150,7 @@ function SceneContent({ mouse }) {
   const target = useRef({ ...MODEL_STATES[0] });
   const subTarget = useRef({
     radius: 2,
-    offsetX: .7,
+    offsetX: 1,
     offsetY: 0,
     offsetZ: 0,
     scale: 0.9,
